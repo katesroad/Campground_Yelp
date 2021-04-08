@@ -15,7 +15,7 @@ class Geometry {
   coordinates: number;
 }
 
-@Entity('campground')
+@Entity('campgrounds')
 export class Campground extends AbstractEntity {
   @Column('text')
   title: string;
