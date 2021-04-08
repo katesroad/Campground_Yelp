@@ -1,21 +1,9 @@
-import {
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Entity,
-  Column,
-  Index,
-} from 'typeorm';
+import { Entity, Column, Index } from 'typeorm';
+import { AbstractEntity } from './abstract.entity';
 
 @Entity('users')
 @Index(['email'], { unique: true })
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ nullable: true })
-  username: string;
-
+export class User extends AbstractEntity {
   @Column('text')
   email: string;
 
@@ -24,10 +12,4 @@ export class User {
 
   @Column({ nullable: true })
   token: string; // the refresh token
-
-  @CreateDateColumn()
-  created_at: number;
-
-  @UpdateDateColumn()
-  updated_at: number;
 }
