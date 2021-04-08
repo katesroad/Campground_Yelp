@@ -21,7 +21,7 @@ export class Campground extends AbstractEntity {
   title: string;
 
   @Column({ type: 'json' })
-  images: Image[];
+  image: Image;
 
   @Column({ type: 'json' })
   geometry: Geometry;

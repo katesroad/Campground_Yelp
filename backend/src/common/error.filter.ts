@@ -11,7 +11,12 @@ export class ErrorFilter implements ExceptionFilter {
     try {
       message = exception.getResponse()?.message;
     } catch (e) {}
-    const status = exception.getStatus();
+    let status = 500;
+    try {
+      status = exception.getStatus();
+    } catch {
+      status = 500;
+    }
     const data: any = {
       timestamp: Date.now(),
       path: request.url,
