@@ -77,14 +77,9 @@ export class CampgroundService {
         `Current user does't own campground:#${id}`,
       );
     }
-    // delete reviews and images for campground
-    const deleteReviews = this.reviewRepo
-      .delete({ campground: id })
-      .catch((e) => {});
-    const deleteImages = this.cloundinary.deleteImages(
+    await this.cloundinary.deleteImages(
       camp?.images?.map((img) => img.public_id),
     );
-    await Promise.all([deleteReviews, deleteImages]);
     return this.campRepo.delete(id);
   }
 }

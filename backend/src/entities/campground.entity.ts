@@ -42,6 +42,8 @@ export class Campground extends AbstractEntity {
   @IsDefined()
   author: string;
 
-  @OneToMany(() => Review, (review) => review.campground)
+  @OneToMany(() => Review, (review) => review.campground, {
+    cascade: ['remove'],
+  })
   reviews: string[];
 }
