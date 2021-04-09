@@ -2,6 +2,7 @@ import { IsDefined, Max, Min } from 'class-validator';
 import { Entity, Column, ManyToOne } from 'typeorm';
 import { AbstractEntity } from './abstract.entity';
 import { Campground } from './campground.entity';
+import { User } from './user.entity';
 
 @Entity('reviews')
 export class Review extends AbstractEntity {
@@ -15,7 +16,7 @@ export class Review extends AbstractEntity {
   ratting: number;
 
   @Column()
-  @IsDefined()
+  @ManyToOne(() => User, (author: User) => author.reviews)
   author: string;
 
   @ManyToOne(() => Campground, (campground) => campground.reviews)

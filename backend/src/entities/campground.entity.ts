@@ -43,5 +43,5 @@ export class Campground extends AbstractEntity {
   author: string;
 
   @OneToMany(() => Review, (review) => review.campground)
-  reviews: number[];
+  reviews: string[];
 }
