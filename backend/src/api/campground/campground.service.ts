@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Campground } from 'src/entities/campground.entity';
 import { Review } from 'src/entities/review.entity';
 import { Repository } from 'typeorm';
+import { CloudinaryService } from './cloundinary/cloudinary.service';
 import { CreateCampgroundDto } from './dto/create-campground.dto';
 import { UpdateCampgroundDto } from './dto/update-campground.dto';
 
@@ -13,9 +14,10 @@ export class CampgroundService {
     private readonly campRepo: Repository<Campground>,
     @InjectRepository(Review)
     private readonly reviewRepo: Repository<Review>,
+    private readonly cloundinary: CloudinaryService,
   ) {}
 
-  createCamp(createDto: CreateCampgroundDto) {
+  createCamp(createDto: CreateCampgroundDto, images: Express.Multer.File[]) {
     return 'This action adds a new campground';
   }
 
