@@ -6,6 +6,7 @@ import { Campground } from 'src/entities/campground.entity';
 import { Review } from 'src/entities/review.entity';
 import { CloundinaryModule } from './cloundinary/cloundinary.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { MapboxService } from './mapbox.service';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { MulterModule } from '@nestjs/platform-express';
     CloundinaryModule,
   ],
   controllers: [CampgroundController],
-  providers: [CampgroundService],
+  providers: [CampgroundService, MapboxService],
 })
 export class CampgroundModule {}

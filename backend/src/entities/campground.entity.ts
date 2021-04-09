@@ -3,16 +3,14 @@ import { Entity, Column, OneToMany } from 'typeorm';
 import { AbstractEntity } from './abstract.entity';
 import { Review } from './review.entity';
 
-class Image {
+export class Image {
   url: string;
   filename: string;
 }
 
-class Point {}
-
-class Geometry {
-  type: Point;
-  coordinates: number;
+export class Geometry {
+  type = 'Point';
+  coordinates: number[];
 }
 
 @Entity('campgrounds')

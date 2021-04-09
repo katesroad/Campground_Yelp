@@ -1,21 +1,29 @@
 db:
   pg:
-    host: <Your posgreSQL database host>
-    port: <Your posgreSQL database port>
-    username: <Your posgreSQL database username>
-    password: <Your posgreSQL database password>
-    database: <Your posgreSQL database name>
+    host: <Your PosgreSQL host>
+    port: <Your PosgreSQL host>
+    username: <Your PosgreSQL username>
+    password: <Your PosgreSQL password>
+    database: <Your PosgreSQL database>
 app:
-  port: 3000
+  port: 8888
   cors:
     # allowed origins for API server
     origin: https://www.example.com/, https://example.com/
   auth:
     token:
-      name: <Your JWT token name>
-      secret: <Your JWT token secret>
-      expiresIn: <Your JWT token expires time>
+      name: <Your access token name>
+      secret: <Your access token secret>
+      expiresIn: <Your access token expiration in seconds>
     refresh:
       name: <Your refresh token name>
       secret: <Your refresh token secret>
-      expiresIn: <Your refresh token expires time>
+      expiresIn: <Your refresh token expiration in seconds>
+cloudinary:
+  cloud_name: <Your cloundinary cloud_name>
+  api_key: <Your cloundinary api_key>
+  api_secret: <Your cloundinary api_secret>
+  allowed_formats: jpg, png, jpeg
+  folder: <Your cloundinary folder name that store files>
+mapbox:
+  access_token:<Your mapbox access_token>
