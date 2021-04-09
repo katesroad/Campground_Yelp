@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { User } from 'src/common/decorators/user.decorator';
+import { JwtAuthGuard } from 'src/common/auth';
 
+@UseGuards(JwtAuthGuard)
 @Controller('api/reviews')
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
@@ -35,6 +38,6 @@ export class ReviewsController {
 
   @Delete(':id')
   deleteCampReview(@User('id') user: string, @Param('id') id: string) {
-    return this.reviewsService.deleteCampReview(user, id);
+    return this.reviewsService.deleteReview(user, id);
   }
 }
