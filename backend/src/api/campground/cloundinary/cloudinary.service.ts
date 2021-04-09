@@ -1,20 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ServiceUnavailableException } from '@nestjs/common';
 import { UploadApiErrorResponse, UploadApiResponse, v2 } from 'cloudinary';
 import toStream = require('buffer-to-stream');
 import { v4 as uuid } from 'uuid';
 import * as path from 'path';
 import { ConfigService } from '@nestjs/config';
+import { Image } from 'src/entities/campground.entity';
 
 @Injectable()
 export class CloudinaryService {
   constructor(private readonly configService: ConfigService) {}
 
-  async uploadImages(files: Express.Multer.File[]) {
+  async uploadImages(files: Express.Multer.File[]): Promise<Image[]> {
     const promises = files.map((file) => this.uploadImage(file));
-    return Promise.all(promises);
+    return Promise.all(promises)
+      .then((images) =>
+        images.map((img) => ({ public_id: img.public_id, url: img.url })),
+      )
+      .catch((e) => {
+        throw new ServiceUnavailableException(e);
+      });
   }
 
-  // https://cloudinary.com/documentation/image_upload_api_reference#syntax-1
+  /**
+   * Delete image stored at cloundinary by resource's public id
+   * doc: https://cloudinary.com/documentation/image_upload_api_reference#syntax-1
+   */
   async deleteImage(publicId: string) {
     return v2.uploader.destroy(publicId);
   }

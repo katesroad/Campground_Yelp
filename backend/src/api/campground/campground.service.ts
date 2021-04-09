@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { CloudinaryService } from './cloundinary/cloudinary.service';
 import { CreateCampgroundDto } from './dto/create-campground.dto';
 import { UpdateCampgroundDto } from './dto/update-campground.dto';
+import { MapboxService } from './mapbox.service';
 
 @Injectable()
 export class CampgroundService {
@@ -15,10 +16,28 @@ export class CampgroundService {
     @InjectRepository(Review)
     private readonly reviewRepo: Repository<Review>,
     private readonly cloundinary: CloudinaryService,
+    private readonly mapbox: MapboxService,
   ) {}
 
-  createCamp(createDto: CreateCampgroundDto, images: Express.Multer.File[]) {
-    return 'This action adds a new campground';
+  async createCamp(
+    author: string,
+    createDto: CreateCampgroundDto,
+    imageFiles: Express.Multer.File[],
+  ) {
+    const { location, ...data } = createDto;
+    const [images, geometry] = await Promise.all([
+      this.cloundinary.uploadImages(imageFiles),
+      this.mapbox.getGeometry(location),
+    ]);
+    return this.campRepo
+      .create({
+        ...data,
+        images,
+        location,
+        geometry,
+        author,
+      })
+      .save();
   }
 
   getCamps() {

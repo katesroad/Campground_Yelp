@@ -1,9 +1,11 @@
+import { Transform } from 'class-transformer';
 import { IsNumber, IsPositive, IsString, Min } from 'class-validator';
 
 export class CreateCampgroundDto {
   @IsString()
   title: string;
 
+  @Transform((price) => +price.value)
   @IsPositive()
   @Min(1)
   @IsNumber()
@@ -14,7 +16,4 @@ export class CreateCampgroundDto {
 
   @IsString()
   location: string;
-
-  @IsString()
-  geometry: string;
 }

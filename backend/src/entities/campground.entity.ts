@@ -1,16 +1,19 @@
-import { Max, Min } from 'class-validator';
+import { IsDefined, Max, Min } from 'class-validator';
 import { Entity, Column, OneToMany } from 'typeorm';
 import { AbstractEntity } from './abstract.entity';
 import { Review } from './review.entity';
 
 export class Image {
+  public_id: string;
   url: string;
-  filename: string;
 }
 
 export class Geometry {
   type = 'Point';
   coordinates: number[];
+  constructor(coordinates: number[]) {
+    this.coordinates = coordinates;
+  }
 }
 
 @Entity('campgrounds')
@@ -19,7 +22,7 @@ export class Campground extends AbstractEntity {
   title: string;
 
   @Column({ type: 'json' })
-  image: Image;
+  images: Image[];
 
   @Column({ type: 'json' })
   geometry: Geometry;
@@ -36,7 +39,8 @@ export class Campground extends AbstractEntity {
   location: string;
 
   @Column()
-  author: number;
+  @IsDefined()
+  author: string;
 
   @OneToMany(() => Review, (review) => review.campground)
   reviews: number[];

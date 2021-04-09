@@ -8,13 +8,16 @@ import {
   Delete,
   UseInterceptors,
   UploadedFiles,
+  UseGuards,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from 'src/common/auth';
 import { User } from 'src/common/decorators/user.decorator';
 import { CampgroundService } from './campground.service';
 import { CreateCampgroundDto } from './dto/create-campground.dto';
 import { UpdateCampgroundDto } from './dto/update-campground.dto';
 
+@UseGuards(JwtAuthGuard)
 @Controller('api/campgrounds')
 export class CampgroundController {
   constructor(private readonly campgroundService: CampgroundService) {}
@@ -22,11 +25,12 @@ export class CampgroundController {
   @UseInterceptors(FilesInterceptor('images')) // the form field name
   @Post()
   createCamp(
+    @User('id') author: string,
     // here the files should be an array. The official doc is wrong
-    @UploadedFiles() images: Express.Multer.File[],
+    @UploadedFiles() imageFiles: Express.Multer.File[],
     @Body() createDto: CreateCampgroundDto,
   ) {
-    return this.campgroundService.createCamp(createDto, images);
+    return this.campgroundService.createCamp(author, createDto, imageFiles);
   }
 
   @Get()

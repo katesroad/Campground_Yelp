@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
@@ -9,15 +9,16 @@ export class MapboxService {
   constructor(private readonly configService: ConfigService) {
     const accessToken = this.configService.get('mapbox.access_token');
     this.geocoder = mbxGeocoding({ accessToken });
+    console.log(this.geocoder.forwardGeocode);
   }
 
-  getGeometry(location: string) {
+  getGeometry(query: string) {
     return this.geocoder
-      .forwardGeocode({
-        query: location,
-        limit: 1,
-      })
+      .forwardGeocode({ query, limit: 1 })
       .send()
-      .then((res: any) => res?.features[0].geometry);
+      .then((res: any) => res.body.features[0].geometry)
+      .catch((e) => {
+        throw new ServiceUnavailableException(e.msg);
+      });
   }
 }
