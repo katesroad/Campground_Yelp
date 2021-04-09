@@ -43,6 +43,11 @@ export class CampgroundController {
     return this.campgroundService.getCampById(id);
   }
 
+  @Get(':id/reviews')
+  getCampsReviews(@Param('id') id: string) {
+    return this.campgroundService.getCampsReviews(id);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   updateCampById(

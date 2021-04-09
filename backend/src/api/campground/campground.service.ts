@@ -50,8 +50,8 @@ export class CampgroundService {
     return this.campRepo.findOne(id);
   }
 
-  getCampReviews(id: string) {
-    return `This is the review for campground#${id}`;
+  getCampsReviews(id: string) {
+    return this.reviewRepo.find({ campground: id });
   }
 
   async updateCampById(
