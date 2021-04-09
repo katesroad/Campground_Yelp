@@ -38,13 +38,14 @@ export class CryptoService {
    * @param token{string} the refresh token
    * @returns verification boolean result
    */
-  verifyRefreshToken(token: string): boolean {
+  verifyRefreshToken(token: string): { sub: string } | null {
     try {
-      return !!this.jwtService.verify(token);
+      const decoded = this.jwtService.verify(token);
+      return { sub: decoded.sub };
     } catch (e) {
       console.log(`Refresh token verification:`);
       console.log(e, '\n');
-      return false;
+      return null;
     }
   }
 }
