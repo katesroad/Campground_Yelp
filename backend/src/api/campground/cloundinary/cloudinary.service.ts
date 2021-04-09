@@ -24,6 +24,8 @@ export class CloudinaryService {
         {
           allowed_formats: allowed_formats.split(','),
           folder,
+          public_id: this.getFileUniqueName(file),
+          unique_filename: true,
         },
         (error, result) => {
           if (error) return reject(error);
