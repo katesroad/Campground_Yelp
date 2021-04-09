@@ -5,6 +5,9 @@ import { Review } from './review.entity';
 @Entity('users')
 @Index(['email'], { unique: true })
 export class User extends AbstractEntity {
+  @Column({ nullable: true })
+  username?: string;
+
   @Column('text')
   email: string;
 
