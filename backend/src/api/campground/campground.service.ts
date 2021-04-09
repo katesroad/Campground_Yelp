@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Campground } from 'src/entities/campground.entity';
 import { Review } from 'src/entities/review.entity';
@@ -47,18 +47,44 @@ export class CampgroundService {
   }
 
   getCampById(id: string) {
-    return `This action returns a #${id} campground`;
+    return this.campRepo.findOne(id);
   }
 
   getCampReviews(id: string) {
     return `This is the review for campground#${id}`;
   }
 
-  updateCampById(author: string, id: string, updateDto: UpdateCampgroundDto) {
-    return `This action updates a #${id} campground`;
+  async updateCampById(
+    author: string,
+    id: string,
+    updateDto: UpdateCampgroundDto,
+  ) {
+    const camp = await this.campRepo.findOne({ id, author });
+    if (!camp) {
+      throw new UnauthorizedException(
+        `Current user does't own campground:#${id}`,
+      );
+    }
+    return this.campRepo
+      .update(id, updateDto)
+      .then(() => this.campRepo.findOne(id));
   }
 
-  removeCampById(author: string, id: string) {
-    return `This action removes a #${id} campground`;
+  async removeCampById(author: string, id: string) {
+    const camp = await this.campRepo.findOne({ id, author });
+    if (!camp) {
+      throw new UnauthorizedException(
+        `Current user does't own campground:#${id}`,
+      );
+    }
+    // delete reviews and images for campground
+    const deleteReviews = this.reviewRepo
+      .delete({ campground: id })
+      .catch((e) => {});
+    const deleteImages = this.cloundinary.deleteImages(
+      camp?.images?.map((img) => img.public_id),
+    );
+    await Promise.all([deleteReviews, deleteImages]);
+    return this.campRepo.delete(id);
   }
 }

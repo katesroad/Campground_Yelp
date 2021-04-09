@@ -43,11 +43,6 @@ export class CampgroundController {
     return this.campgroundService.getCampById(id);
   }
 
-  @Get(':id/reviews')
-  getCampReviews(@Param('id') id: string) {
-    return this.campgroundService.getCampReviews(id);
-  }
-
   @Patch(':id')
   updateCampById(
     @User('id') author: string,

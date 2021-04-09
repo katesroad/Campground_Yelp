@@ -21,11 +21,15 @@ export class CloudinaryService {
       });
   }
 
+  async deleteImages(publicIds: string[]) {
+    return Promise.all(publicIds.map((id) => this.deleteImage(id)));
+  }
+
   /**
    * Delete image stored at cloundinary by resource's public id
    * doc: https://cloudinary.com/documentation/image_upload_api_reference#syntax-1
    */
-  async deleteImage(publicId: string) {
+  private async deleteImage(publicId: string) {
     return v2.uploader.destroy(publicId);
   }
 
