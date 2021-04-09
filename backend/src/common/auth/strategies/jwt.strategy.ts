@@ -25,7 +25,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate({ sub }: any): Promise<IUser> {
-    const user = await this.userService.findUser({ user_id: sub });
+    const user = await this.userService.findUser({ id: sub });
     if (user) return user;
     throw new ForbiddenException('Wrong credentials provided');
   }
