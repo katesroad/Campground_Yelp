@@ -19,8 +19,8 @@ import { CryptoModule } from './crypto/crypto.module';
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (conf: ConfigService) => {
-        const { secret, expiresIn } = conf.get('app.auth.token');
-        return { secret, signOptions: { expiresIn: `${expiresIn}s` } };
+        const { secret, expiresIn } = conf.get('app.auth.access');
+        return { secret, signOptions: { expiresIn: `${expiresIn}` } };
       },
     }),
   ],
