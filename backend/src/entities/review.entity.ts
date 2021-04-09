@@ -12,13 +12,13 @@ export class Review extends AbstractEntity {
 
   @Max(5)
   @Min(1)
-  @Column()
+  @Column('numeric')
   ratting: number;
 
   @Column()
-  @ManyToOne(() => User, (author: User) => author.reviews)
+  @ManyToOne(() => User, (author: User) => author.id, { eager: true })
   author: string;
 
-  @ManyToOne(() => Campground, (campground) => campground.reviews)
+  @ManyToOne(() => Campground, (campground) => campground.id)
   campground: string;
 }

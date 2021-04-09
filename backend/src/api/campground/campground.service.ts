@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Campground } from 'src/entities/campground.entity';
 import { Review } from 'src/entities/review.entity';
+import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CloudinaryService } from './cloundinary/cloudinary.service';
 import { CreateCampgroundDto } from './dto/create-campground.dto';
@@ -51,7 +52,13 @@ export class CampgroundService {
   }
 
   getCampsReviews(id: string) {
-    return this.reviewRepo.find({ campground: id });
+    return this.reviewRepo.find({ campground: id }).then((reviews) => {
+      return reviews.map((review) => {
+        const { author, ...data } = review;
+        const { id, email, username } = (author as unknown) as User;
+        return { ...data, author: { id, email, username } };
+      });
+    });
   }
 
   async updateCampById(
