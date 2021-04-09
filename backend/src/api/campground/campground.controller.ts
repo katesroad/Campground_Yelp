@@ -17,11 +17,11 @@ import { CampgroundService } from './campground.service';
 import { CreateCampgroundDto } from './dto/create-campground.dto';
 import { UpdateCampgroundDto } from './dto/update-campground.dto';
 
-@UseGuards(JwtAuthGuard)
 @Controller('api/campgrounds')
 export class CampgroundController {
   constructor(private readonly campgroundService: CampgroundService) {}
 
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FilesInterceptor('images')) // the form field name
   @Post()
   createCamp(
@@ -43,6 +43,7 @@ export class CampgroundController {
     return this.campgroundService.getCampById(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   updateCampById(
     @User('id') author: string,
@@ -52,6 +53,7 @@ export class CampgroundController {
     return this.campgroundService.updateCampById(author, campId, updateDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   removeCampById(@User('id') author: string, @Param('id') id: string) {
     return this.campgroundService.removeCampById(author, id);
