@@ -65,9 +65,6 @@ export const Main = styled.main`
 `
 
 export const Footer = styled.footer`
-  position: absolute;
-  left: 0;
-  bottom: 0;
   width: 100vw;
   text-align: center;
   color: rgba(255, 255, 255, 0.5) !important;
@@ -85,5 +82,10 @@ export const Footer = styled.footer`
   }
   &.at-page {
     background-color: #343a40;
+  }
+  &.at-home {
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 `

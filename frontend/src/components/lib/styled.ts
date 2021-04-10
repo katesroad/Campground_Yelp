@@ -30,6 +30,5 @@ export const Button = styled.button.attrs(() => ({ className: 'btn' }))`
   border-radius: 0.25rem;
   text-transform: capitalize;
   text-align: center;
-  color: var(--white);
-  cusort: pointer;
+  color: var(--bs-white);
 `

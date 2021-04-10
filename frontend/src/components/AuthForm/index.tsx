@@ -1,11 +1,12 @@
-// eslint-disable-next-line
 import * as React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form } from 'formik'
 import { initialValues, AuthSchema } from './auth.helper'
 import { useAuth } from 'context/auth.context'
-import { Wrapper, FormControl } from './styles'
+import { Wrapper } from './styles'
 import { UseMutationResult } from 'react-query'
 import { IUser } from 'types'
+import { TextField } from 'components/FormField/TextField'
+import { Button } from 'components/lib'
 
 type AuthErrorProps = {
   isSubmitting: boolean
@@ -27,8 +28,9 @@ const AuthError = ({ isSubmitting, errMsg, onClearMsg }: AuthErrorProps) => {
 
 type AuthFormProps = {
   mutation: UseMutationResult<IUser | null>
+  type: 'login' | 'register'
 }
-export default function AuthForm({ mutation }: AuthFormProps) {
+export default function AuthForm({ type, mutation }: AuthFormProps) {
   const [errMsg, setErrMsg] = React.useState('')
   const { setUser } = useAuth()
   const { status, data: user, mutateAsync: doLogin } = mutation
@@ -47,7 +49,7 @@ export default function AuthForm({ mutation }: AuthFormProps) {
   }, [status, user, setUser])
   return (
     <Wrapper>
-      <h2 className="title">Login</h2>
+      <img src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80" />
       <Formik
         initialValues={initialValues}
         validationSchema={AuthSchema}
@@ -56,30 +58,29 @@ export default function AuthForm({ mutation }: AuthFormProps) {
         {(props) => {
           return (
             <Form onFocus={getClearErrorHandler(props)}>
-              <FormControl>
-                <span>Email</span>
-                <Field name="email" placeholder="email" />
-                <small className="validation-msg">
-                  <ErrorMessage name="email" />
-                </small>
-              </FormControl>
-              <FormControl>
-                <span>Password</span>
-                <Field name="password" placeholder="password" type="password" />
-                <small className="validation-msg">
-                  <ErrorMessage name="password" />
-                </small>
-              </FormControl>
+              <h2 className="title">{type}</h2>
+              {type === 'register' ? (
+                <TextField
+                  label="user name"
+                  name="username"
+                  placeholder="user name"
+                />
+              ) : null}
+              <TextField label="email" name="email" placeholder="email" />
+              <TextField
+                label="password"
+                name="password"
+                placeholder="password"
+                type="password"
+              />
               <AuthError
                 errMsg={errMsg}
                 isSubmitting={props.isSubmitting}
                 onClearMsg={getClearErrorHandler(props)}
               />
-              <FormControl>
-                <button type="submit">
-                  {props.isSubmitting ? 'Logining' : 'Login'}
-                </button>
-              </FormControl>
+              <p>
+                <Button type="submit">{type}</Button>
+              </p>
             </Form>
           )
         }}

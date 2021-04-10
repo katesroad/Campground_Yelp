@@ -33,14 +33,15 @@ const GlobalStyles = createGlobalStyle`
     --bs-font-sans-serif: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     --bs-font-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-    --font-bold: 700;
+    --font-bolder: 700;
+    --font-bold: 500;
+    --font-normal: 400;
     --p-line-height: 1.5;
   }
   body {
     font-family: Roboto,Helvetica Neue,sans-serif;
     font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
+    font-weight: var(--font-normal);
     color: #212529;
     background-color: #fff;
     -webkit-text-size-adjust: 100%;
