@@ -16,7 +16,7 @@ export const AppHeader: React.FC = () => {
         YelpCamp
       </Link>
       <Nav>
-        <NavLink to="campgrounds">Campgrounds</NavLink>
+        <NavLink to="/campgrounds">Campgrounds</NavLink>
         {user ? (
           <button onClick={handleClick}>Logout</button>
         ) : (
