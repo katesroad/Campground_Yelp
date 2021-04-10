@@ -26,6 +26,25 @@ export interface IQueryParams {
 }
 
 export interface IPagedRes<T> {
-  data: T
-  total: number
+  data: T[]
+  count: number
+}
+
+export type Geometry = {
+  type: 'Point'
+  coordinates: number[]
+}
+
+export type CampgroundImage = {
+  public_id: string
+  url: string
+}
+export interface ICampgroundItem {
+  id: string
+  title: string
+  description: string
+  price: number
+  location: string
+  images: { public_id: string; url: string }[]
+  geometry: Geometry
 }

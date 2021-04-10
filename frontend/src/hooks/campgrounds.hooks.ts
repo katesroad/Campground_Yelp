@@ -5,7 +5,7 @@ import {
   useQueryClient,
   UseQueryResult,
 } from 'react-query'
-import { IPagedRes, IQueryParams } from 'types'
+import { ICampgroundItem, IPagedRes, IQueryParams } from 'types'
 import client from 'utils/http'
 
 const conf = {
@@ -104,16 +104,18 @@ export function useDeleteCampground(id: string): UseMutationResult<null> {
 }
 
 //Get campgrounds with pagination query parameters
-export function getCampgrounds(params?: IQueryParams): Promise<IPagedRes<any>> {
+export function getCampgrounds(
+  params?: IQueryParams
+): Promise<IPagedRes<ICampgroundItem>> {
   let endpoint = `campgrounds`
   if (params) {
     endpoint += `?offset=${params['offset']}&limit=${params['limit']}`
   }
-  return client({ endpoint }).then((res) => res as IPagedRes<any>)
+  return client({ endpoint }).then((res) => res as IPagedRes<ICampgroundItem>)
 }
 
 export function useGetCampgrounds(
   params?: IQueryParams
-): UseQueryResult<IPagedRes<any>> {
+): UseQueryResult<IPagedRes<ICampgroundItem>> {
   return useQuery('campgrounds', () => getCampgrounds(params), conf)
 }
