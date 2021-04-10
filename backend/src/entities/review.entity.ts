@@ -8,6 +8,10 @@ import { User } from './user.entity';
 export class Review extends AbstractEntity {
   @Column('text')
   @IsDefined()
+  title: string;
+
+  @Column('text')
+  @IsDefined()
   body: string;
 
   @Max(5)
