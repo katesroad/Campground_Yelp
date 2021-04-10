@@ -60,7 +60,7 @@ export class CampgroundService {
           const { username, email, id } = (author as unknown) as User;
           return { ...data, author: { id, username, email } };
         });
-        return { count, reviews };
+        return { count, data: reviews };
       });
   }
 
