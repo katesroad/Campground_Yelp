@@ -5,16 +5,27 @@ import {
   useQueryClient,
   UseQueryResult,
 } from 'react-query'
+import { useHistory } from 'react-router'
 import { IUser } from 'types'
 import client from 'utils/http'
 
 const expiration: number =
   +(process.env.REACT_APP_ACCESS_TOKEN_EXPIRATION as string) || 60 * 60 * 1000
 
-const conf = {
-  staleTime: +expiration - 60 * 1000,
-  cacheTime: +expiration,
-  retry: 0,
+function useAuthConf() {
+  const client = useQueryClient()
+  const history = useHistory()
+  return {
+    staleTime: +expiration - 60 * 1000,
+    cacheTime: +expiration,
+    retry: 0,
+    onSuccess: (data: IUser | null) => {
+      client.setQueryData('user', data)
+      try {
+        history.push('/')
+      } catch (e) {}
+    },
+  }
 }
 
 function getUser(): Promise<IUser | null> {
@@ -24,6 +35,7 @@ function getUser(): Promise<IUser | null> {
 }
 
 export function useGetUser(): UseQueryResult<IUser | null> {
+  const conf = useAuthConf()
   return useQuery('user', getUser, conf)
 }
 
@@ -34,24 +46,29 @@ function loginUser(data: Credentials): Promise<IUser | null> {
   )
 }
 export function useLogin(): UseMutationResult<IUser | null> {
-  const queryClient = useQueryClient()
-  return useMutation('user', (data) => loginUser(data as Credentials), {
-    ...conf,
-    onError: () => {
-      queryClient.setQueryData('user', null)
-    },
-  })
+  const conf = useAuthConf()
+  return useMutation('user', (data) => loginUser(data as Credentials), conf)
+}
+
+export type RegisterData = {
+  email: string
+  password: string
+  username?: string
+}
+export function register(data: RegisterData): Promise<IUser | null> {
+  return client({ endpoint: 'auth/register', method: 'POST', data })
+    .then((data) => data as IUser)
+    .catch(() => null)
+}
+export function useRegister(): UseMutationResult<IUser | null> {
+  const conf = useAuthConf()
+  return useMutation('user', (data) => register(data as RegisterData), conf)
 }
 
 function logout(): Promise<null> {
   return client({ endpoint: 'auth/logout' }).then(() => null)
 }
 export function useLogout() {
-  const client = useQueryClient()
-  return useMutation('user', logout, {
-    onError: () => {
-      client.refetchQueries('user')
-    },
-    onSuccess: () => window.location.reload(),
-  })
+  const conf = useAuthConf()
+  return useMutation('user', logout, conf)
 }

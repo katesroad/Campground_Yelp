@@ -1,42 +1,20 @@
 // eslint-disable-next-line
-import styled from "styled-components/macro";
-import * as React from "react";
-import { useQueryClient } from "react-query";
-import { useGetUser } from "hooks/auth.hooks";
-import { IUser } from "types";
+import styled from 'styled-components/macro'
+import * as React from 'react'
+import { useGetUser } from 'hooks/auth.hooks'
+import { IUser } from 'types'
 
-type SetUserType = React.Dispatch<React.SetStateAction<IUser | null>>;
-type AuthContextType = {
-  user: IUser | null;
-  setUser: SetUserType;
-};
+type AuthContextType = { user: IUser | null | undefined }
 
-const AuthContext = React.createContext<AuthContextType | null>(null);
-AuthContext.displayName = "AuthContext";
+const AuthContext = React.createContext<AuthContextType | null>(null)
+AuthContext.displayName = 'AuthContext'
 
 export const AuthProvider: React.FC = (props) => {
-  const queryClient = useQueryClient();
-  const { data, status, error } = useGetUser();
-  const [user, setUser] = React.useState<IUser | null>(() => {
-    try {
-      return queryClient.getQueryData("user") || null;
-    } catch (e) {
-      return null;
-    }
-  });
+  const { data: user, status } = useGetUser()
 
-  const value = React.useMemo((): AuthContextType => ({ user, setUser }), [
-    user,
-  ]);
+  const value = React.useMemo((): AuthContextType => ({ user }), [user])
 
-  React.useEffect(() => {
-    if (status === "success" && data) {
-      setUser(data);
-    }
-    return () => setUser(null);
-  }, [status, data]);
-
-  if (["loading", "idle"].includes(status)) {
+  if (['loading', 'idle'].includes(status)) {
     return (
       <div
         css={`
@@ -53,20 +31,16 @@ export const AuthProvider: React.FC = (props) => {
       >
         <p>Loading...</p>
       </div>
-    );
+    )
   }
 
-  if (status === "error") {
-    console.log(error);
-  }
-
-  return <AuthContext.Provider value={value} {...props} />;
-};
+  return <AuthContext.Provider value={value} {...props} />
+}
 
 export function useAuth(): AuthContextType {
-  const context = React.useContext(AuthContext);
+  const context = React.useContext(AuthContext)
   if (context === undefined) {
-    throw new Error(`Using useAuth outside of <AuthProvider />.`);
+    throw new Error(`Using useAuth outside of <AuthProvider />.`)
   }
-  return context as AuthContextType;
+  return context as AuthContextType
 }

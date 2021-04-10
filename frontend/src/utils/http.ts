@@ -26,7 +26,7 @@ export default async function client(request: Request): Promise<unknown> {
     .then(async (response) => {
       const data = await response.json()
       if (response.ok) {
-        return data?.data
+        return data;
       }
       // config the endpoint as the path based on your needs
       if (response.status === 401 && request.retry === 0) {

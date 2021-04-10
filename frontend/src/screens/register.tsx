@@ -1,11 +1,14 @@
 import AuthForm from 'components/AuthForm'
-import { useLogin } from 'hooks/auth.hooks';
+import { useRegister } from 'hooks/auth.hooks'
 import * as React from 'react'
 
 export default function RegisterScreen() {
   React.useEffect(() => {
-    document.title = 'Login'
+    document.title = 'Register | YelpCamp'
+    return () => {
+      document.title = 'YelpCamp'
+    }
   }, [])
-  const mutation = useLogin()
-  return <AuthForm mutation={mutation} type="register" />;
+  const mutation = useRegister()
+  return <AuthForm mutation={mutation} type="register" />
 }
