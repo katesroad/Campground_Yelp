@@ -54,3 +54,17 @@ export interface ICampground extends ICampgroundItem {
   updated_at: string
   author: string
 }
+
+export type Author = {
+  username?: string
+  email?: string
+  id: string
+}
+
+export interface IReview {
+  title: string
+  body: string
+  ratting: number
+  author: Author
+  campground: string
+}

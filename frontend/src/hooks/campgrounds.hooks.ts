@@ -5,7 +5,7 @@ import {
   useQueryClient,
   UseQueryResult,
 } from 'react-query'
-import { ICampgroundItem, IPagedRes, IQueryParams } from 'types'
+import { ICampgroundItem, IPagedRes, IQueryParams, IReview } from 'types'
 import client from 'utils/http'
 
 const conf = {
@@ -21,18 +21,18 @@ const conf = {
 export function getCampsReviews(
   campId: string,
   params?: IQueryParams
-): Promise<IPagedRes<any>> {
-  let endpoint = `campgrounds/${campId}`
+): Promise<IPagedRes<IReview>> {
+  let endpoint = `campgrounds/${campId}/reviews`
   if (params) {
     endpoint += `?offset=${params['offset']}&limit=${params['limit']}`
   }
-  return client({ endpoint }).then((res) => res as IPagedRes<any>)
+  return client({ endpoint }).then((res) => res as IPagedRes<IReview>)
 }
 
 export function useGetCampReviews(
   campId: string,
   params?: IQueryParams
-): UseQueryResult<IPagedRes<any>> {
+): UseQueryResult<IPagedRes<IReview>> {
   return useQuery(
     ['reviews', campId, params],
     () => getCampsReviews(campId, params),
