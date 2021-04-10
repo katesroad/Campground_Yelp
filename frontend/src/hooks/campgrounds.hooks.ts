@@ -41,12 +41,14 @@ export function useGetCampReviews(
 }
 
 // Get campground information by campground's id
-export function getCampground(campId: string): Promise<unknown> {
-  return client({ endpoint: `campgrounds/${campId}` })
+export function getCampground(campId: string): Promise<ICampgroundItem> {
+  return client({ endpoint: `campgrounds/${campId}` }).then(
+    (res) => res as ICampgroundItem
+  )
 }
 export function useGetCampground(
   campId: string
-): UseQueryResult<IPagedRes<unknown>> {
+): UseQueryResult<ICampgroundItem> {
   return useQuery(['camp', campId], () => getCampground(campId), conf)
 }
 

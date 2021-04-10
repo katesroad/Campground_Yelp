@@ -45,6 +45,12 @@ export interface ICampgroundItem {
   description: string
   price: number
   location: string
-  images: { public_id: string; url: string }[]
+  images: CampgroundImage[]
   geometry: Geometry
+}
+
+export interface ICampground extends ICampgroundItem {
+  created_at: string
+  updated_at: string
+  author: string
 }
