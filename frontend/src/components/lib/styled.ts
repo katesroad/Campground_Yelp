@@ -1,22 +1,35 @@
-import styled from 'styled-components';
-import * as mediaQueries from 'styles/media-queries'
+import styled from 'styled-components'
+import { small, medium, xlarge } from 'styles/media-queries'
 
 export const Content = styled.div`
-position: relative;
+  position: relative;
   box-sizing: border-box;
   padding-left: 12px;
   padding-right: 12px;
-  ${mediaQueries.small} {
+  ${small} {
     padding-left: 24px;
     padding-right: 24px;
   }
-  ${mediaQueries.medium} {
+  ${medium} {
     width: 89.5%;
     padding-right: 0;
-    padding-left:0;
+    padding-left: 0;
     margin-left: auto;
     margin-right: auto;
   }
-  ${mediaQueries.large} {
+  ${xlarge} {
     max-width: 68.75rem;
-  }`;
+  }
+`
+
+export const Card = styled.div`
+  border-radius: 0.375rem;
+`
+export const Button = styled.button.attrs(() => ({ className: 'btn' }))`
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  text-transform: capitalize;
+  text-align: center;
+  color: var(--white);
+  cusort: pointer;
+`

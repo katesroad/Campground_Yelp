@@ -6,9 +6,9 @@ const ToLogin: React.FC = () => <Redirect to="/login" />
 
 export default function UnAuthedApp() {
   return (
-    <Switch>
+    <>
       <Route path="/login" component={LoginScreen} />
       <Route path="*" component={ToLogin} />
-    </Switch>
+    </>
   )
 }
