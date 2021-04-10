@@ -62,9 +62,11 @@ export type Author = {
 }
 
 export interface IReview {
+  id: string
   title: string
   body: string
   ratting: number
   author: Author
   campground: string
+  created_at: string
 }

@@ -23,10 +23,10 @@ export const Content = styled.div`
 `
 
 export const Card = styled.div`
-  border: 1px solid rgba(0,0,0,.125);
+  border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.375rem;
 `
-export const Button = styled.button.attrs(() => ({ className: 'btn' }))`
+export const Button = styled.button`
   padding: 0.375rem 0.75rem;
   border-radius: 0.25rem;
   text-transform: capitalize;

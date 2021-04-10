@@ -1,11 +1,40 @@
-import { useGetCampReviews } from 'hooks/campgrounds.hooks'
-import { stringify } from 'node:querystring'
 import * as React from 'react'
+import { Spinner } from 'components/lib'
+import Review from './Review'
+import { useGetCampReviews } from 'hooks/campgrounds.hooks'
+import { Wrapper } from './styles'
 
 type ReviewsProps = {
   campground: string
 }
 export default function Reviews({ campground }: ReviewsProps) {
-  const { status, data: reviews, error } = useGetCampReviews(campground)
-  return <p>{JSON.stringify(reviews)}</p>
+  const { status, data, error } = useGetCampReviews(campground)
+  let content: React.ReactNode = <p>No reviews for campground</p>
+
+  if (['loading', 'idle'].includes(status)) {
+    content = <Spinner />
+  }
+  if (status === 'error') {
+    content = <p>{JSON.stringify(error)}</p>
+  }
+
+  if (status === 'success') {
+    content = data?.count ? (
+      data?.data?.map((review) => <Review {...review} key={review.id} />)
+    ) : (
+      <p>No reviews for campground</p>
+    )
+  }
+
+  return (
+    <Wrapper>
+      <h2 className="list-title">
+        Reviews <br />
+        {status === 'success' ? (
+          <small>{data?.count ? data.count : 'No'} reviews</small>
+        ) : null}
+      </h2>
+      <div>{content}</div>
+    </Wrapper>
+  )
 }
