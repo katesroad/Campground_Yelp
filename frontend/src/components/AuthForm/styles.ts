@@ -1,49 +1,26 @@
 import styled from 'styled-components'
+import { xlarge } from 'styles/media-queries'
 
 export const Wrapper = styled.div.attrs(() => ({ className: 'auth-form' }))`
-  max-width: 26.25rem;
-  padding: 1rem;
+  max-width: 21.25rem;
+  margin-top: 3rem;
   margin-left: auto;
   margin-right: auto;
-  background-color: #eee;
+  form {
+    padding: 2rem 1rem 4rem 1rem;
+  }
   .title {
     padding-bottom: 2rem;
-    text-align: center;
-  }
-`
-
-export const FormControl = styled.label.attrs(() => ({
-  className: 'form-control',
-}))`
-  display: block;
-  margin-bottom: 1rem;
-  span {
-    margin-right: 1rem;
-    &:after {
-      content: ':';
-    }
-  }
-  input {
-    padding: 0.375rem 1rem;
-    border: 1px solid #eee;
-    border-radius: 0.375rem;
-    transition: border 0.25s ease;
-    &:focus {
-      border-color: blue;
-    }
-  }
-  small {
-    display: block;
-    margin-top: 0.5rem;
-    color: red;
+    text-transform: capitalize;
   }
   button[type='submit'] {
-    background-color: #fff;
-    display: block;
-    padding: 0.75rem 1rem;
+    line-height: 1.5;
     width: 100%;
-    border-radius: 0.375rem;
-    margin-left: auto;
-    margin-right: auto;
+    text-transform: uppercase;
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  ${xlarge} {
+    margin-top: calc(3rem + 1vh);
   }
 `

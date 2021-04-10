@@ -1,6 +1,7 @@
+import { AppFooter, AppHeader, AppMain } from 'components/Layout'
 import * as React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Switch } from 'react-router-dom'
 import GlobalStyles from 'styles/GlobalStyle'
 import { AuthProvider } from './auth.context'
 import { ThemeProvider } from './theme.context'
@@ -13,9 +14,15 @@ const AppProviders: React.FC = ({ children }) => {
       <GlobalStyles />
       <ThemeProvider>
         <QueryClientProvider client={client}>
-          <BrowserRouter>
-            <AuthProvider>{children}</AuthProvider>
-          </BrowserRouter>
+          <AuthProvider>
+            <BrowserRouter>
+              <AppHeader></AppHeader>
+              <AppMain>
+                <Switch>{children}</Switch>
+              </AppMain>
+              <AppFooter />
+            </BrowserRouter>
+          </AuthProvider>
         </QueryClientProvider>
       </ThemeProvider>
     </>

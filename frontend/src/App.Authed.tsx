@@ -5,9 +5,9 @@ const ToProfile = () => <Redirect to="/profile" />
 
 export default function AuthedApp() {
   return (
-    <Switch>
+    <>
       <Route path="/profile" component={ProfileScreen} />
       <Route path="*" component={ToProfile} />
-    </Switch>
+    </>
   )
 }

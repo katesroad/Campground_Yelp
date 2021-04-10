@@ -10,7 +10,6 @@ export class MapboxService {
   constructor(private readonly configService: ConfigService) {
     const accessToken = this.configService.get('mapbox.access_token');
     this.geocoder = mbxGeocoding({ accessToken });
-    console.log(this.geocoder.forwardGeocode);
   }
 
   getGeometry(query: string): Promise<Geometry> {
