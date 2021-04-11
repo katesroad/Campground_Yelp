@@ -1,6 +1,6 @@
 import AuthForm from 'components/AuthForm'
 import * as React from 'react'
-import { AiOutlineCloseCircle } from 'react-icons/ai'
+import { VscClose } from 'react-icons/vsc'
 import { useLogin, useRegister } from 'hooks/auth.hooks'
 import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
 
@@ -15,7 +15,7 @@ export default function LoginDialog() {
       <DialogOverlay>
         <DialogContent aria-label={type + '-modal'}>
           <span onClick={close} className="btn-close">
-            <AiOutlineCloseCircle />
+            <VscClose />
           </span>
           <AuthForm
             type={type}
