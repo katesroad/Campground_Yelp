@@ -1,8 +1,7 @@
 import styled from 'styled-components'
+import { medium, large } from 'styles/media-queries'
 
-export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))`
-  margin-bottom: 2.5rem;
-`
+export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))``
 
 export const IntroText = styled.div`
   &:nth-child(2n) {

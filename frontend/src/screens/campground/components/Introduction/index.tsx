@@ -4,13 +4,14 @@ import { Spinner, Error, Button } from 'components/lib'
 import { BsBookmark } from 'react-icons/bs'
 import { Wrapper, CampOperations, IntroText } from './styles'
 import { withAuth } from 'components/withAuth'
+import ImgSwiper from 'components/ImgSwiper'
 
 type OperatioButtonProps = {
   id?: string
 }
 const ReviewButton: React.FC<OperatioButtonProps> = ({ id }) => {
   const content = <p>To create review, you need to login in.</p>
-  const ele = <Button className="btn btn--review">Write review</Button>
+  const ele = <Button className="btn btn--review">Add review</Button>
   return withAuth(ele, { content })
 }
 
@@ -47,11 +48,15 @@ export default function Introduction({ campground }: IntroductionProps) {
   }
   return (
     <Wrapper>
+      <ImgSwiper images={camp?.images} />
       <IntroText>
         <h2>{camp?.title}</h2>
         <div>
           <p>
             <span>4.5</span> <strong>12 reviews</strong>
+          </p>
+          <p>
+            <span>Price:</span> <span>${camp?.price}/night</span>
           </p>
           <p>Location: {camp?.location}</p>
           <p>
