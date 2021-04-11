@@ -8,14 +8,20 @@ import {
 } from '@reach/alert-dialog'
 import { useHistory, useLocation } from 'react-router'
 
+type WithAuthOptions = {
+  content: React.ReactNode
+  [key: string]: unknown
+}
+
 export function withAuth(
   element: React.ReactElement,
-  options: any
+  options: WithAuthOptions
 ): React.ReactElement {
   const { user } = useAuth()
   const history = useHistory()
   const { pathname } = useLocation<LocationState>()
   const [showDialog, setShowDialog] = React.useState(false)
+  // eslint-disable-next-line
   const cancelRef = React.useRef<any>()
   const open = () => setShowDialog(true)
   const close = () => setShowDialog(false)
