@@ -64,7 +64,7 @@ export type Author = {
 export interface IReviewData {
   title: string
   body: string
-  ratting: number
+  rating: number
   campground: string
 }
 

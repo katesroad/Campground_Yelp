@@ -28,17 +28,17 @@ const WriteReview: React.FC<WriteReviewProps> = ({ campground, ...props }) => {
       >
         {(props) => (
           <Form>
-            <div className="ratting">
+            <div className="rating">
               <p>
                 <span className="label">Ratting:</span>
                 <Rating
-                  name="ratting"
+                  name="rating"
                   precision={0.5}
                   onChange={(
                     e: React.ChangeEvent<unknown>,
                     value: number | null
                   ) =>
-                    props.handleChange({ target: { name: 'ratting', value } })
+                    props.handleChange({ target: { name: 'rating', value } })
                   }
                 />
               </p>

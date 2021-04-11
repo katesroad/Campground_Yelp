@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   button.btn--submit {
     background-color: var(--bs-green);
   }
-  .ratting {
+  .rating {
     margin-bottom: 1rem;
     p {
       display: flex;
