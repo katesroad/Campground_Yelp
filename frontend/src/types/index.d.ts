@@ -44,6 +44,7 @@ export interface ICampgroundItem {
   title: string
   description: string
   price: number
+  rating: number
   location: string
   images: CampgroundImage[]
   geometry: Geometry
