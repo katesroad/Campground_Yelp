@@ -84,6 +84,6 @@ function logout(): Promise<null> {
   return client({ endpoint: 'auth/logout' }).then(() => null)
 }
 export function useLogout() {
-  const conf = useAuthConf()
+  const conf = useAuthConf({ redirect: false })
   return useMutation('user', logout, conf)
 }

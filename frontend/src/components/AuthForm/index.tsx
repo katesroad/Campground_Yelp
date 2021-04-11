@@ -28,8 +28,13 @@ const AuthError = ({ isSubmitting, errMsg, onClearMsg }: AuthErrorProps) => {
 type AuthFormProps = {
   mutation: UseMutationResult<IUser | null>
   type: 'login' | 'register'
+  showPicture?: boolean
 }
-export default function AuthForm({ type, mutation }: AuthFormProps) {
+export default function AuthForm({
+  type,
+  mutation,
+  showPicture = true,
+}: AuthFormProps) {
   const [errMsg, setErrMsg] = React.useState('')
   const { mutateAsync: doLogin } = mutation
   const handleSubmit = (values: unknown) => {
@@ -43,8 +48,10 @@ export default function AuthForm({ type, mutation }: AuthFormProps) {
     setErrMsg('')
   }
   return (
-    <Wrapper>
-      <img src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80" />
+    <Wrapper className={showPicture ? ' auth-form has-picture' : 'auth-form'}>
+      {showPicture ? (
+        <img src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80" />
+      ) : null}
       <Formik
         initialValues={initialValues}
         validationSchema={AuthSchema}

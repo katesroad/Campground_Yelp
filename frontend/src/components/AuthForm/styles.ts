@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { xlarge } from 'styles/media-queries'
 
-export const Wrapper = styled.div.attrs(() => ({ className: 'auth-form' }))`
+export const Wrapper = styled.div`
   max-width: 21.25rem;
   margin-top: 3rem;
   margin-left: auto;

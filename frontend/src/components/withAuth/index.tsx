@@ -1,13 +1,8 @@
 import { useAuth } from 'context/auth.context'
-import { LocationState } from 'history'
 import * as React from 'react'
-import {
-  AlertDialog,
-  AlertDialogLabel,
-  AlertDialogDescription,
-} from '@reach/alert-dialog'
-import { useHistory, useLocation } from 'react-router'
+import { AlertDialog, AlertDialogLabel } from '@reach/alert-dialog'
 import { Button } from 'components/lib'
+import LoginDialog from './LoginDialog'
 import './style.scss'
 
 type WithAuthOptions = {
@@ -20,17 +15,21 @@ export function withAuth(
   options: WithAuthOptions
 ): React.ReactElement {
   const { user } = useAuth()
-  const history = useHistory()
-  const { pathname } = useLocation<LocationState>()
   const [showDialog, setShowDialog] = React.useState(false)
+  const [showLoginForm, setShowLoginForm] = React.useState(false)
   // eslint-disable-next-line
   const cancelRef = React.useRef<any>()
   const open = () => setShowDialog(true)
   const close = () => setShowDialog(false)
   const handleClickYes = () => {
+    setShowLoginForm(true)
     setShowDialog(false)
-    history.push(`/login?from=${pathname}`)
   }
+  React.useEffect(() => {
+    if (!user) {
+      setShowLoginForm(false)
+    }
+  }, [user])
   if (user) return element
   return (
     <div>
@@ -38,16 +37,17 @@ export function withAuth(
       {showDialog && (
         <AlertDialog leastDestructiveRef={cancelRef} onDismiss={close}>
           <AlertDialogLabel>{options.content}</AlertDialogLabel>
-          <div className="alert-buttons">
+          <p className="alert-buttons">
             <Button onClick={handleClickYes} className="btn btn--login">
               Login
             </Button>
             <Button ref={cancelRef} onClick={close} className="btn--cancel">
               Cancle
             </Button>
-          </div>
+          </p>
         </AlertDialog>
       )}
+      {showLoginForm ? <LoginDialog /> : null}
     </div>
   )
 }
