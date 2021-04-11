@@ -61,12 +61,15 @@ export type Author = {
   id: string
 }
 
-export interface IReview {
-  id: string
+export interface IReviewData {
   title: string
   body: string
   ratting: number
-  author: Author
   campground: string
+}
+
+export interface IReview extends IReviewData {
+  id: string
+  author: Author
   created_at: string
 }
