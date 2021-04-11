@@ -7,6 +7,8 @@ import {
   AlertDialogDescription,
 } from '@reach/alert-dialog'
 import { useHistory, useLocation } from 'react-router'
+import { Button } from 'components/lib'
+import './style.scss'
 
 type WithAuthOptions = {
   content: React.ReactNode
@@ -34,14 +36,15 @@ export function withAuth(
     <div>
       <b onClick={open}>{element}</b>
       {showDialog && (
-        <AlertDialog leastDestructiveRef={cancelRef}>
-          <AlertDialogLabel>Please Confirm!</AlertDialogLabel>
-          <AlertDialogDescription>{options.content}</AlertDialogDescription>
+        <AlertDialog leastDestructiveRef={cancelRef} onDismiss={close}>
+          <AlertDialogLabel>{options.content}</AlertDialogLabel>
           <div className="alert-buttons">
-            <button onClick={handleClickYes}>Yes</button>{' '}
-            <button ref={cancelRef} onClick={close}>
-              Nevermind, cancle
-            </button>
+            <Button onClick={handleClickYes} className="btn btn--login">
+              Login
+            </Button>
+            <Button ref={cancelRef} onClick={close} className="btn--cancel">
+              Cancle
+            </Button>
           </div>
         </AlertDialog>
       )}
