@@ -40,7 +40,7 @@ const ImgSwpper: React.FC<ImgSwipperProps> = ({ images, ...props }) => {
     <Wrapper {...props}>
       <Swiper ref={ref} {...params} rebuildOnUpdate>
         {images?.map((img) => (
-          <img src={img.url} />
+          <img src={img.url} key={img.public_id} />
         ))}
       </Swiper>
       <button onClick={goPrev} className="btn-prev">
