@@ -14,8 +14,9 @@ export const ReviewWrap = styled(Card)`
     font-size: 1rem;
   }
   .stamp {
-    margin-top: 1rem;
     display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
     font-size: 0.75rem;
     .date {
       margin-left: 1rem;

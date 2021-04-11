@@ -61,7 +61,14 @@ export default function Introduction({ campground }: IntroductionProps) {
         <CampOperations>
           <ReviewButton id={camp?.id} />
           <Button>
-            <a>Direction</a>
+            <a
+              target="_blank"
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                camp?.title as string
+              )}`}
+            >
+              Direction
+            </a>
           </Button>
           <MarkButton id={camp?.id} />
         </CampOperations>
