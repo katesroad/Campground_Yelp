@@ -24,3 +24,7 @@ export const FullscreenSpinner = () => {
 }
 
 export const Spinner = () => <ImSpinner6 />
+
+export const Error = styled.div`
+  color: var(--bs-red);
+`
