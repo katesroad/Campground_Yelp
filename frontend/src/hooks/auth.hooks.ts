@@ -12,7 +12,11 @@ import client from 'utils/http'
 const expiration: number =
   +(process.env.REACT_APP_ACCESS_TOKEN_EXPIRATION as string) || 60 * 60 * 1000
 
-function useAuthConf() {
+interface IUseAuthOptions {
+  redirect?: boolean
+  to?: string
+}
+function useAuthConf(options?: IUseAuthOptions) {
   const client = useQueryClient()
   const history = useHistory()
   return {
@@ -22,7 +26,12 @@ function useAuthConf() {
     onSuccess: (data: IUser | null) => {
       client.setQueryData('user', data)
       try {
-        history.push('/')
+        if (options) {
+          const { redirect, to } = options
+          if (redirect) history.push(to || '/')
+        } else {
+          history.push('/')
+        }
       } catch (e) {}
     },
   }
@@ -34,7 +43,9 @@ function getUser(): Promise<IUser | null> {
     .catch(() => null)
 }
 
-export function useGetUser(): UseQueryResult<IUser | null> {
+export function useGetUser(
+  option?: IUseAuthOptions
+): UseQueryResult<IUser | null> {
   const conf = useAuthConf()
   return useQuery('user', getUser, conf)
 }
@@ -45,8 +56,10 @@ function loginUser(data: Credentials): Promise<IUser | null> {
     (data) => data as IUser
   )
 }
-export function useLogin(): UseMutationResult<IUser | null> {
-  const conf = useAuthConf()
+export function useLogin(
+  options?: IUseAuthOptions
+): UseMutationResult<IUser | null> {
+  const conf = useAuthConf(options)
   return useMutation('user', (data) => loginUser(data as Credentials), conf)
 }
 
@@ -60,8 +73,10 @@ export function register(data: RegisterData): Promise<IUser | null> {
     .then((data) => data as IUser)
     .catch(() => null)
 }
-export function useRegister(): UseMutationResult<IUser | null> {
-  const conf = useAuthConf()
+export function useRegister(
+  options?: IUseAuthOptions
+): UseMutationResult<IUser | null> {
+  const conf = useAuthConf(options)
   return useMutation('user', (data) => register(data as RegisterData), conf)
 }
 
