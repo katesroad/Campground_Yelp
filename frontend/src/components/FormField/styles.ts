@@ -9,7 +9,8 @@ export const FormControl = styled.label.attrs(() => ({
     margin-bottom: 0.5rem;
     text-transform: capitalize;
   }
-  input {
+  input,
+  textarea {
     display: block;
     width: 100%;
     min-height: calc(1.5em + 0.75rem + 2px);
@@ -31,6 +32,9 @@ export const FormControl = styled.label.attrs(() => ({
       outline: 0;
       box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
     }
+  }
+  textarea {
+    min-height: 6rem;
   }
   .error-msg {
     display: block;

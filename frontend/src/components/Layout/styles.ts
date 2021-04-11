@@ -62,6 +62,12 @@ export const NavLink = styled(Link).attrs(() => ({
 export const Main = styled.main`
   flex-grow: 1;
   width: 100vw;
+  padding-top: calc(1.25rem + 2vw);
+  padding-bottom: calc(3.25rem + 2vw);
+  ${medium} {
+    padding-top: 3.35rem;
+    padding-bottom: 5rem;
+  }
 `
 
 export const Footer = styled.footer`

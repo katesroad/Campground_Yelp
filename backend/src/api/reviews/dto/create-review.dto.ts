@@ -3,6 +3,9 @@ import { IsNumber, IsString, IsUUID, Max, Min } from 'class-validator';
 
 export class CreateReviewDto {
   @IsString()
+  title: string;
+
+  @IsString()
   body: string;
 
   @Transform((ratting) => +ratting.value)
