@@ -1,41 +1,40 @@
 import * as React from 'react'
-import Swiper from 'react-id-swiper'
+import Swiper, { SwiperRefNode } from 'react-id-swiper'
 import { FcPrevious } from 'react-icons/fc'
 import { FcNext } from 'react-icons/fc'
-import { Wrapper } from './styles'
 import { CampgroundImage } from 'types'
 import { Spinner } from 'components/lib'
+import { Wrapper } from './styles'
 
 type ImgSwipperProps = {
   images?: CampgroundImage[]
 }
 const ImgSwpper: React.FC<ImgSwipperProps> = ({ images, ...props }) => {
-  const ref = React.useRef<any>(null)
+  // https://github.com/kidjp85/react-id-swiper/blob/master/src/types.ts#L45
+  const ref = React.useRef<SwiperRefNode>(null)
 
   if (!images) return <Spinner />
 
   if (images?.length === 1) return <img src={images[0].url} />
   const goNext = () => {
-    if (ref.current !== null && ref.current?.swiper !== null) {
+    if (ref?.current?.swiper !== null) {
       try {
-        ref.current?.swiper.slideNext()
+        ref?.current?.swiper?.slideNext()
       } catch (e) {}
     }
   }
 
   const goPrev = () => {
-    if (ref.current !== null && ref.current?.swiper !== null) {
+    if (ref?.current?.swiper !== null) {
       try {
-        ref.current?.swiper.slidePrev()
+        ref?.current?.swiper?.slidePrev()
       } catch (e) {}
     }
   }
   const params = {
     autoHeight: true,
     loop: true,
-    fadeEffect: {
-      crossFade: true,
-    },
+    fadeEffect: { crossFade: true },
   }
   return (
     <Wrapper {...props}>
