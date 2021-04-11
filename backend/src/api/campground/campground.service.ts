@@ -52,13 +52,16 @@ export class CampgroundService {
   }
 
   getCampsReviews(id: string) {
-    return this.reviewRepo.find({ campground: id }).then((reviews) => {
-      return reviews.map((review) => {
-        const { author, ...data } = review;
-        const { id, email, username } = (author as unknown) as User;
-        return { ...data, author: { id, email, username } };
+    return this.reviewRepo
+      .findAndCount({ campground: id })
+      .then(([records, count]) => {
+        const reviews = records.map((record) => {
+          const { author, ...data } = record;
+          const { username, email, id } = (author as unknown) as User;
+          return { ...data, author: { id, username, email } };
+        });
+        return { count, data: reviews };
       });
-    });
   }
 
   async updateCampById(

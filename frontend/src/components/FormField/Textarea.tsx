@@ -2,27 +2,25 @@ import * as React from 'react'
 import { Field, ErrorMessage } from 'formik'
 import { FormControl } from './styles'
 
-interface TextFieldProps {
+interface TextareaProps {
   name: string
   label: string
   placeholder?: string
-  type?: 'text' | 'password'
 }
 
-export const TextField = ({
+export const Textarea = ({
   name,
   label,
   placeholder,
-  type = 'text',
   ...props
-}: TextFieldProps) => {
+}: TextareaProps) => {
   return (
     <FormControl {...props}>
       <p className="label">{label}</p>
       <Field
         name={name}
         placeholder={placeholder || 'Please input ${name}'}
-        type={type}
+        as="textarea"
       />
       <small className="error-msg">
         <ErrorMessage name={name} />

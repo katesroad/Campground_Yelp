@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import * as React from 'react'
 import { useGetUser } from 'hooks/auth.hooks'
 import { IUser } from 'types'
+import { FullscreenSpinner } from 'components/lib'
 
 type AuthContextType = { user: IUser | null | undefined }
 
@@ -15,23 +16,7 @@ export const AuthProvider: React.FC = (props) => {
   const value = React.useMemo((): AuthContextType => ({ user }), [user])
 
   if (['loading', 'idle'].includes(status)) {
-    return (
-      <div
-        css={`
-          position: fixed;
-          top: 0;
-          width: 100vw;
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 3rem;
-          background: var(--body-background);
-        `}
-      >
-        <p>Loading...</p>
-      </div>
-    )
+    return <FullscreenSpinner />
   }
 
   return <AuthContext.Provider value={value} {...props} />

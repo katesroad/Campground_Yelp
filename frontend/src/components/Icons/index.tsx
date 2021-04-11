@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { BsFillImageFill } from 'react-icons/bs'
 
 export const Github: React.FC = () => (
   <svg height="32" viewBox="0 0 16 16" version="1.1" width="32">
@@ -8,3 +9,5 @@ export const Github: React.FC = () => (
     ></path>
   </svg>
 )
+
+export const ImgPlaceholder = () => <BsFillImageFill />

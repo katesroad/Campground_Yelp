@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'components/lib'
+import { medium } from 'styles/media-queries'
 
 export default function IndexScreen() {
   return (
@@ -20,7 +21,14 @@ export default function IndexScreen() {
             rgba(0, 0, 0, 0.5),
             rgba(0, 0, 0, 0.5)
           ),
-          url(https://images.unsplash.com/photo-1559521783-1d1599583485?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+          url(https://images.unsplash.com/photo-1576176539998-0237d1ac6a85?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=800);
+        ${medium} {
+          background-image: linear-gradient(
+              rgba(0, 0, 0, 0.5),
+              rgba(0, 0, 0, 0.5)
+            ),
+            url(https://images.unsplash.com/photo-1559521783-1d1599583485?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+        }
         background-size: cover;
         background-position: center;
         box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
