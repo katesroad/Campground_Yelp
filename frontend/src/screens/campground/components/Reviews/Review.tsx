@@ -1,5 +1,6 @@
 import { Button } from 'components/lib'
 import { useAuth } from 'context/auth.context'
+import { useDeleteReview } from 'hooks/reviews.hooks'
 import * as React from 'react'
 import { Author, IReview } from 'types'
 import { ReviewWrap, ReviewContent } from './styles'
@@ -10,11 +11,17 @@ type ReviewOperationProps = {
 }
 
 const ReviewOperation: React.FC<ReviewOperationProps> = ({ id, author }) => {
+  const deleteMutation = useDeleteReview({ id })
+  const handleDelete = () => {
+    deleteMutation.mutate(id)
+  }
   const { user } = useAuth()
   return user?.id === author?.id ? (
     <p className="operation">
       <Button className="btn--update">update</Button>
-      <Button className="btn--delete">delete</Button>
+      <Button className="btn--delete" onClick={handleDelete}>
+        delete
+      </Button>
     </p>
   ) : null
 }
