@@ -15,10 +15,11 @@ export const ReviewWrap = styled(Card)`
   }
   .stamp {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     margin-top: 1rem;
     font-size: 0.75rem;
     .date {
+      font-weight: var(--font-bolder);
       margin-left: 1rem;
       color: rgba(0, 0, 0, 0.65);
     }

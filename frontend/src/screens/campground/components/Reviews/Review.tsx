@@ -2,6 +2,7 @@ import { Button } from 'components/lib'
 import { useAuth } from 'context/auth.context'
 import { useDeleteReview } from 'hooks/reviews.hooks'
 import * as React from 'react'
+import Rating from '@material-ui/lab/Rating'
 import { Author, IReview } from 'types'
 import { ReviewWrap, ReviewContent } from './styles'
 
@@ -38,7 +39,7 @@ const Review: React.FC<IReview> = ({
     <ReviewWrap>
       <h4 className="title">{title}</h4>
       <p className="stamp">
-        <span>{ratting}</span>
+        <Rating value={+ratting} disabled name={id} />
         <span className="date">
           {new Date(created_at).toLocaleDateString()}
         </span>
