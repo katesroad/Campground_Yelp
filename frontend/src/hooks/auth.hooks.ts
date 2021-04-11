@@ -43,9 +43,7 @@ function getUser(): Promise<IUser | null> {
     .catch(() => null)
 }
 
-export function useGetUser(
-  option?: IUseAuthOptions
-): UseQueryResult<IUser | null> {
+export function useGetUser(): UseQueryResult<IUser | null> {
   const conf = useAuthConf()
   return useQuery('user', getUser, conf)
 }
