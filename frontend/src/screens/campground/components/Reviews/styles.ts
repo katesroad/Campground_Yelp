@@ -11,7 +11,7 @@ export const ReviewWrap = styled(Card)`
     font-size: 0.875rem;
   }
   .title {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
   .stamp {
     margin-top: 1rem;
@@ -56,7 +56,7 @@ export const ReviewContent = styled.div`
 /*----------------styling for review list---- */
 export const Wrapper = styled.div.attrs(() => ({ className: 'camp-reviews' }))`
   .list-title {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.25rem;
     font-size: 1.25rem;
     small {
       font-size: 0.875rem;
