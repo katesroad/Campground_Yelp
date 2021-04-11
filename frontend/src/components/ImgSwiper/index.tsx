@@ -1,3 +1,4 @@
+import styled from 'styled-components/macro'
 import * as React from 'react'
 import Swiper, { SwiperRefNode } from 'react-id-swiper'
 import { FcPrevious } from 'react-icons/fc'
@@ -32,7 +33,6 @@ const ImgSwpper: React.FC<ImgSwipperProps> = ({ images, ...props }) => {
     }
   }
   const params = {
-    autoHeight: true,
     loop: true,
     fadeEffect: { crossFade: true },
   }
@@ -40,7 +40,12 @@ const ImgSwpper: React.FC<ImgSwipperProps> = ({ images, ...props }) => {
     <Wrapper {...props}>
       <Swiper ref={ref} {...params} rebuildOnUpdate>
         {images?.map((img) => (
-          <img src={img.url} key={img.public_id} />
+          <div
+            key={img.public_id}
+            css={`
+              background-image: url(${img.url});
+            `}
+          />
         ))}
       </Swiper>
       <button onClick={goPrev} className="btn-prev">

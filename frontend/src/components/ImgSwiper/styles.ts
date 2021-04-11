@@ -21,4 +21,10 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'imgs-swiper' }))`
       width: 3rem;
     }
   }
+  .picture {
+    min-height: calc(10rem + 1vw);
+    width: 100% !important;
+    background-size: cover;
+    background-position: center;
+  }
 `
