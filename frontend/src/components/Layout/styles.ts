@@ -31,15 +31,14 @@ export const Header = styled(Content)`
       font-size: 1.25rem;
     }
   }
-  a,
-  button {
-    /* margin-left: 1rem; */
+  ${medium} {
+    width: 100%;
+    padding: 15px 30px;
   }
 `
 
 export const Nav = styled.nav`
-  /* display: flex;
-  align-items: center; */
+  margin-top: 1px;
 `
 
 export const NavLink = styled(Link).attrs(() => ({
@@ -58,9 +57,6 @@ export const NavLink = styled(Link).attrs(() => ({
   &.active {
     color: var(--bs-white);
     border-bottom-color: white;
-  }
-  &:first-child {
-    display: none;
   }
   &:hover {
     color: white;
