@@ -40,6 +40,9 @@ export const FormControl = styled.label.attrs(() => ({
     display: block;
     margin-top: 0.5rem;
     color: var(--bs-red);
+    &:empty {
+      display: none;
+    }
   }
   button[type='submit'] {
     background-color: #fff;

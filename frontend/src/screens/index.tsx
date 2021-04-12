@@ -2,7 +2,7 @@
 import styled from 'styled-components/macro'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from 'components/lib'
+import { Button, Content } from 'components/lib'
 import { medium } from 'styles/media-queries'
 
 export default function IndexScreen() {
@@ -34,7 +34,7 @@ export default function IndexScreen() {
         box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
       `}
     >
-      <div
+      <Content
         css={`
           color: var(--bs-white);
           text-align: center;
@@ -67,7 +67,7 @@ export default function IndexScreen() {
         <Link to="/campgrounds">
           <Button>view all campground</Button>
         </Link>
-      </div>
+      </Content>
     </main>
   )
 }

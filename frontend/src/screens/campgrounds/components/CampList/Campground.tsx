@@ -17,14 +17,16 @@ export const Campground: React.FC<ICampgroundItem> = ({
     <CampgroundWrap>
       <ImageSwiper images={images} />
       <CampgroundIntro>
-        <h4 className="camp-title">{title}</h4>
-        <p className="camp-desc">{description}</p>
-        <p className="camp-location">
-          <span>{location}</span>
-          <strong>$ {price}</strong>
-        </p>
+        <div>
+          <h4 className="camp-title">{title}</h4>
+          <p className="camp-desc">{description}</p>
+          <p className="camp-location">
+            <span>{location}</span>
+            <strong>$ {price} / night</strong>
+          </p>
+        </div>
         <Link to={`/campgrounds/${id}`} className="camp-link">
-          <Button>View {title}</Button>
+          <Button>View campground</Button>
         </Link>
       </CampgroundIntro>
     </CampgroundWrap>

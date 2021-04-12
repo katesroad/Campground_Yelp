@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import 'swiper/swiper.scss'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div.attrs(() => ({ className: 'imgs-swiper' }))`
   position: relative;
   button {
     position: absolute;

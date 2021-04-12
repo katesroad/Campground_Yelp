@@ -1,5 +1,11 @@
 import { Transform } from 'class-transformer';
-import { IsNumber, IsPositive, IsString, Min } from 'class-validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+  Min,
+} from 'class-validator';
 
 export class CreateCampgroundDto {
   @IsString()

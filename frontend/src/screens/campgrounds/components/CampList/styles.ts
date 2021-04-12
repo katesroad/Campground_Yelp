@@ -5,49 +5,59 @@ import { medium, xlarge } from 'styles/media-queries'
 export const CampgroundWrap = styled(Card).attrs(() => ({
   className: 'campground-item',
 }))`
-  display: flex;
-  flex-direction: column;
-  .icon-img {
-    width: 100%;
-    height: auto;
+  overflow: hidden;
+  .swiper-slide {
+    min-height: calc(6.8rem + 10vw);
+    max-height: 12rem;
+    width: 100% !important;
+    background-size: cover;
+    background-position: center;
+  }
+  ${medium} {
+    display: flex;
+    flex-direction: row;
+    .imgs-swiper {
+      width: 50%;
+      max-width: 40rem;
+    }
   }
 `
 
 export const CampgroundIntro = styled.div`
-  padding: 2rem 1rem;
-
-  ${medium} {
-    padding: 2rem;
-    button {
-      margin-top: 2rem;
-    }
+  padding: calc(1rem + 1vw) 1rem;
+  .camp-title {
+    font-size: 1.254rem;
+    margin-bottom: 1rem;
   }
   .camp-desc {
-    margin: 1rem 0;
+    margin-bottom: 1rem;
     line-height: 1.5;
   }
   .camp-location {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.75);
+    font-size: 0.875rem;
+    color: rgba(0, 0, 0, 0.7);
   }
   .camp-link {
     display: block;
-    margin-top: 2rem;
+    margin-top: calc(1rem + 1vw);
     text-align: center;
     button {
       padding: 0.75rem;
       background-color: var(--bs-blue);
     }
   }
+  ${medium} {
+    padding: 2rem;
+  }
 `
 
 export const Wrapper = styled(Content)`
   .title {
     padding-bottom: calc(1rem + 1vw);
-    font-size: calc(2rem + 1vw);
+    font-size: calc(1.5rem + 1vw);
     ${medium} {
       padding-bottom: 2rem;
     }

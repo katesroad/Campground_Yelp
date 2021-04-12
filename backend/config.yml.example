@@ -5,6 +5,7 @@ db:
     username: <Your PosgreSQL username>
     password: <Your PosgreSQL password>
     database: <Your PosgreSQL database>
+    synchronize: <synchronize data schema or not. boolean type>
 app:
   port: 8080
   cors:
