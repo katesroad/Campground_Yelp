@@ -1,4 +1,5 @@
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
+import { IReview } from 'types'
 import client from 'utils/http'
 import { getCampsReviews } from './campgrounds.hooks'
 
@@ -20,10 +21,12 @@ function useGetConf(operation: ReviewOpertion, data?: any) {
   }
 }
 
-export function createReview(data: any): Promise<unknown> {
-  return client({ method: 'POST', data, endpoint: 'reviews' })
+export function createReview(data: any): Promise<IReview> {
+  return client({ method: 'POST', data, endpoint: 'reviews' }).then(
+    (res) => res as IReview
+  )
 }
-export function useCreateReview(): UseMutationResult<unknown> {
+export function useCreateReview(): UseMutationResult<IReview> {
   const conf = useGetConf('CREATE')
   return useMutation(['reviews'], (data) => createReview(data), conf)
 }
@@ -40,19 +43,19 @@ export function useDeleteReview(data: any): UseMutationResult<unknown> {
   )
 }
 
-export function updateReview(data: any): Promise<unknown> {
+export function updateReview(data: any): Promise<IReview> {
   const { id, ...update } = data
   return client({
     method: 'PATCH',
     endpoint: `reviews/${id}`,
     data: update,
-  })
+  }).then((res) => res as IReview)
 }
-export function useUpdateReview(data: any): UseMutationResult<unknown> {
+export function useUpdateReview(data: any): UseMutationResult<IReview> {
   const conf = useGetConf('DELETE', data)
   return useMutation(
     ['reviews', data.campground],
-    () => updateReview(data),
+    (data) => updateReview(data),
     conf
   )
 }

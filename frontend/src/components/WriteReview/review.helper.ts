@@ -10,5 +10,5 @@ export const ReviwSchema = Yup.object().shape({
 })
 
 export function getIntialValues(campground: string) {
-  return { campground, title: '', body: '', rating: 0 }
+  return { rating: 0, title: '', body: '', campground }
 }

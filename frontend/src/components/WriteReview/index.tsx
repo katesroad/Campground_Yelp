@@ -5,24 +5,49 @@ import { Form, Formik, ErrorMessage } from 'formik'
 import Rating from '@material-ui/lab/Rating'
 import * as React from 'react'
 import { getIntialValues, ReviwSchema } from './review.helper'
-import { useCreateReview } from 'hooks/reviews.hooks'
+import { useCreateReview, useUpdateReview } from 'hooks/reviews.hooks'
+import { withAuth } from 'components/withAuth'
 import { IReviewData } from 'types'
 import { Wrapper } from './styles'
 
-type WriteReviewProps = {
-  campground: string
+type SubmitButtonProps = {
+  status: 'loading' | 'idle' | 'success' | 'error'
+  type: 'create' | 'update'
 }
 
-const WriteReview: React.FC<WriteReviewProps> = ({ campground, ...props }) => {
-  const { status, mutate } = useCreateReview()
+const SubmitButton: React.FC<SubmitButtonProps> = ({ status, type }) => {
+  const btn = (
+    <Button className="btn btn--submit" disabled={status === 'loading'}>
+      {type} {status === 'loading' ? <Spinner /> : null}
+    </Button>
+  )
+  return withAuth(btn, {
+    content: <p>{`To ${type} review, please login in`}</p>,
+  })
+}
+
+interface ReviewData extends IReviewData {
+  id?: string
+}
+
+type WriteReviewProps = {
+  type: 'create' | 'update'
+  review: ReviewData
+}
+
+const WriteReview: React.FC<WriteReviewProps> = ({ review, type }) => {
+  const { status, mutate } = review.id
+    ? useUpdateReview(review)
+    : useCreateReview()
   const handleSubmit = (values: IReviewData) => {
     mutate(values)
   }
+  const initialValues = review?.id ? getIntialValues(review.campground) : review
   return (
-    <Wrapper id="writeReview" {...props}>
+    <Wrapper id={type + 'Review'}>
       <h4 className="title">Write Review</h4>
       <Formik
-        initialValues={getIntialValues(campground)}
+        initialValues={initialValues}
         validationSchema={ReviwSchema}
         onSubmit={handleSubmit}
       >
@@ -53,12 +78,7 @@ const WriteReview: React.FC<WriteReviewProps> = ({ campground, ...props }) => {
               label="content"
             />
             <p>
-              <Button
-                className="btn btn--submit"
-                disabled={status === 'loading'}
-              >
-                Submit {status === 'loading' ? <Spinner /> : null}
-              </Button>
+              <SubmitButton status={status} type={type} />
             </p>
           </Form>
         )}
