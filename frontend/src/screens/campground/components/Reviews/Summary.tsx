@@ -35,7 +35,7 @@ const Summary: React.FC<SummaryProps> = ({ total, stats, rating }) => {
       <p className="rating-count">{total} ratings</p>
       <div className="rating-bars">
         {stats.map(({ count, star }) => (
-          <ReviewBar total={total} star={star} count={count} />
+          <ReviewBar total={total} star={star} count={count} key={star} />
         ))}
       </div>
     </SummaryWrap>

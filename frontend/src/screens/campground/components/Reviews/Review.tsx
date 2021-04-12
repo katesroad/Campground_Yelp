@@ -11,11 +11,7 @@ type ReviewOperationProps = {
   author: Author
 }
 
-const ReviewOperation: React.FC<ReviewOperationProps> = ({
-  id,
-  author,
-  ...props
-}) => {
+const ReviewOperation: React.FC<ReviewOperationProps> = ({ id, author }) => {
   const deleteMutation = useDeleteReview({ id })
   const handleDelete = () => {
     deleteMutation.mutate(id)

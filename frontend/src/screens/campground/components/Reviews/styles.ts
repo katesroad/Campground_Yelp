@@ -59,6 +59,9 @@ export const ReviewWrap = styled(Card)`
     text-align: right;
     button {
       margin-left: 1rem;
+      ${xlarge} {
+        padding: 0.25rem 0.5rem;
+      }
       &.btn--update {
         background-color: var(--bs-green);
       }
@@ -69,6 +72,8 @@ export const ReviewWrap = styled(Card)`
   }
   ${medium} {
     border: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
   }
 `
 
@@ -102,14 +107,23 @@ export const ReviewContent = styled.div`
   display: flex;
   align-items: flex-start;
   margin: 1.25rem 0;
+  ${medium} {
+    margin: 0.5rem 0;
+  }
   img {
     margin-top: 0.325rem;
     border-radius: 0.375rem;
-    max-width: 2.5rem;
+    max-width: 2rem;
+  }
+  strong {
+    font-size: 0.75rem;
   }
   .content {
     margin-left: 1.25rem;
     line-height: 1.65;
+    ${medium} {
+      margin-bottom: 0;
+    }
   }
   .operation {
     ${medium} {
