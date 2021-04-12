@@ -26,4 +26,9 @@
   background: #fff;
   outline: none;
   border-radius: 0.375rem;
+  .btn--close {
+    background-color: transparent;
+    border: 1px solid var(--bs-secondary);
+    border-radius: 50%;
+  }
 }
