@@ -116,6 +116,7 @@ export const ReviewContent = styled.div`
     max-width: 2rem;
   }
   strong {
+    display: block;
     font-size: 0.75rem;
   }
   .content {
