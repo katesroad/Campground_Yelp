@@ -1,29 +1,51 @@
 import { Textarea } from 'components/FormField'
 import { TextField } from 'components/FormField/TextField'
-import { Button } from 'components/lib'
-import { Form, Formik } from 'formik'
+import { Button, Spinner } from 'components/lib'
+import { Form, Formik, ErrorMessage } from 'formik'
+import Rating from '@material-ui/lab/Rating'
 import * as React from 'react'
-import { initialValues, ReviwSchema } from './review.helper'
+import { getIntialValues, ReviwSchema } from './review.helper'
+import { useCreateReview } from 'hooks/reviews.hooks'
+import { IReviewData } from 'types'
 import { Wrapper } from './styles'
 
-interface WriteReviewProps extends React.ComponentProps<any> {
+type WriteReviewProps = {
   campground: string
 }
 
-export default function WriteReview({
-  campground,
-  ...props
-}: WriteReviewProps) {
+const WriteReview: React.FC<WriteReviewProps> = ({ campground, ...props }) => {
+  const { status, mutate } = useCreateReview()
+  const handleSubmit = (values: IReviewData) => {
+    mutate(values)
+  }
   return (
     <Wrapper id="writeReview" {...props}>
       <h4 className="title">Write Review</h4>
       <Formik
-        initialValues={initialValues}
+        initialValues={getIntialValues(campground)}
         validationSchema={ReviwSchema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
       >
         {(props) => (
           <Form>
+            <div className="rating">
+              <p>
+                <span className="label">Ratting:</span>
+                <Rating
+                  name="rating"
+                  precision={0.5}
+                  onChange={(
+                    e: React.ChangeEvent<unknown>,
+                    value: number | null
+                  ) =>
+                    props.handleChange({ target: { name: 'rating', value } })
+                  }
+                />
+              </p>
+              <small className="error-msg">
+                <ErrorMessage name="ratting" />
+              </small>
+            </div>
             <TextField name="title" placeholder="review title" label="title" />
             <Textarea
               name="body"
@@ -31,7 +53,12 @@ export default function WriteReview({
               label="content"
             />
             <p>
-              <Button className="btn btn--submit"> Submit</Button>
+              <Button
+                className="btn btn--submit"
+                disabled={status === 'loading'}
+              >
+                Submit {status === 'loading' ? <Spinner /> : null}
+              </Button>
             </p>
           </Form>
         )}
@@ -39,3 +66,5 @@ export default function WriteReview({
     </Wrapper>
   )
 }
+
+export default WriteReview

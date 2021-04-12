@@ -44,6 +44,7 @@ export interface ICampgroundItem {
   title: string
   description: string
   price: number
+  rating: number
   location: string
   images: CampgroundImage[]
   geometry: Geometry
@@ -61,12 +62,15 @@ export type Author = {
   id: string
 }
 
-export interface IReview {
-  id: string
+export interface IReviewData {
   title: string
   body: string
-  ratting: number
-  author: Author
+  rating: number
   campground: string
+}
+
+export interface IReview extends IReviewData {
+  id: string
+  author: Author
   created_at: string
 }

@@ -1,15 +1,21 @@
 import * as React from 'react'
-import { Spinner } from 'components/lib'
+import { Spinner, Card } from 'components/lib'
 import Review from './Review'
 import { useGetCampReviews } from 'hooks/campgrounds.hooks'
-import { Wrapper } from './styles'
+import { summary } from './data'
+import { Wrapper, ReviewsWrap } from './styles'
+import Summary from './Summary'
 
 type ReviewsProps = {
   campground: string
 }
 export default function Reviews({ campground }: ReviewsProps) {
   const { status, data, error } = useGetCampReviews(campground)
-  let content: React.ReactNode = <p>No reviews for campground</p>
+  let content: React.ReactNode = (
+    <Card className="no-reviews">
+      <p>No reviews.</p>
+    </Card>
+  )
 
   if (['loading', 'idle'].includes(status)) {
     content = <Spinner />
@@ -22,19 +28,23 @@ export default function Reviews({ campground }: ReviewsProps) {
     content = data?.count ? (
       data?.data?.map((review) => <Review {...review} key={review.id} />)
     ) : (
-      <p>No reviews for campground</p>
+      <Card className="no-reviews">
+        <p>No reviews.</p>
+      </Card>
     )
   }
 
   return (
     <Wrapper>
-      <h2 className="list-title">
-        Reviews <br />
+      <h2 className="list-title">Customer Reviews</h2>
+      <ReviewsWrap>
         {status === 'success' ? (
-          <small>{data?.count ? data.count : 'No'} reviews</small>
+          <div>
+            <Summary {...summary} />
+          </div>
         ) : null}
-      </h2>
-      <div>{content}</div>
+        <div className="review-list">{content}</div>
+      </ReviewsWrap>
     </Wrapper>
   )
 }

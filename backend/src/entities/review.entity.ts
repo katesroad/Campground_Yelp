@@ -17,7 +17,7 @@ export class Review extends AbstractEntity {
   @Max(5)
   @Min(1)
   @Column('numeric')
-  ratting: number;
+  rating: number;
 
   @Column()
   @ManyToOne(() => User, (author: User) => author.id, { eager: true })

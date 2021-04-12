@@ -10,13 +10,13 @@ type OperatioButtonProps = {
   id?: string
 }
 const ReviewButton: React.FC<OperatioButtonProps> = ({ id }) => {
-  const content = <p>To create review, you need to login in.</p>
+  const content = <p>To create review, please login in.</p>
   const ele = <Button className="btn btn--review">Add review</Button>
   return withAuth(ele, { content })
 }
 
 const MarkButton: React.FC<OperatioButtonProps> = ({ id }) => {
-  const content = <p>To mark campground, you need to login in.</p>
+  const content = <p>To mark campground, please login in.</p>
   const ele = (
     <Button className="btn btn--mark">
       <pre>mark</pre> <BsBookmark />

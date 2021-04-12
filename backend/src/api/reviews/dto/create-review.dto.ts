@@ -12,7 +12,7 @@ export class CreateReviewDto {
   @Max(5)
   @Min(0)
   @IsNumber()
-  ratting: number;
+  rating: number;
 
   @IsUUID()
   campground: string;
