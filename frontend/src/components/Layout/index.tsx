@@ -20,7 +20,10 @@ export const AppHeader: React.FC = () => {
           Campgrounds
         </NavLink>
         {user ? (
-          <button onClick={handleClick}>Logout</button>
+          <>
+            <Link to="/campgrounds/create">New Campground</Link>
+            <button onClick={handleClick}>Logout</button>
+          </>
         ) : (
           <>
             <NavLink to="/login">Login</NavLink>

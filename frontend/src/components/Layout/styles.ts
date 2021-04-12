@@ -33,6 +33,10 @@ export const Header = styled(Content)`
       font-size: 1.25rem;
     }
   }
+  a,
+  button {
+    margin-left: 1rem;
+  }
 `
 
 export const Nav = styled.nav`
@@ -46,7 +50,6 @@ export const NavLink = styled(Link).attrs(() => ({
 }))`
   display: block;
   padding: 0.5rem 0;
-  margin-left: 1rem;
   border-bottom: 0.25rem solid transparent;
   font-weight: var(--font-bold);
   color: inherit;
