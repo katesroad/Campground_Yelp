@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useGetCampground } from 'hooks/campgrounds.hooks'
 import { Spinner, Error, Button } from 'components/lib'
 import { BsBookmark } from 'react-icons/bs'
+import WriteReviewModal from 'components/WriteReview'
 import { Wrapper, CampOperations, IntroText } from './styles'
 import { withAuth } from 'components/withAuth'
 import ImgSwiper from 'components/ImgSwiper'
@@ -10,9 +11,12 @@ type OperatioButtonProps = {
   id?: string
 }
 const ReviewButton: React.FC<OperatioButtonProps> = ({ id }) => {
-  const content = <p>To create review, please login in.</p>
-  const ele = <Button className="btn btn--review">Add review</Button>
-  return withAuth(ele, { content })
+  const review = { campground: id }
+  return (
+    <WriteReviewModal review={review} type="create">
+      <Button className="btn btn--review">Write review</Button>
+    </WriteReviewModal>
+  )
 }
 
 const MarkButton: React.FC<OperatioButtonProps> = ({ id }) => {
