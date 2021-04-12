@@ -2,11 +2,9 @@
   .btn--close {
     &.at-with-auth {
       position: absolute;
-      right: 1.75rem;
+      right: 1rem;
       top: 1.5rem;
       display: block;
-      font-size: 2rem;
-      cursor: pointer;
     }
   }
   .auth-form {
