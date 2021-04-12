@@ -2,7 +2,9 @@ import * as React from 'react'
 import { Spinner } from 'components/lib'
 import Review from './Review'
 import { useGetCampReviews } from 'hooks/campgrounds.hooks'
+import { summary } from './data'
 import { Wrapper } from './styles'
+import Summary from './Summary'
 
 type ReviewsProps = {
   campground: string
@@ -28,12 +30,8 @@ export default function Reviews({ campground }: ReviewsProps) {
 
   return (
     <Wrapper>
-      <h2 className="list-title">
-        Reviews <br />
-        {status === 'success' ? (
-          <small>{data?.count ? data.count : 'No'} reviews</small>
-        ) : null}
-      </h2>
+      <h2 className="list-title">Reviews</h2>
+      {status === 'success' ? <Summary {...summary} /> : null}
       <div>{content}</div>
     </Wrapper>
   )

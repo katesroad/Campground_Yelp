@@ -1,6 +1,47 @@
 import { Card } from 'components/lib'
 import styled from 'styled-components/macro'
 
+/*----------------------------Styling for review summary-----------------------------*/
+export const SummaryWrap = styled.div.attrs(() => ({
+  className: 'review-summary',
+}))`
+  .rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.875rem;
+    strong {
+      margin-left: 1rem;
+    }
+  }
+  .rating-count {
+    margin-bottom: 1rem;
+  }
+`
+
+export const Bar = styled.div`
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  p {
+    max-width: 20rem;
+    flex-grow: 1;
+    height: 1rem;
+    margin: 0 0.75rem;
+    border-radius: 0.25rem;
+    box-shadow: inset 0 0 0 1px #e3e6e6;
+    background-color: #f0f2f2;
+    overflow: hidden;
+    span {
+      display: block;
+      height: 100%;
+      background-color: #ffb400;
+    }
+  }
+  .rate {
+    width: 2.125rem;
+  }
+`
+
 /*----------------------------Styling for review item-----------------------------*/
 export const ReviewWrap = styled(Card)`
   padding: 1rem;
@@ -60,9 +101,5 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'camp-reviews' }))`
   .list-title {
     margin-bottom: 1.25rem;
     font-size: 1.25rem;
-    small {
-      font-size: 0.875rem;
-      font-weight: var(--font-normal);
-    }
   }
 `
