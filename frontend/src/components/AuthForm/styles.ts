@@ -20,6 +20,13 @@ export const Wrapper = styled.div`
     background-color: #28a745;
     border-color: #28a745;
   }
+  .switch-type {
+    margin-top: 1rem;
+    a {
+      color: var(--bs-blue);
+      text-decoration: underline;
+    }
+  }
   ${xlarge} {
     margin-top: calc(3rem + 1vh);
   }
