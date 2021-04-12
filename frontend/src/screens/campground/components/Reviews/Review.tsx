@@ -3,23 +3,28 @@ import { useAuth } from 'context/auth.context'
 import { useDeleteReview } from 'hooks/reviews.hooks'
 import * as React from 'react'
 import Rating from '@material-ui/lab/Rating'
-import { Author, IReview } from 'types'
+import { IReview } from 'types'
+import WriteReviewModal from 'components/WriteReview'
 import { ReviewWrap, ReviewContent, ReviewRating } from './styles'
 
-type ReviewOperationProps = {
-  id: string
-  author: Author
-}
-
-const ReviewOperation: React.FC<ReviewOperationProps> = ({ id, author }) => {
+const ReviewOperation: React.FC<IReview> = ({
+  id,
+  title,
+  rating,
+  body,
+  author,
+}) => {
   const deleteMutation = useDeleteReview({ id })
   const handleDelete = () => {
     deleteMutation.mutate(id)
   }
+  const review = { id, rating: +rating, title, body }
   const { user } = useAuth()
   return user?.id === author?.id ? (
     <p className="operation">
-      <Button className="btn--update">update</Button>
+      <WriteReviewModal review={review} type="update">
+        <Button className="btn btn--update">update</Button>
+      </WriteReviewModal>
       <Button className="btn--delete" onClick={handleDelete}>
         delete
       </Button>
@@ -27,34 +32,27 @@ const ReviewOperation: React.FC<ReviewOperationProps> = ({ id, author }) => {
   ) : null
 }
 
-const Review: React.FC<IReview> = ({
-  id,
-  title,
-  body,
-  rating,
-  author,
-  created_at,
-}) => {
+const Review: React.FC<IReview> = ({ ...review }) => {
   return (
     <ReviewWrap>
-      <h4 className="title">{title}</h4>
+      <h4 className="title">{review.title}</h4>
       <ReviewRating>
         <p>
-          <Rating value={+rating} disabled name={id} />
+          <Rating value={+review.rating} disabled name={review.id} />
           <span className="date">
-            {new Date(created_at).toLocaleDateString()}
+            {new Date(review.created_at).toLocaleDateString()}
           </span>
         </p>
-        <ReviewOperation id={id} author={author} />
+        <ReviewOperation {...review} />
       </ReviewRating>
       <ReviewContent>
         <p>
           <img src="https://avatars.githubusercontent.com/u/3837437?s=400&u=41dbd69ae36d8fe8a6f8834d160b495d1b640d7b&v=4" />
-          <strong>{author.username || author.email}</strong>
+          <strong>{review.author.username || review.author.email}</strong>
         </p>
         <div className="content">
-          <p>{body}</p>
-          <ReviewOperation author={author} id={id} />
+          <p>{review.body}</p>
+          <ReviewOperation {...review} />
         </div>
       </ReviewContent>
     </ReviewWrap>
