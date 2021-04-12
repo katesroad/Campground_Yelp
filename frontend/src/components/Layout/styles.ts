@@ -1,7 +1,7 @@
 import { Content } from 'components/lib'
 import { NavLink as Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { medium } from 'styles/media-queries'
+import { medium, small } from 'styles/media-queries'
 
 export const Header = styled(Content)`
   position: relative;
@@ -9,12 +9,11 @@ export const Header = styled(Content)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 15px 16px;
   color: rgba(255, 255, 255, 0.5);
-  background-color: transparent;
+  background-color: rgba(52,58,64,.5);
   .brand {
-    font-size: 1.75rem;
+    font-size: 20px;
     color: var(--bs-white);
   }
   &.at-page {
@@ -29,27 +28,27 @@ export const Header = styled(Content)`
     .brand {
       padding-top: 0.3125rem;
       padding-bottom: 0.3125rem;
-      margin-right: 1rem;
       font-size: 1.25rem;
     }
   }
   a,
   button {
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
   }
 `
 
 export const Nav = styled.nav`
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
 `
 
 export const NavLink = styled(Link).attrs(() => ({
   activeClassName: 'active',
   className: 'nav-link',
 }))`
-  display: block;
-  padding: 0.5rem 0;
+  font-size: 14px;
+  display: inline-block;
+  margin-left: 12px;
   border-bottom: 0.25rem solid transparent;
   font-weight: var(--font-bold);
   color: inherit;
@@ -59,6 +58,12 @@ export const NavLink = styled(Link).attrs(() => ({
   &.active {
     color: var(--bs-white);
     border-bottom-color: white;
+  }
+  &:first-child {
+    display: none;
+  }
+  &:hover {
+    color: white;
   }
 `
 
