@@ -1,5 +1,6 @@
 import { Card } from 'components/lib'
 import styled from 'styled-components/macro'
+import { medium, large, xlarge } from 'styles/media-queries'
 
 /*----------------------------Styling for review summary-----------------------------*/
 export const SummaryWrap = styled.div.attrs(() => ({
@@ -23,7 +24,7 @@ export const Bar = styled.div`
   display: flex;
   align-items: center;
   p {
-    max-width: 20rem;
+    max-width: 18.75rem;
     flex-grow: 1;
     height: 1rem;
     margin: 0 0.75rem;
@@ -44,7 +45,7 @@ export const Bar = styled.div`
 
 /*----------------------------Styling for review item-----------------------------*/
 export const ReviewWrap = styled(Card)`
-  padding: 1rem;
+  padding: calc(1rem + 1vw);
   margin-bottom: 1rem;
   background-color: var(--bs-white);
   p {
@@ -53,17 +54,6 @@ export const ReviewWrap = styled(Card)`
   }
   .title {
     font-size: 1rem;
-  }
-  .stamp {
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
-    font-size: 0.75rem;
-    .date {
-      font-weight: var(--font-bolder);
-      margin-left: 1rem;
-      color: rgba(0, 0, 0, 0.65);
-    }
   }
   .operation {
     text-align: right;
@@ -75,6 +65,33 @@ export const ReviewWrap = styled(Card)`
       &.btn--delete {
         background-color: var(--bs-red);
       }
+    }
+  }
+  ${medium} {
+    border: none;
+  }
+`
+
+export const ReviewRating = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .date {
+    font-weight: var(--font-bolder);
+    margin-left: 1rem;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  .operation {
+    display: none;
+    ${medium} {
+      display: block;
     }
   }
 `
@@ -94,12 +111,50 @@ export const ReviewContent = styled.div`
     margin-left: 1.25rem;
     line-height: 1.65;
   }
+  .operation {
+    ${medium} {
+      display: none;
+    }
+  }
 `
 
 /*----------------styling for review list---- */
 export const Wrapper = styled.div.attrs(() => ({ className: 'camp-reviews' }))`
+  margin-top: 2.5rem;
   .list-title {
     margin-bottom: 1.25rem;
     font-size: 1.25rem;
+  }
+`
+
+export const ReviewsWrap = styled.div`
+  .review-list {
+    margin-top: calc(1.25rem + 2vw);
+  }
+  .no-reviews {
+    padding: 2rem;
+    font-weight: var(--font-bolder);
+  }
+  ${medium} {
+    display: flex;
+    .review-summary {
+      min-width: 14.75rem;
+      margin-right: calc(2rem + 4vw);
+    }
+    .review-list {
+      flex-grow: 1;
+      margin-top: 0;
+    }
+  }
+  ${large} {
+    .review-summary {
+      min-width: 18rem;
+    }
+  }
+  ${xlarge} {
+    jusiticy-content: space-between;
+    .write-review {
+      dispaly: block;
+    }
   }
 `

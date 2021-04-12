@@ -4,14 +4,18 @@ import { useDeleteReview } from 'hooks/reviews.hooks'
 import * as React from 'react'
 import Rating from '@material-ui/lab/Rating'
 import { Author, IReview } from 'types'
-import { ReviewWrap, ReviewContent } from './styles'
+import { ReviewWrap, ReviewContent, ReviewRating } from './styles'
 
 type ReviewOperationProps = {
   id: string
   author: Author
 }
 
-const ReviewOperation: React.FC<ReviewOperationProps> = ({ id, author }) => {
+const ReviewOperation: React.FC<ReviewOperationProps> = ({
+  id,
+  author,
+  ...props
+}) => {
   const deleteMutation = useDeleteReview({ id })
   const handleDelete = () => {
     deleteMutation.mutate(id)
@@ -38,20 +42,25 @@ const Review: React.FC<IReview> = ({
   return (
     <ReviewWrap>
       <h4 className="title">{title}</h4>
-      <p className="stamp">
-        <Rating value={+rating} disabled name={id} />
-        <span className="date">
-          {new Date(created_at).toLocaleDateString()}
-        </span>
-      </p>
+      <ReviewRating>
+        <p>
+          <Rating value={+rating} disabled name={id} />
+          <span className="date">
+            {new Date(created_at).toLocaleDateString()}
+          </span>
+        </p>
+        <ReviewOperation id={id} author={author} />
+      </ReviewRating>
       <ReviewContent>
         <p>
           <img src="https://avatars.githubusercontent.com/u/3837437?s=400&u=41dbd69ae36d8fe8a6f8834d160b495d1b640d7b&v=4" />
           <strong>{author.username || author.email}</strong>
         </p>
-        <p className="content">{body}</p>
+        <div className="content">
+          <p>{body}</p>
+          <ReviewOperation author={author} id={id} />
+        </div>
       </ReviewContent>
-      <ReviewOperation author={author} id={id} />
     </ReviewWrap>
   )
 }

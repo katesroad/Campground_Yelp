@@ -8,7 +8,7 @@ type ReviewBarProps = {
   star: number
 }
 const ReviewBar = ({ count, total, star }: ReviewBarProps) => {
-  const rate = (count / total) * 100 + '%'
+  const rate = total ? (count / total) * 100 + '%' : 0
   return (
     <Bar>
       <span className="star">{star} star</span>
