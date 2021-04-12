@@ -2,11 +2,22 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 1.25rem;
     font-size: 1.25rem;
+    .title-content {
+      text-transform: capitalize;
+    }
   }
-  button.btn--submit {
-    background-color: var(--bs-green);
+  button {
+    &.btn--submit {
+      background-color: var(--bs-green);
+    }
+    &.btn--close {
+      background-color: transparent;
+    }
   }
   .rating {
     margin-bottom: 1rem;
