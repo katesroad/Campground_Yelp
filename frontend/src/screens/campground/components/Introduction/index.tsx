@@ -66,7 +66,7 @@ export default function Introduction({ campground }: IntroductionProps) {
           <div className="info-box">
             <p>
               <span className="label">Price:</span>{' '}
-              <span>$ {camp?.price}/night</span>
+              <span>{camp?.price}$ /night</span>
             </p>
             <p>
               <span className="label">Location:</span> {camp?.location}

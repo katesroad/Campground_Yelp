@@ -41,7 +41,6 @@ export const IntroText = styled.div`
       }
       strong {
         margin-left: 1rem;
-        font-size: 80%;
         flex-grow: 2;
       }
     }
@@ -56,7 +55,6 @@ export const IntroText = styled.div`
     align-items: center;
     justify-content: flex-start;
     font-size: 0.9375rem;
-    line-height: 1.65;
   }
 
   .label {
