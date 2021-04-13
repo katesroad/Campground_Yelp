@@ -1,33 +1,66 @@
 import * as React from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { Header, Nav, NavLink, Main, Footer } from './styles'
+import { Link, useLocation, NavLink } from 'react-router-dom'
+import { AiOutlineMenu } from 'react-icons/ai'
+import { CgClose } from 'react-icons/cg'
+import { GrLogout } from 'react-icons/gr'
 import { useLogout } from 'hooks/auth.hooks'
 import { useAuth } from 'context/auth.context'
 import { Github } from 'components/Icons'
+import { Button, Content } from 'components/lib'
+import { Header, Nav, Main, Footer } from './styles'
 
 export const AppHeader: React.FC = () => {
-  const mutation = useLogout()
-  const handleClick = () => mutation.mutate()
   const { user } = useAuth()
   const { pathname } = useLocation()
+  const [menuIsOpen, setMenuIsPen] = React.useState<boolean>(false)
+
+  const m = useLogout()
+  const handleClick = () => m.mutate()
+
+  React.useEffect(() => {
+    setMenuIsPen(false)
+  }, [pathname])
+
   return (
-    <Header as="header" className={pathname === '/' ? 'at-home' : 'at-page'}>
-      <Link to="/" className="brand">
-        YelpCamp
-      </Link>
-      <Nav>
-        <NavLink to="/campgrounds" exact>
-          Campgrounds
-        </NavLink>
-        {user ? (
-          <button onClick={handleClick}>Logout</button>
-        ) : (
-          <>
-            <NavLink to="/login">Login</NavLink>
-            <NavLink to="/register">register</NavLink>
-          </>
-        )}
-      </Nav>
+    <Header className={pathname === '/' ? 'at-home' : 'at-page'}>
+      <Content className="content">
+        <Link to="/" className="brand">
+          YelpCamp
+        </Link>
+
+        {/* the menu toggle button for mobile version */}
+        <Button
+          className="btn-menu"
+          onClick={() => setMenuIsPen(!menuIsOpen)}
+          role="button"
+        >
+          {menuIsOpen ? <CgClose /> : <AiOutlineMenu />}
+        </Button>
+
+        {/* the nav items */}
+        <Nav className={menuIsOpen ? 'is-visible' : 'not-visible'}>
+          <NavLink to="/campgrounds" exact>
+            Campgrounds
+          </NavLink>
+          {user ? (
+            <>
+              <NavLink to="/campgrounds/create">New Campground</NavLink>
+              <Button onClick={handleClick} className="btn-logout">
+                <GrLogout />
+              </Button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/login" exact>
+                Login
+              </NavLink>
+              <NavLink to="/register" exact>
+                register
+              </NavLink>
+            </>
+          )}
+        </Nav>
+      </Content>
     </Header>
   )
 }

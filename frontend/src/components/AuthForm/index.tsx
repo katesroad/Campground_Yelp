@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Formik, Form } from 'formik'
+import { Link } from 'react-router-dom'
 import { initialValues, AuthSchema } from './auth.helper'
 import { Wrapper } from './styles'
 import { UseMutationResult } from 'react-query'
@@ -83,6 +84,21 @@ export default function AuthForm({
               <p>
                 <Button type="submit">{type}</Button>
               </p>
+              {showPicture ? (
+                <p className="switch-type">
+                  {type === 'login' ? (
+                    <>
+                      Don't have an account?&nbsp;
+                      <Link to="/register">Register</Link>
+                    </>
+                  ) : (
+                    <>
+                      Already have an account?&nbsp;
+                      <Link to="/login">Login</Link>
+                    </>
+                  )}
+                </p>
+              ) : null}
             </Form>
           )
         }}

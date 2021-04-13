@@ -116,6 +116,7 @@ export const ReviewContent = styled.div`
     max-width: 2rem;
   }
   strong {
+    display: block;
     font-size: 0.75rem;
   }
   .content {
@@ -134,14 +135,6 @@ export const ReviewContent = styled.div`
 
 /*----------------styling for review list---- */
 export const Wrapper = styled.div.attrs(() => ({ className: 'camp-reviews' }))`
-<<<<<<< HEAD
-  .list-title {
-    margin-bottom: 1.25rem;
-    font-size: 1.25rem;
-    small {
-      font-size: 0.875rem;
-      font-weight: var(--font-normal);
-=======
   margin-top: 2.5rem;
   .list-title {
     margin-bottom: 1.25rem;
@@ -177,7 +170,6 @@ export const ReviewsWrap = styled.div`
     jusiticy-content: space-between;
     .write-review {
       dispaly: block;
->>>>>>> dev
     }
   }
 `

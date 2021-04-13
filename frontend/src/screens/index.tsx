@@ -51,10 +51,11 @@ export default function IndexScreen() {
           }
           button {
             padding: 0.5rem 1rem;
-            font-size: 1.25rem;
             border-radius: 0.3rem;
+            font-size: 1.25rem;
             font-weight: var(--font-bolder);
             color: #333;
+            background-color: var(--bs-white);
           }
         `}
       >

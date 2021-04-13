@@ -54,9 +54,9 @@ export function useGetCampground(
 
 // create campground by with given data
 export function createCampground(data: any) {
-  return client({ endpoint: 'campgrounds', data })
+  return client({ endpoint: 'campgrounds', data, method: 'POST' })
 }
-export function useCreateCampground(data: any): UseMutationResult<any | null> {
+export function useCreateCampground(): UseMutationResult<any | null> {
   const queryClient = useQueryClient()
   return useMutation('camps', (data) => createCampground(data), {
     ...conf,

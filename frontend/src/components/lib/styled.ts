@@ -32,4 +32,5 @@ export const Button = styled.button`
   text-transform: capitalize;
   text-align: center;
   color: var(--bs-white);
+  background-color: transparent;
 `
