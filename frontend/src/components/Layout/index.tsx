@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Link, useLocation, NavLink } from 'react-router-dom'
 import { AiOutlineMenu } from 'react-icons/ai'
+import { CgClose } from 'react-icons/cg'
 import { useLogout } from 'hooks/auth.hooks'
 import { useAuth } from 'context/auth.context'
 import { Github } from 'components/Icons'
@@ -12,13 +13,23 @@ export const AppHeader: React.FC = () => {
   const handleClick = () => mutation.mutate()
   const { user } = useAuth()
   const { pathname } = useLocation()
+  const [menuIsOpen, setMenuIsPen] = React.useState<boolean>(true)
+  React.useEffect(() => {
+    setMenuIsPen(false)
+  }, [pathname])
   return (
     <Header className={pathname === '/' ? 'at-home' : 'at-page'}>
-      <Content className="header-content">
+      <Content className="content">
         <Link to="/" className="brand">
           YelpCamp
         </Link>
-        <Nav>
+
+        {/* the menu toggle button for mobile version */}
+        <span className="btn-menu" onClick={() => setMenuIsPen(!menuIsOpen)}>
+          {menuIsOpen ? <CgClose /> : <AiOutlineMenu />}
+        </span>
+
+        <Nav className={menuIsOpen ? 'is-visible' : 'not-visible'}>
           <NavLink to="/campgrounds" exact>
             Campgrounds
           </NavLink>
