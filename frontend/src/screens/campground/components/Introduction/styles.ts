@@ -2,24 +2,24 @@ import styled from 'styled-components'
 import { medium, large, xlarge } from 'styles/media-queries'
 
 export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))`
+  ${large} {
+    display: flex;
+    flex-direction: row;
+  }
+
   .imgs-swiper {
     overflow: hidden;
   }
+
   .swiper-slide {
     min-height: calc(6.8rem + 10vw);
     width: 100% !important;
     background-size: cover;
     background-position: center;
-  }
-  ${medium} {
-    .swipe-slide {
+    ${medium} {
       max-height: 12rem;
     }
-  }
-  ${large} {
-    display: flex;
-    flex-direction: row;
-    .imgs-swiper {
+    ${large} {
       width: 45%;
       max-height: 16rem;
       margin-right: calc(2rem + 2vw);
@@ -28,23 +28,14 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))`
 `
 
 export const IntroText = styled.div`
-  &:nth-child(2n) {
-    margin-top: 2rem;
-  }
-  h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  h4 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  p {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 0.5rem;
-    &.rating-stats {
+  margin-top: 1.25rem;
+
+  .title-box {
+    h2 {
+      font-size: 1.5rem;
+    }
+    .rating-stats {
+      margin-top: 0.25rem;
       span {
         margin-right: auto;
       }
@@ -55,9 +46,26 @@ export const IntroText = styled.div`
       }
     }
   }
-  button,
-  span {
-    margin-right: 1rem;
+
+  .info-box {
+    margin: 1.25rem 0;
+  }
+
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .label {
+    margin-right: 0.5rem;
+    text-transform: capitalize;
+    &.is-closed {
+      color: var(--bs-red);
+      font-weight: var(--font-bolder);
+    }
   }
 `
 
@@ -66,6 +74,7 @@ export const CampOperations = styled.div`
   align-items: center;
   margin: 1rem 0;
   button {
+    margin-right: 1rem;
     background-color: var(--bs-blue);
     &.btn--review {
       background-color: var(--bs-secondary);

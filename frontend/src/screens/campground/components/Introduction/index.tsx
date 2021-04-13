@@ -56,18 +56,24 @@ export default function Introduction({ campground }: IntroductionProps) {
       <ImgSwiper images={camp?.images} />
       <div className="rows">
         <IntroText>
-          <h2>{camp?.title}</h2>
-          <div>
+          <div className="title-box">
+            <h2>{camp?.title}</h2>
             <p className="rating-stats">
               <Rating value={4.5} precision={0.5} name={campground} disabled />{' '}
               <strong>12 reviews</strong>
             </p>
+          </div>
+          <div className="info-box">
             <p>
-              <span>Price:</span> <span>${camp?.price}/night</span>
+              <span className="label">Price:</span>{' '}
+              <span>$ {camp?.price}/night</span>
             </p>
-            <p>Location: {camp?.location}</p>
             <p>
-              <span>closed</span> <span>9:00 a.m ~16:00p.m</span>
+              <span className="label">Location:</span> {camp?.location}
+            </p>
+            <p>
+              <span className="label opening-status is-closed">closed</span>{' '}
+              <span>9:00 a.m ~16:00p.m</span>
             </p>
           </div>
           <CampOperations>
@@ -86,7 +92,6 @@ export default function Introduction({ campground }: IntroductionProps) {
           </CampOperations>
         </IntroText>
         <IntroText>
-          <h4>Introduction</h4>
           <p>{camp?.description}</p>
         </IntroText>
       </div>
