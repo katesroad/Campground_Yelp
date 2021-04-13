@@ -5,6 +5,10 @@ export const Header = styled.header`
   padding: 1.25rem 0;
   z-index: 2000;
   color: rgba(255, 255, 255, 0.5);
+  &.at-page {
+    color: rgba(255, 255, 255, 0.55);
+    background-color: #343a40;
+  }
   .content {
     display: flex;
     justify-content: space-between;
@@ -30,10 +34,6 @@ export const Header = styled.header`
       display: none !important;
     }
   }
-  &.at-page {
-    color: rgba(255, 255, 255, 0.55);
-    background-color: #343a40;
-  }
 `
 
 export const Nav = styled.nav`
@@ -49,6 +49,16 @@ export const Nav = styled.nav`
   padding: 1rem 0;
   background: #343a40;
   transition: all 0.25s ease;
+
+  ${medium} {
+    flex-direction: row;
+    position: static;
+    padding: 0;
+    width: auto;
+    justify-content: flex-end;
+    transform: translate(0);
+    background-color: transparent;
+  }
 
   &.is-visible {
     transform: translate(0, 4.375rem);
@@ -77,15 +87,6 @@ export const Nav = styled.nav`
       margin-bottom: 0;
     }
   }
-  ${medium} {
-    flex-direction: row;
-    position: static;
-    padding: 0;
-    width: auto;
-    justify-content: flex-end;
-    transform: translate(0);
-    background-color: transparent;
-  }
 `
 
 export const Main = styled.main`
@@ -103,6 +104,14 @@ export const Footer = styled.footer`
   width: 100vw;
   text-align: center;
   color: rgba(255, 255, 255, 0.5) !important;
+  &.at-page {
+    background-color: #343a40;
+  }
+  &.at-home {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
   p {
     display: flex;
     align-items: center;
@@ -114,13 +123,5 @@ export const Footer = styled.footer`
     svg {
       max-width: 1.5rem;
     }
-  }
-  &.at-page {
-    background-color: #343a40;
-  }
-  &.at-home {
-    position: absolute;
-    left: 0;
-    bottom: 0;
   }
 `
