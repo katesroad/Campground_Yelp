@@ -74,3 +74,5 @@ export interface IReview extends IReviewData {
   author: Author
   created_at: string
 }
+
+export type ReactQueryStatus = 'loading' | 'idle' | 'success' | 'error'
