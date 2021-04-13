@@ -1,9 +1,10 @@
 import { Content } from 'components/lib'
 import { NavLink as Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { medium, small } from 'styles/media-queries'
+import { medium, large } from 'styles/media-queries'
 
 export const Header = styled(Content)`
+  max-width: 100%;
   position: relative;
   z-index: 2000;
   display: flex;
@@ -11,10 +12,23 @@ export const Header = styled(Content)`
   align-items: center;
   padding: 15px 16px;
   color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(52,58,64,.5);
+  background-color: rgba(52, 58, 64, 0.5);
+  ${medium} {
+    width: 100%;
+    padding: 15px 30px;
+  }
+  ${large} {
+    padding: 20px 35px;
+  }
   .brand {
     font-size: 20px;
     color: var(--bs-white);
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    font-size: 1.25rem;
+    ${large} {
+      font-size: 24px;
+    }
   }
   &.at-page {
     color: rgba(255, 255, 255, 0.55);
@@ -25,15 +39,6 @@ export const Header = styled(Content)`
       padding-right: 24px;
       max-width: none;
     }
-    .brand {
-      padding-top: 0.3125rem;
-      padding-bottom: 0.3125rem;
-      font-size: 1.25rem;
-    }
-  }
-  ${medium} {
-    width: 100%;
-    padding: 15px 30px;
   }
 `
 
@@ -60,6 +65,9 @@ export const NavLink = styled(Link).attrs(() => ({
   }
   &:hover {
     color: white;
+  }
+  ${large} {
+    padding-left: 16px;
   }
 `
 
