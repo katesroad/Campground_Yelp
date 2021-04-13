@@ -2,21 +2,25 @@ import * as React from 'react'
 import { Link, useLocation, NavLink } from 'react-router-dom'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { CgClose } from 'react-icons/cg'
+import { GrLogout } from 'react-icons/gr'
 import { useLogout } from 'hooks/auth.hooks'
 import { useAuth } from 'context/auth.context'
 import { Github } from 'components/Icons'
-import { Content } from 'components/lib'
+import { Button, Content } from 'components/lib'
 import { Header, Nav, Main, Footer } from './styles'
 
 export const AppHeader: React.FC = () => {
-  const mutation = useLogout()
-  const handleClick = () => mutation.mutate()
   const { user } = useAuth()
   const { pathname } = useLocation()
-  const [menuIsOpen, setMenuIsPen] = React.useState<boolean>(true)
+  const [menuIsOpen, setMenuIsPen] = React.useState<boolean>(false)
+
+  const m = useLogout()
+  const handleClick = () => m.mutate()
+
   React.useEffect(() => {
     setMenuIsPen(false)
   }, [pathname])
+
   return (
     <Header className={pathname === '/' ? 'at-home' : 'at-page'}>
       <Content className="content">
@@ -25,10 +29,15 @@ export const AppHeader: React.FC = () => {
         </Link>
 
         {/* the menu toggle button for mobile version */}
-        <span className="btn-menu" onClick={() => setMenuIsPen(!menuIsOpen)}>
+        <Button
+          className="btn-menu"
+          onClick={() => setMenuIsPen(!menuIsOpen)}
+          role="button"
+        >
           {menuIsOpen ? <CgClose /> : <AiOutlineMenu />}
-        </span>
+        </Button>
 
+        {/* the nav items */}
         <Nav className={menuIsOpen ? 'is-visible' : 'not-visible'}>
           <NavLink to="/campgrounds" exact>
             Campgrounds
@@ -36,7 +45,9 @@ export const AppHeader: React.FC = () => {
           {user ? (
             <>
               <NavLink to="/campgrounds/create">New Campground</NavLink>
-              <button onClick={handleClick}>Logout</button>
+              <Button onClick={handleClick} className="btn-logout">
+                <GrLogout />
+              </Button>
             </>
           ) : (
             <>

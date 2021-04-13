@@ -21,7 +21,7 @@ export const Header = styled.header`
   }
   .btn-menu {
     position: fixed;
-    right: -1.2rem;
+    right: 0;
     top: 2.1875rem;
     min-width: 3rem;
     min-height: 1.5rem;
@@ -52,6 +52,12 @@ export const Nav = styled.nav`
 
   &.is-visible {
     transform: translate(0, 4.375rem);
+  }
+
+  .btn-logout {
+    path {
+      stroke: #fff;
+    }
   }
 
   a {
