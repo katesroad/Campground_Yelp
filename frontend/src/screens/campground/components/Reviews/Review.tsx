@@ -35,11 +35,11 @@ const ReviewOperation: React.FC<IReview> = ({
 const Review: React.FC<IReview> = ({ ...review }) => {
   return (
     <ReviewWrap>
-      <h4 className="title">{review.title}</h4>
+      <h4 className="review-title">{review.title}</h4>
       <ReviewRating>
         <p>
           <Rating value={+review.rating} disabled name={review.id} />
-          <span className="date">
+          <span className="review-date">
             {new Date(review.created_at).toLocaleDateString()}
           </span>
         </p>
@@ -50,7 +50,7 @@ const Review: React.FC<IReview> = ({ ...review }) => {
           <img src="https://avatars.githubusercontent.com/u/3837437?s=400&u=41dbd69ae36d8fe8a6f8834d160b495d1b640d7b&v=4" />
           <strong>{review.author.username || review.author.email}</strong>
         </p>
-        <div className="content">
+        <div className="review-content">
           <p>{review.body}</p>
           <ReviewOperation {...review} />
         </div>

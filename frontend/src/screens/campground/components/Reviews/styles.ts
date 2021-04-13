@@ -44,16 +44,28 @@ export const Bar = styled.div`
 `
 
 /*----------------------------Styling for review item-----------------------------*/
-export const ReviewWrap = styled(Card)`
+export const ReviewWrap = styled.div`
   padding: calc(1rem + 1vw);
   margin-bottom: 1rem;
   background-color: var(--bs-white);
-  p {
-    line-height: 1.65;
-    font-size: 0.875rem;
+  ${medium} {
+    border: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
   }
-  .title {
+  .review-title {
     font-size: 1rem;
+  }
+  .review-date {
+    margin-left: 0.75rem;
+    font-size: 0.75rem;
+  }
+  .review-content {
+    margin-left: 1rem;
+    font-size: 0.8125rem;
+    .operation {
+      margin-top: 1rem;
+    }
   }
   .operation {
     text-align: right;
@@ -69,11 +81,6 @@ export const ReviewWrap = styled(Card)`
         background-color: var(--bs-red);
       }
     }
-  }
-  ${medium} {
-    border: none;
-    padding: 0;
-    margin-bottom: 1.5rem;
   }
 `
 
@@ -143,33 +150,36 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'camp-reviews' }))`
 `
 
 export const ReviewsWrap = styled.div`
-  .review-list {
-    margin-top: calc(1.25rem + 2vw);
-  }
-  .no-reviews {
-    padding: 2rem;
-    font-weight: var(--font-bolder);
-  }
   ${medium} {
     display: flex;
-    .review-summary {
-      min-width: 14.75rem;
-      margin-right: calc(2rem + 4vw);
-    }
-    .review-list {
-      flex-grow: 1;
-      margin-top: 0;
-    }
-  }
-  ${large} {
-    .review-summary {
-      min-width: 18rem;
-    }
   }
   ${xlarge} {
     jusiticy-content: space-between;
     .write-review {
       dispaly: block;
+    }
+  }
+
+  .no-reviews {
+    padding: 2rem;
+    font-weight: var(--font-bolder);
+  }
+
+  .review-list {
+    margin-top: calc(1.25rem _+ 2vw);
+    ${medium} {
+      flex-grow: 1;
+      margin-top: 0;
+    }
+  }
+
+  .review-summary {
+    ${medium} {
+      min-width: 14.75rem;
+      margin-right: calc(2rem + 4vw);
+    }
+    ${large} {
+      min-width: 18rem;
     }
   }
 `
