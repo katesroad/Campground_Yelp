@@ -27,10 +27,19 @@ export const Card = styled.div`
   border-radius: 0.375rem;
 `
 export const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-coontent: center;
   padding: 0.375rem 0.75rem;
   border-radius: 0.25rem;
   text-transform: capitalize;
-  text-align: center;
   color: var(--bs-white);
   background-color: transparent;
+  &.btn--delete {
+    background-color: var(--bs-erd);
+  }
+  &.btn--submit,
+  &.btn--mark {
+    background-color: var(--bs-green);
+  }
 `

@@ -62,7 +62,7 @@ export const ReviewWrap = styled.div`
   }
   .review-content {
     margin-left: 1rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     .operation {
       margin-top: 1rem;
     }
@@ -170,6 +170,7 @@ export const ReviewsWrap = styled.div`
     ${medium} {
       flex-grow: 1;
       margin-top: 0;
+      width: 56.5%;
     }
   }
 

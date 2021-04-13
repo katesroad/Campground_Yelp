@@ -12,7 +12,7 @@ export default function CampgroundScreen() {
     <Content
       css={`
         p {
-          line-height: 1.5;
+          line-height: 1.65;
         }
       `}
     >

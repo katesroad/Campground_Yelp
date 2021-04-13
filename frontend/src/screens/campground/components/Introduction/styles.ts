@@ -1,48 +1,62 @@
 import styled from 'styled-components'
-import { medium, large, xlarge } from 'styles/media-queries'
+import { medium, large } from 'styles/media-queries'
 
 export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))`
   ${large} {
     display: flex;
-    flex-direction: row;
   }
-
   .imgs-swiper {
     overflow: hidden;
+    ${large} {
+      width: 60%;
+    }
   }
 
   .swiper-slide {
-    min-height: calc(6.8rem + 10vw);
+    min-height: calc(7.8rem + 4vw);
     width: 100% !important;
     background-size: cover;
     background-position: center;
-    ${medium} {
-      max-height: 12rem;
-    }
+
     ${large} {
-      width: 45%;
       max-height: 16rem;
-      margin-right: calc(2rem + 2vw);
+    }
+  }
+
+  .rows {
+    ${medium} {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+  }
+`
+
+export const ContentWrap = styled.div``
+
+export const CampTitle = styled.div`
+  h2 {
+    font-size: calc(1.25rem + 1vw);
+  }
+  .rating-stats {
+    margin-top: 0.25rem;
+    span {
+      margin-right: auto;
+    }
+    strong {
+      margin-left: 1rem;
+      flex-grow: 2;
     }
   }
 `
 
 export const IntroText = styled.div`
   margin-top: 1.25rem;
-
-  .title-box {
-    h2 {
-      font-size: 1.5rem;
-    }
-    .rating-stats {
-      margin-top: 0.25rem;
-      span {
-        margin-right: auto;
-      }
-      strong {
-        margin-left: 1rem;
-        flex-grow: 2;
-      }
+  &.desc {
+    ${medium} {
+      width: 56.5%;
+      padding-bottom: 4rem;
+      align-self: flex-end;
     }
   }
 
@@ -63,28 +77,6 @@ export const IntroText = styled.div`
     &.is-closed {
       color: var(--bs-red);
       font-weight: var(--font-bolder);
-    }
-  }
-`
-
-export const CampOperations = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 1rem 0;
-  button {
-    margin-right: 1rem;
-    background-color: var(--bs-blue);
-    &.btn--review {
-      background-color: var(--bs-secondary);
-    }
-    &.btn--mark {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      background-color: var(--bs-green);
-      svg {
-        margin-left: 0.25rem;
-      }
     }
   }
 `
