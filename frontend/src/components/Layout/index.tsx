@@ -1,9 +1,11 @@
 import * as React from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { Header, Nav, NavLink, Main, Footer } from './styles'
+import { Link, useLocation, NavLink } from 'react-router-dom'
+import { AiOutlineMenu } from 'react-icons/ai'
 import { useLogout } from 'hooks/auth.hooks'
 import { useAuth } from 'context/auth.context'
 import { Github } from 'components/Icons'
+import { Content } from 'components/lib'
+import { Header, Nav, Main, Footer } from './styles'
 
 export const AppHeader: React.FC = () => {
   const mutation = useLogout()
@@ -11,26 +13,32 @@ export const AppHeader: React.FC = () => {
   const { user } = useAuth()
   const { pathname } = useLocation()
   return (
-    <Header as="header" className={pathname === '/' ? 'at-home' : 'at-page'}>
-      <Link to="/" className="brand">
-        YelpCamp
-      </Link>
-      <Nav>
-        <NavLink to="/campgrounds" exact>
-          Campgrounds
-        </NavLink>
-        {user ? (
-          <>
-            <Link to="/campgrounds/create">New Campground</Link>
-            <button onClick={handleClick}>Logout</button>
-          </>
-        ) : (
-          <>
-            <NavLink to="/login">Login</NavLink>
-            <NavLink to="/register">register</NavLink>
-          </>
-        )}
-      </Nav>
+    <Header className={pathname === '/' ? 'at-home' : 'at-page'}>
+      <Content className="header-content">
+        <Link to="/" className="brand">
+          YelpCamp
+        </Link>
+        <Nav>
+          <NavLink to="/campgrounds" exact>
+            Campgrounds
+          </NavLink>
+          {user ? (
+            <>
+              <NavLink to="/campgrounds/create">New Campground</NavLink>
+              <button onClick={handleClick}>Logout</button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/login" exact>
+                Login
+              </NavLink>
+              <NavLink to="/register" exact>
+                register
+              </NavLink>
+            </>
+          )}
+        </Nav>
+      </Content>
     </Header>
   )
 }

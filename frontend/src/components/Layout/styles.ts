@@ -1,33 +1,24 @@
-import { Content } from 'components/lib'
-import { NavLink as Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { medium, large } from 'styles/media-queries'
 
-export const Header = styled(Content)`
-  max-width: 100%;
+export const Header = styled.header`
   position: relative;
+  padding: 1.25rem 0;
   z-index: 2000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 16px;
   color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(52, 58, 64, 0.5);
-  ${medium} {
-    width: 100%;
-    padding: 15px 30px;
-  }
-  ${large} {
-    padding: 20px 35px;
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   .brand {
-    font-size: 20px;
-    color: var(--bs-white);
+    font-size: 1.25rem;
+    font-weight: var(--font-bolder);
     padding-top: 0.3125rem;
     padding-bottom: 0.3125rem;
     font-size: 1.25rem;
     ${large} {
-      font-size: 24px;
+      font-size: 1.5rem;
     }
   }
   &.at-page {
@@ -43,31 +34,23 @@ export const Header = styled(Content)`
 `
 
 export const Nav = styled.nav`
-  margin-top: 1px;
-`
-
-export const NavLink = styled(Link).attrs(() => ({
-  activeClassName: 'active',
-  className: 'nav-link',
-}))`
-  font-size: 14px;
-  display: inline-block;
-  margin-left: 12px;
-  border-bottom: 0.25rem solid transparent;
-  font-weight: var(--font-bold);
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
-  text-transform: capitalize;
-  &.active {
-    color: var(--bs-white);
-    border-bottom-color: white;
-  }
-  &:hover {
-    color: white;
-  }
-  ${large} {
-    padding-left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  a {
+    margin-left: 1rem;
+    font-size: 1rem;
+    border-bottom: 0.125rem solid transparent;
+    font-weight: var(--font-bold);
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    text-transform: capitalize;
+    &.active,
+    :hover {
+      color: var(--bs-white);
+      border-bottom-color: white;
+    }
   }
 `
 
