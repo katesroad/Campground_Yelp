@@ -48,6 +48,9 @@ export const ContentWrap = styled.div`
 `
 
 export const CampTitle = styled.div`
+  ${medium} {
+    width: 100%;
+  }
   h2 {
     font-size: calc(1.25rem + 1vw);
     ${large} {
@@ -77,10 +80,6 @@ export const CampTitle = styled.div`
         display: flex;
       }
     }
-  }
-
-  ${medium} {
-    width: 100%;
   }
 `
 

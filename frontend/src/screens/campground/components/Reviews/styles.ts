@@ -1,4 +1,3 @@
-import { Card } from 'components/lib'
 import styled from 'styled-components/macro'
 import { medium, large, xlarge } from 'styles/media-queries'
 
@@ -86,7 +85,7 @@ export const ReviewRating = styled.div`
     align-items: center;
     justify-content: space-between;
   }
-  .date {
+  .review-date {
     font-weight: var(--font-bolder);
     margin-left: 1rem;
     color: rgba(0, 0, 0, 0.65);
