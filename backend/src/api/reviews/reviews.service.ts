@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Review } from 'src/entities/review.entity';
 import { Repository } from 'typeorm';
@@ -20,13 +24,18 @@ export class ReviewsService {
     id: string,
     updateReviewDto: UpdateReviewDto,
   ) {
-    const review = await this.reviewRepo.findOne({ id, author: user });
-    if (!review) {
-      throw new UnauthorizedException(`Current user dosen't own review:${id}`);
+    const isUpdated = await this.reviewRepo
+      .update({ id, author: user }, updateReviewDto)
+      .then((res) => !!res.affected);
+    if (isUpdated) {
+      return this.reviewRepo.findOne({
+        where: { id },
+        select: ['author', 'id', 'title', 'body', 'updated_at', 'created_at'],
+      });
     }
-    return this.reviewRepo
-      .update(id, updateReviewDto)
-      .then(() => this.reviewRepo.findOne(id));
+    throw new BadRequestException(
+      `Either review is not existed or current user is not the review creator.`,
+    );
   }
 
   async deleteReview(user: string, id: string) {
@@ -34,6 +43,6 @@ export class ReviewsService {
     if (!review) {
       throw new UnauthorizedException(`Current user dosen't own review:${id}`);
     }
-    return this.reviewRepo.delete(id).then(() => null);
+    return this.reviewRepo.delete(id).then((res) => !!res.affected);
   }
 }

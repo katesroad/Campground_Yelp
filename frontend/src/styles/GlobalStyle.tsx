@@ -93,10 +93,18 @@ const GlobalStyles = createGlobalStyle`
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x:hidden;
   }
 
   html, body {
     height: 100%;
   }
+  .truncate-overflow {
+  --max-lines: 3;
+  position: relative;
+  max-height: calc(var(--lh) * var(--max-lines));
+  overflow: hidden;
+  padding-right: 1rem; /* space for ellipsis */
+}
 `
 export default GlobalStyles

@@ -1,5 +1,6 @@
 import { Button } from 'components/lib'
 import * as React from 'react'
+import { BsArrowRight } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import { CampgroundIntro, CampgroundWrap } from './styles'
 import { ICampgroundItem } from 'types'
@@ -19,14 +20,16 @@ export const Campground: React.FC<ICampgroundItem> = ({
       <CampgroundIntro>
         <div>
           <h4 className="camp-title">{title}</h4>
-          <p className="camp-desc">{description}</p>
           <p className="camp-location">
             <span>{location}</span>
-            <strong>$ {price} / night</strong>
+            <span>{price}$ / night</span>
           </p>
+          <p className="camp-desc">{description}</p>
         </div>
         <Link to={`/campgrounds/${id}`} className="camp-link">
-          <Button>View campground</Button>
+          <Button>
+            Read <BsArrowRight />
+          </Button>
         </Link>
       </CampgroundIntro>
     </CampgroundWrap>

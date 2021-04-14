@@ -23,14 +23,6 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))`
       height: 14rem;
     }
   }
-
-  .rows {
-    ${medium} {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-    }
-  }
 `
 
 export const ContentWrap = styled.div`
@@ -42,12 +34,15 @@ export const ContentWrap = styled.div`
     align-items: baseline;
   }
   ${large} {
-    width: 30.5rem;
     display: block;
+    width: 30.5rem; // the width is dentical with review list width
   }
 `
 
 export const CampTitle = styled.div`
+  ${medium} {
+    width: 100%;
+  }
   h2 {
     font-size: calc(1.25rem + 1vw);
     ${large} {
@@ -57,7 +52,10 @@ export const CampTitle = styled.div`
   .rating-stats {
     display: flex;
     justify-content: space-between;
-    margin-top: 0.25rem;
+    margin-top: calc(0.25rem + 1vw);
+    ${large} {
+      margin-top: 1rem;
+    }
     p {
       display: flex;
       display: flex;
@@ -77,10 +75,6 @@ export const CampTitle = styled.div`
         display: flex;
       }
     }
-  }
-
-  ${medium} {
-    width: 100%;
   }
 `
 

@@ -1,22 +1,23 @@
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 import { IReview } from 'types'
 import client from 'utils/http'
-import { getCampsReviews } from './campgrounds.hooks'
 
 type ReviewOpertion = 'DELETE' | 'CREATE' | 'UPDATE'
 
-function useGetConf(operation: ReviewOpertion, data?: any) {
+/**
+ * Get the configuration for review hooks
+ * @param{ReviewOperation} the operation type
+ * @param{string} the campground of the review
+ */
+function useGetConf(operation: ReviewOpertion, reviewowner?: string) {
   const queryClient = useQueryClient()
   return {
     staleTime: 30 * 60 * 1000,
     cacheTime: 30 * 60 * 1000,
     onSuccess: (res: any) => {
-      // refresh the campground reviews
-      const review = operation === 'DELETE' ? data : res
-      const params = { limit: 5, offset: 5 }
-      queryClient.fetchQuery(['reviews', review.camground], () =>
-        getCampsReviews(review.campground)
-      )
+      const campId = operation === 'CREATE' ? res.campground : reviewowner
+      console.log(operation, reviewowner, 'inscus')
+      queryClient.invalidateQueries(['reviews', campId])
     },
   }
 }
@@ -34,10 +35,13 @@ export function useCreateReview(): UseMutationResult<IReview> {
 export function deleteReview(id: string): Promise<unknown> {
   return client({ method: 'DELETE', endpoint: `reviews/${id}` })
 }
-export function useDeleteReview(data: any): UseMutationResult<unknown> {
-  const conf = useGetConf('DELETE', data)
+
+export function useDeleteReview(
+  reviewowner: string
+): UseMutationResult<unknown> {
+  const conf = useGetConf('DELETE', reviewowner)
   return useMutation(
-    ['reviews', data.campground],
+    ['reviews', reviewowner],
     (id: any) => deleteReview(id),
     conf
   )
@@ -51,10 +55,12 @@ export function updateReview(data: any): Promise<IReview> {
     data: update,
   }).then((res) => res as IReview)
 }
-export function useUpdateReview(data: any): UseMutationResult<IReview> {
-  const conf = useGetConf('DELETE', data)
+export function useUpdateReview(
+  reviewowner: string
+): UseMutationResult<IReview> {
+  const conf = useGetConf('UPDATE', reviewowner)
   return useMutation(
-    ['reviews', data.campground],
+    ['reviews', reviewowner],
     (data) => updateReview(data),
     conf
   )

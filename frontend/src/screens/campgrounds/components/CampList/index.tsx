@@ -1,22 +1,33 @@
+import { Card } from '@material-ui/core'
+import { Spinner } from 'components/lib'
 import * as React from 'react'
-import { ICampgroundItem } from 'types'
+import { UseQueryResult } from 'react-query'
+import { ICampgroundItem, IPagedRes } from 'types'
 import { Campground } from './Campground'
 import { Wrapper } from './styles'
 
 type CampgroundListProps = {
-  children: React.ReactNode
-  camps?: ICampgroundItem[]
+  query: UseQueryResult<IPagedRes<ICampgroundItem>>
 }
 
 export { Campground } from './Campground'
 
-export default function Campgrounds({ children, camps }: CampgroundListProps) {
+export default function Campgrounds({ query }: CampgroundListProps) {
+  const { status, data } = query
+  if (['idle', 'loading'].includes(status)) return <Spinner />
+  if (status === 'error') return <Card>Failed to load campgrounds</Card>
+  if (data?.count == 0) {
+    return (
+      <Card>
+        <p>No campgrounds</p>
+      </Card>
+    )
+  }
   return (
     <Wrapper>
-      <h2 className="title">Campgrounds</h2>
-      <div>{children}</div>
+      {['loading', 'idle'].includes(status) ? <Spinner /> : null}
       <ul>
-        {camps?.map((camp) => (
+        {data?.data?.map((camp) => (
           <li key={camp.id}>
             <Campground {...camp} />
           </li>
