@@ -1,4 +1,4 @@
-import { Button } from 'components/lib'
+import { Button, Spinner } from 'components/lib'
 import { useAuth } from 'context/auth.context'
 import { useDeleteReview } from 'hooks/reviews.hooks'
 import * as React from 'react'
@@ -26,7 +26,7 @@ const ReviewOperation: React.FC<IReview> = ({
         <Button className="btn btn--update">update</Button>
       </WriteReviewModal>
       <Button className="btn--delete" onClick={handleDelete}>
-        delete
+        delete {deleteMutation.status === 'loading' ? <Spinner /> : null}
       </Button>
     </p>
   ) : null
