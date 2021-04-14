@@ -8,12 +8,12 @@ import WriteReviewModal from 'components/WriteReview'
 import { ReviewWrap, ReviewContent, ReviewRating } from './styles'
 
 const ReviewOperation: React.FC<IReview> = (props) => {
-  const { rating, id, author, ...data } = props
-  const deleteMutation = useDeleteReview({ id })
+  const { rating, id, author, body, title, campground } = props
+  const deleteMutation = useDeleteReview(campground)
   const handleDelete = () => {
     deleteMutation.mutate(id)
   }
-  const review = { id, rating: +rating, ...data }
+  const review = { id, rating: +rating, title, body, campground }
   const { user } = useAuth()
   return user?.id === author?.id ? (
     <p className="operation">

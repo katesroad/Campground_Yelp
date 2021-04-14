@@ -36,7 +36,7 @@ type ReviewFormProps = {
 const ReviewForm: React.FC<ReviewFormProps> = ({ review, type }) => {
   const [, setIsOpen] = useModal()
   const { status, mutate } = review.id
-    ? useUpdateReview(review)
+    ? useUpdateReview(review.campground)
     : useCreateReview()
   const handleSubmit = (values: IReviewData) => mutate(values)
   const initialValues = review?.id ? review : getIntialValues(review.campground)
