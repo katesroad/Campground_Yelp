@@ -7,8 +7,9 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))`
   }
   .imgs-swiper {
     overflow: hidden;
+    flex-grow: 1;
     ${large} {
-      width: 60%;
+      margin-right: 4rem;
     }
   }
 
@@ -19,7 +20,7 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))`
     background-position: center;
 
     ${large} {
-      max-height: 16rem;
+      height: 14rem;
     }
   }
 
@@ -40,17 +41,29 @@ export const ContentWrap = styled.div`
     justify-content: space-between;
     align-items: baseline;
   }
+  ${large} {
+    width: 30.5rem;
+    display: block;
+  }
 `
 
 export const CampTitle = styled.div`
   h2 {
     font-size: calc(1.25rem + 1vw);
+    ${large} {
+      font-size: 2rem;
+    }
   }
   .rating-stats {
     display: flex;
     justify-content: space-between;
-
     margin-top: 0.25rem;
+    p {
+      display: flex;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
     span {
       margin-right: auto;
     }
@@ -73,15 +86,24 @@ export const CampTitle = styled.div`
 
 export const IntroText = styled.div`
   margin-top: 1.25rem;
+  ${large} {
+    width: 100%;
+  }
   &.desc {
     ${medium} {
       width: 56.5%;
       align-self: flex-end;
     }
+    ${large} {
+      width: 100%;
+    }
   }
 
   .info-box {
     margin-bottom: 1.25rem;
+    ${large} {
+      margin-bottom: 0;
+    }
   }
 
   p {

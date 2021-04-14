@@ -35,11 +35,7 @@ export default function Reviews({ campground }: ReviewsProps) {
     <Wrapper>
       <h2 className="list-title">Customer Reviews</h2>
       <ReviewsWrap>
-        {status === 'success' ? (
-          <div>
-            <Summary {...summary} />
-          </div>
-        ) : null}
+        {status === 'success' ? <Summary {...summary} /> : null}
         <div className="review-list">{content}</div>
       </ReviewsWrap>
     </Wrapper>

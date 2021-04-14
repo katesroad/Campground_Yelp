@@ -143,9 +143,9 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'camp-reviews' }))`
 export const ReviewsWrap = styled.div`
   ${medium} {
     display: flex;
+    justify-content: space-between;
   }
   ${xlarge} {
-    jusiticy-content: space-between;
     .write-review {
       dispaly: block;
     }
@@ -157,18 +157,20 @@ export const ReviewsWrap = styled.div`
   }
 
   .review-list {
-    margin-top: calc(1.25rem _+ 2vw);
+    margin-top: calc(1.25rem + 2vw);
     ${medium} {
       flex-grow: 1;
       margin-top: 0;
-      width: 56.5%;
+      max-width: 56.5%;
+    }
+    ${large} {
+      max-width: 30.5rem;
     }
   }
 
   .review-summary {
     ${medium} {
       min-width: 14.75rem;
-      margin-right: calc(2rem + 4vw);
     }
     ${large} {
       min-width: 18rem;
