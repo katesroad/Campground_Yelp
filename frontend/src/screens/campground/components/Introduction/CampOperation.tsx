@@ -13,6 +13,7 @@ type CampOperationsProps = {
 const CampOperations: React.FC<CampOperationsProps> = ({ id, title }) => {
   return (
     <div
+      className="operation"
       css={`
         display: flex;
         align-items: center;

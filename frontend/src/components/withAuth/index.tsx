@@ -38,7 +38,7 @@ export function withAuth(
         <AlertDialog leastDestructiveRef={cancelRef} onDismiss={close}>
           <AlertDialogLabel>{options.content}</AlertDialogLabel>
           <p className="alert-buttons">
-            <Button onClick={handleClickYes} className="btn btn--login">
+            <Button onClick={handleClickYes} className="btn btn--confirm">
               Login
             </Button>
             <Button ref={cancelRef} onClick={close} className="btn--cancel">

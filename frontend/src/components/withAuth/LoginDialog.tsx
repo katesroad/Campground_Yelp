@@ -25,7 +25,7 @@ export default function LoginDialog() {
         <p className="switch-type">
           {type === 'login' ? (
             <>
-              Don't have an account?&nbsp;
+              Don't have an account ?&nbsp;
               <button onClick={() => setType('register')}>Register</button>
             </>
           ) : (

@@ -46,7 +46,6 @@ export const Bar = styled.div`
 /*----------------------------Styling for review item-----------------------------*/
 export const ReviewWrap = styled.div`
   padding: calc(1rem + 1vw);
-  margin-bottom: 1rem;
   background-color: var(--bs-white);
   ${medium} {
     border: none;
@@ -68,18 +67,10 @@ export const ReviewWrap = styled.div`
     }
   }
   .operation {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
     button {
       margin-left: 1rem;
-      ${xlarge} {
-        padding: 0.25rem 0.5rem;
-      }
-      &.btn--update {
-        background-color: var(--bs-green);
-      }
-      &.btn--delete {
-        background-color: var(--bs-red);
-      }
     }
   }
 `
@@ -103,7 +94,7 @@ export const ReviewRating = styled.div`
   .operation {
     display: none;
     ${medium} {
-      display: block;
+      display: flex;
     }
   }
 `

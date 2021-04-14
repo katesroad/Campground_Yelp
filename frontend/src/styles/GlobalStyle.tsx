@@ -43,7 +43,6 @@ const GlobalStyles = createGlobalStyle`
     font-size: 1rem;
     font-weight: var(--font-normal);
     color: #212529;
-    background-color: #fff;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }

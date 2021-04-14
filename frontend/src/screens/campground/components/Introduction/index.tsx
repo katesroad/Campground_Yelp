@@ -34,10 +34,13 @@ export default function Introduction({ campground }: IntroductionProps) {
       <ContentWrap>
         <CampTitle>
           <h2>{camp?.title}</h2>
-          <p className="rating-stats">
-            <Rating value={4.5} precision={0.5} name={campground} disabled />
-            <strong>12 reviews</strong>
-          </p>
+          <div className="rating-stats">
+            <p>
+              <Rating value={4.5} precision={0.5} name={campground} disabled />
+              <strong>12 reviews</strong>
+            </p>
+            <Campoperatinon title={camp?.title as string} id={camp?.id} />
+          </div>
         </CampTitle>
         <IntroText>
           <div className="info-box">
@@ -55,7 +58,7 @@ export default function Introduction({ campground }: IntroductionProps) {
           </div>
           <Campoperatinon title={camp?.title as string} id={camp?.id} />
         </IntroText>
-        <IntroText>
+        <IntroText className="desc">
           <p>{camp?.description}</p>
         </IntroText>
       </ContentWrap>

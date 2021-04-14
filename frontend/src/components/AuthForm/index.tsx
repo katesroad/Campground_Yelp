@@ -82,7 +82,9 @@ export default function AuthForm({
                 onClearMsg={getClearErrorHandler(props)}
               />
               <p>
-                <Button type="submit">{type}</Button>
+                <Button type="submit" className="btn--submit">
+                  {type}
+                </Button>
               </p>
               {showPicture ? (
                 <p className="switch-type">
