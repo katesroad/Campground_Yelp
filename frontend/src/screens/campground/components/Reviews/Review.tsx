@@ -7,18 +7,13 @@ import { IReview } from 'types'
 import WriteReviewModal from 'components/WriteReview'
 import { ReviewWrap, ReviewContent, ReviewRating } from './styles'
 
-const ReviewOperation: React.FC<IReview> = ({
-  id,
-  title,
-  rating,
-  body,
-  author,
-}) => {
+const ReviewOperation: React.FC<IReview> = (props) => {
+  const { rating, id, author, ...data } = props
   const deleteMutation = useDeleteReview({ id })
   const handleDelete = () => {
     deleteMutation.mutate(id)
   }
-  const review = { id, rating: +rating, title, body }
+  const review = { id, rating: +rating, ...data }
   const { user } = useAuth()
   return user?.id === author?.id ? (
     <p className="operation">
@@ -46,11 +41,11 @@ const Review: React.FC<IReview> = ({ ...review }) => {
         <ReviewOperation {...review} />
       </ReviewRating>
       <ReviewContent>
-        <p>
+        <div className="author">
           <img src="https://avatars.githubusercontent.com/u/3837437?s=400&u=41dbd69ae36d8fe8a6f8834d160b495d1b640d7b&v=4" />
           <strong>{review.author.username || review.author.email}</strong>
-        </p>
-        <div className="review-content">
+        </div>
+        <div className="content">
           <p>{review.body}</p>
           <ReviewOperation {...review} />
         </div>

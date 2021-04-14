@@ -23,14 +23,6 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))`
       height: 14rem;
     }
   }
-
-  .rows {
-    ${medium} {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-    }
-  }
 `
 
 export const ContentWrap = styled.div`
@@ -42,8 +34,8 @@ export const ContentWrap = styled.div`
     align-items: baseline;
   }
   ${large} {
-    width: 30.5rem;
     display: block;
+    width: 30.5rem; // the width is dentical with review list width
   }
 `
 
