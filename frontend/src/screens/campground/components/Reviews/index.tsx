@@ -11,11 +11,12 @@ type ReviewsProps = {
 }
 export default function Reviews({ campground }: ReviewsProps) {
   const { status, data, error } = useGetCampReviews(campground)
-  let content: React.ReactNode = (
+  const noReviews = (
     <Card className="no-reviews">
       <p>No reviews.</p>
     </Card>
   )
+  let content: React.ReactNode = noReviews
 
   if (['loading', 'idle'].includes(status)) {
     content = <Spinner />
@@ -25,24 +26,16 @@ export default function Reviews({ campground }: ReviewsProps) {
   }
 
   if (status === 'success') {
-    content = data?.count ? (
-      data?.data?.map((review) => <Review {...review} key={review.id} />)
-    ) : (
-      <Card className="no-reviews">
-        <p>No reviews.</p>
-      </Card>
-    )
+    content = data?.count
+      ? data?.data?.map((review) => <Review {...review} key={review.id} />)
+      : noReviews
   }
 
   return (
     <Wrapper>
       <h2 className="list-title">Customer Reviews</h2>
       <ReviewsWrap>
-        {status === 'success' ? (
-          <div>
-            <Summary {...summary} />
-          </div>
-        ) : null}
+        {status === 'success' ? <Summary {...summary} /> : null}
         <div className="review-list">{content}</div>
       </ReviewsWrap>
     </Wrapper>

@@ -49,7 +49,7 @@ export default function IndexScreen() {
             font-size: 1.25rem;
             line-height: var(--p-line-height);
           }
-          button {
+          a {
             padding: 0.5rem 1rem;
             border-radius: 0.3rem;
             font-size: 1.25rem;
@@ -65,9 +65,7 @@ export default function IndexScreen() {
           Jump right in and explore our many campgrounds. <br />
           Feel free to share some of your own and comment on others!
         </p>
-        <Link to="/campgrounds">
-          <Button>view all campground</Button>
-        </Link>
+        <Link to="/campgrounds">view all campground</Link>
       </Content>
     </main>
   )
