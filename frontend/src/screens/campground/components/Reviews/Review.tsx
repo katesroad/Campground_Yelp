@@ -33,7 +33,7 @@ const Review: React.FC<IReview> = ({ ...review }) => {
       <h4 className="review-title">{review.title}</h4>
       <ReviewRating>
         <p>
-          <Rating value={+review.rating} disabled name={review.id} />
+          <Rating value={+review.rating} name={review.id} precision={0.5} />
           <span className="review-date">
             {new Date(review.created_at).toLocaleDateString()}
           </span>
