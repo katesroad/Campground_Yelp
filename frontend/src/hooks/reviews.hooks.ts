@@ -1,7 +1,6 @@
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 import { IReview } from 'types'
 import client from 'utils/http'
-import { getCampsReviews } from './campgrounds.hooks'
 
 type ReviewOpertion = 'DELETE' | 'CREATE' | 'UPDATE'
 
@@ -11,12 +10,9 @@ function useGetConf(operation: ReviewOpertion, data?: any) {
     staleTime: 30 * 60 * 1000,
     cacheTime: 30 * 60 * 1000,
     onSuccess: (res: any) => {
-      // refresh the campground reviews
-      const review = operation === 'DELETE' ? data : res
-      const params = { limit: 5, offset: 5 }
-      queryClient.fetchQuery(['reviews', review.camground], () =>
-        getCampsReviews(review.campground)
-      )
+      if (operation === 'CREATE') {
+        queryClient.invalidateQueries(['reviews', res.campground])
+      }
     },
   }
 }
@@ -52,7 +48,7 @@ export function updateReview(data: any): Promise<IReview> {
   }).then((res) => res as IReview)
 }
 export function useUpdateReview(data: any): UseMutationResult<IReview> {
-  const conf = useGetConf('DELETE', data)
+  const conf = useGetConf('UPDATE', data)
   return useMutation(
     ['reviews', data.campground],
     (data) => updateReview(data),
