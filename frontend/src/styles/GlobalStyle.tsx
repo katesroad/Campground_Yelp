@@ -98,5 +98,12 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     height: 100%;
   }
+  .truncate-overflow {
+  --max-lines: 3;
+  position: relative;
+  max-height: calc(var(--lh) * var(--max-lines));
+  overflow: hidden;
+  padding-right: 1rem; /* space for ellipsis */
+}
 `
 export default GlobalStyles

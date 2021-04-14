@@ -52,7 +52,10 @@ export const CampTitle = styled.div`
   .rating-stats {
     display: flex;
     justify-content: space-between;
-    margin-top: 0.25rem;
+    margin-top: calc(0.25rem + 1vw);
+    ${large} {
+      margin-top: 1rem;
+    }
     p {
       display: flex;
       display: flex;

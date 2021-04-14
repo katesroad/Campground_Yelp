@@ -13,7 +13,6 @@ export { Campground } from './Campground'
 export default function Campgrounds({ children, camps }: CampgroundListProps) {
   return (
     <Wrapper>
-      <h2 className="title">Campgrounds</h2>
       <div>{children}</div>
       <ul>
         {camps?.map((camp) => (

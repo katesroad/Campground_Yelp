@@ -1,59 +1,70 @@
 import { Card, Content } from 'components/lib'
 import styled from 'styled-components'
-import { medium, xlarge } from 'styles/media-queries'
+import { medium, xlarge, large } from 'styles/media-queries'
 
+/*--------------------------styling for campgroound item------------------- */
 export const CampgroundWrap = styled(Card).attrs(() => ({
   className: 'campground-item',
 }))`
   overflow: hidden;
+  ${medium} {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none;
+  }
   .swiper-slide {
-    min-height: calc(6.8rem + 10vw);
+    height: calc(6.8rem + 10vw);
     max-height: 12rem;
     width: 100% !important;
     background-size: cover;
     background-position: center;
   }
-  ${medium} {
-    display: flex;
-    flex-direction: row;
-    .imgs-swiper {
+
+  .imgs-swiper {
+    ${medium} {
       width: 50%;
       max-width: 40rem;
     }
+  }
+  ${large} {
+    width: 64%;
   }
 `
 
 export const CampgroundIntro = styled.div`
   padding: calc(1rem + 1vw) 1rem;
+  p {
+    margin: 0.75rem 0;
+    line-height: 1.5;
+  }
   .camp-title {
     font-size: 1.254rem;
-    margin-bottom: 1rem;
-  }
-  .camp-desc {
-    margin-bottom: 1rem;
-    line-height: 1.5;
   }
   .camp-location {
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 0.875rem;
-    color: rgba(0, 0, 0, 0.7);
+    color: #343a40;
   }
   .camp-link {
     display: block;
-    margin-top: calc(1rem + 1vw);
     text-align: center;
     button {
-      padding: 0.75rem;
       background-color: var(--bs-blue);
+    }
+    svg {
+      margin-left: 0.5rem;
     }
   }
   ${medium} {
-    padding: 2rem;
+    padding: 1rem 2rem;
+    width: 60%;
   }
 `
 
+/*--------------------------styling for campgroound list------------------- */
 export const Wrapper = styled(Content)`
   .title {
     padding-bottom: calc(1rem + 1vw);
@@ -67,6 +78,6 @@ export const Wrapper = styled(Content)`
     }
   }
   .campground-item {
-    margin-bottom: 2rem;
+    margin-bottom: calc(1rem + 1vw);
   }
 `
