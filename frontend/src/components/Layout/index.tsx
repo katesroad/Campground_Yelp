@@ -19,7 +19,7 @@ export const AppHeader: React.FC = () => {
 
   React.useEffect(() => {
     setMenuIsPen(false)
-  }, [pathname])
+  }, [pathname, user])
 
   return (
     <Header className={pathname === '/' ? 'at-home' : 'at-page'}>
