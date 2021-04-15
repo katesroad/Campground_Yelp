@@ -35,22 +35,48 @@ export const CampgroundWrap = styled(Card).attrs(() => ({
 export const CampgroundIntro = styled.div`
   padding: calc(1rem + 1vw) 1rem;
   p {
-    margin: 0.75rem 0;
     line-height: 1.5;
   }
   .camp-title {
     font-size: 1.254rem;
   }
-  .camp-location {
+  .camp-features {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0.75rem 0 1rem 0;
     font-size: 0.875rem;
     color: #343a40;
+    .label {
+      display: flex;
+      align-items: center;
+      margin-right: 0.25rem;
+      max-width: 50%;
+    }
+    .value {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      flex-grow: 1;
+      max-width: 80%;
+    }
+    p,
+    a {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      justify-content: flex-start;
+      color: #343a40;
+    }
+    a:hover {
+      text-decoration: underline;
+      color: var(--bs-blue);
+    }
   }
   .camp-link {
     display: block;
-    text-align: center;
+    margin-top: 1rem;
     button {
       background-color: var(--bs-blue);
     }
