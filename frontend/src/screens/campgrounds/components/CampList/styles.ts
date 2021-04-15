@@ -13,6 +13,7 @@ export const CampgroundWrap = styled(Card).attrs(() => ({
     align-items: center;
     border: none;
   }
+
   .swiper-slide {
     height: calc(6.8rem + 10vw);
     max-height: 12rem;
@@ -22,20 +23,27 @@ export const CampgroundWrap = styled(Card).attrs(() => ({
   }
 
   .imgs-swiper {
+    flex-grow: 1;
     ${medium} {
       width: 50%;
       max-width: 40rem;
     }
   }
-  ${large} {
-    width: 64%;
-  }
 `
 
 export const CampgroundIntro = styled.div`
   padding: calc(1rem + 1vw) 1rem;
+  ${medium} {
+    padding: 1rem 2rem;
+    max-width: 60%;
+  }
+
   p {
     line-height: 1.5;
+    font-size: 0.9375rem;
+    ${medium} {
+      font-size: 0.8125rem;
+    }
   }
   .camp-title {
     font-size: 1.254rem;
@@ -75,7 +83,7 @@ export const CampgroundIntro = styled.div`
     }
   }
   .camp-link {
-    display: block;
+    display: inline-block;
     margin-top: 1rem;
     button {
       background-color: var(--bs-blue);
@@ -83,10 +91,6 @@ export const CampgroundIntro = styled.div`
     svg {
       margin-left: 0.5rem;
     }
-  }
-  ${medium} {
-    padding: 1rem 2rem;
-    width: 60%;
   }
 `
 
