@@ -1,16 +1,10 @@
 import * as React from 'react'
-import { ICampgroundItem, IPagedRes } from 'types'
-import { UseQueryResult } from 'react-query'
 import mapboxgl from 'mapbox-gl'
 import { Wrapper } from './styles'
 
 mapboxgl.accessToken = process.env.REACT_APP_MAP_BOX_ACESS_TOKEN as string
 
-type CampsOnMapProps = {
-  query: UseQueryResult<IPagedRes<ICampgroundItem>>
-}
-
-const CampsOnMap: React.FC<CampsOnMapProps> = (props) => {
+const CampsOnMap: React.FC = () => {
   React.useEffect(() => {
     const map: any = new mapboxgl.Map({
       container: 'campsOnMap',

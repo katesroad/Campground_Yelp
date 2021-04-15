@@ -1,6 +1,6 @@
 import { Card, Content } from 'components/lib'
 import styled from 'styled-components'
-import { medium, xlarge, large } from 'styles/media-queries'
+import { medium, xlarge } from 'styles/media-queries'
 
 /*--------------------------styling for campgroound item------------------- */
 export const CampgroundWrap = styled(Card).attrs(() => ({
@@ -15,7 +15,7 @@ export const CampgroundWrap = styled(Card).attrs(() => ({
   }
 
   .swiper-slide {
-    height: calc(6.8rem + 10vw);
+    height: calc(6.8rem + 10vw) !important;
     max-height: 12rem;
     width: 100% !important;
     background-size: cover;
