@@ -1,30 +1,13 @@
 import * as React from 'react'
 import { Formik, Form } from 'formik'
 import { Link } from 'react-router-dom'
+import FormError from 'components/FormError'
 import { initialValues, AuthSchema } from './auth.helper'
 import { Wrapper } from './styles'
 import { UseMutationResult } from 'react-query'
 import { IUser } from 'types'
 import { TextField } from 'components/FormField/TextField'
 import { Button } from 'components/lib'
-
-type AuthErrorProps = {
-  isSubmitting: boolean
-  onClearMsg: () => void
-  errMsg: string
-}
-const AuthError = ({ isSubmitting, errMsg, onClearMsg }: AuthErrorProps) => {
-  React.useEffect(() => {
-    if (errMsg) {
-      const t1 = setTimeout(() => {
-        clearTimeout(t1)
-        onClearMsg()
-      }, 5000)
-    }
-  }, [errMsg, onClearMsg])
-  if (!isSubmitting) return null
-  return <p>{errMsg.toString()}</p>
-}
 
 type AuthFormProps = {
   mutation: UseMutationResult<IUser | null>
@@ -76,10 +59,10 @@ export default function AuthForm({
                 placeholder="password"
                 type="password"
               />
-              <AuthError
+              <FormError
                 errMsg={errMsg}
                 isSubmitting={props.isSubmitting}
-                onClearMsg={getClearErrorHandler(props)}
+                clearMsg={getClearErrorHandler(props)}
               />
               <p>
                 <Button type="submit" className="btn--submit">

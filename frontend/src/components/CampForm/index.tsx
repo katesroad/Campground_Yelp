@@ -1,5 +1,6 @@
 import { Textarea } from 'components/FormField'
 import { TextField } from 'components/FormField/TextField'
+import FormError from 'components/FormError'
 import { Button, Error, Spinner } from 'components/lib'
 import { Form, Formik, ErrorMessage } from 'formik'
 import * as React from 'react'
@@ -29,28 +30,6 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ status, type }) => {
   })
 }
 
-type ErrorProps = {
-  isSubmitting: boolean
-  onClearMsg: () => void
-  errMsg: string
-}
-const FormError = ({ isSubmitting, errMsg, onClearMsg }: ErrorProps) => {
-  React.useEffect(() => {
-    if (errMsg) {
-      const t1 = setTimeout(() => {
-        clearTimeout(t1)
-        onClearMsg()
-      }, 15000)
-    }
-  }, [errMsg, onClearMsg])
-  if (!isSubmitting) return null
-  return (
-    <Error className="error-msg">
-      <p>{errMsg.toString()}</p>
-    </Error>
-  )
-}
-
 type CampFormProps = {
   campground?: any
   type: 'add' | 'update'
@@ -62,10 +41,11 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
     setErrMsg('')
   }
 
-  const history = useHistory()
+  const initialValues = campground ? campground : getIntialValues()
   const m = type === 'update' ? useUpdateCampground() : useCreateCampground()
   const handleSubmit = (values: any) => m.mutate(values)
-  const initialValues = campground ? campground : getIntialValues()
+
+  const history = useHistory()
   React.useEffect(() => {
     if (m.status === 'success' && type === 'add') {
       history.push('/campgrounds')
@@ -74,6 +54,7 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
       setErrMsg((m.error as any).msg)
     }
   }, [m.status, m.error])
+
   return (
     <Formik
       initialValues={initialValues}
@@ -103,7 +84,7 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
               placeholder="campground price"
               label="price"
             />
-            {/* formik upload file example */}
+            {/* upload pictures */}
             <div className="form-file">
               <input
                 id="file"
@@ -129,7 +110,7 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
             <FormError
               errMsg={errMsg}
               isSubmitting={props.isSubmitting}
-              onClearMsg={getClearErrorHandler(props)}
+              clearMsg={getClearErrorHandler(props)}
             />
             <p>
               <SubmitButton status={m.status} type={type} />
