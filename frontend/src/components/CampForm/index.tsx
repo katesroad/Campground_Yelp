@@ -1,7 +1,8 @@
 import { Textarea } from 'components/FormField'
 import { TextField } from 'components/FormField/TextField'
+import FormError from 'components/FormError'
 import { Button, Error, Spinner } from 'components/lib'
-import { Form, Formik, ErrorMessage, Field } from 'formik'
+import { Form, Formik, ErrorMessage } from 'formik'
 import * as React from 'react'
 import { CampgroundSchema, getIntialValues } from './camp.helper'
 import { withAuth } from 'components/withAuth'
@@ -34,24 +35,35 @@ type CampFormProps = {
   type: 'add' | 'update'
 }
 const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
-  const history = useHistory()
+  const [errMsg, setErrMsg] = React.useState('')
+  const getClearErrorHandler = (props: any) => () => {
+    props.setSubmitting(false)
+    setErrMsg('')
+  }
+
+  const initialValues = campground ? campground : getIntialValues()
   const m = type === 'update' ? useUpdateCampground() : useCreateCampground()
   const handleSubmit = (values: any) => m.mutate(values)
-  const initialValues = campground ? campground : getIntialValues()
+
+  const history = useHistory()
   React.useEffect(() => {
     if (m.status === 'success' && type === 'add') {
       history.push('/campgrounds')
     }
-  }, [m.status])
+    if (m.status === 'error') {
+      setErrMsg((m.error as any).msg)
+    }
+  }, [m.status, m.error])
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={CampgroundSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, setFieldValue }) => (
+      {({ values, setFieldValue, ...props }) => (
         <Wrapper>
-          <Form>
+          <Form onFocus={getClearErrorHandler(props)}>
             <TextField
               name="title"
               placeholder="campground title"
@@ -72,10 +84,9 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
               placeholder="campground price"
               label="price"
             />
-            {/* formik upload file example */}
+            {/* upload pictures */}
             <div className="form-file">
               <input
-                id="file"
                 name="images"
                 type="file"
                 multiple
@@ -91,11 +102,16 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
                 <span className="file-text">Choose image(s)...</span>
                 <span className="file-button">Browse</span>
               </label>
-              <Error as="small">
+              <Error as="small" className="error-msg">
                 <ErrorMessage name="images" />
               </Error>
             </div>
-            <p>
+            <FormError
+              errMsg={errMsg}
+              isSubmitting={props.isSubmitting}
+              clearMsg={getClearErrorHandler(props)}
+            />
+            <p className="btn-box">
               <SubmitButton status={m.status} type={type} />
             </p>
           </Form>
