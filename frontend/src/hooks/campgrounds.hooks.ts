@@ -54,7 +54,22 @@ export function useGetCampground(
 
 // create campground by with given data
 export function createCampground(data: any) {
-  return client({ endpoint: 'campgrounds', data, method: 'POST' })
+  const camp = new FormData()
+  Object.keys(data).map((key) => {
+    if (key !== 'images') {
+      camp.set(key, data[key])
+    } else {
+      data['images'].map((file: File) => {
+        camp.append('images', file, file.name)
+      })
+    }
+  })
+
+  return client({
+    endpoint: 'campgrounds',
+    data: camp,
+    method: 'POST',
+  })
 }
 export function useCreateCampground(): UseMutationResult<any | null> {
   const queryClient = useQueryClient()

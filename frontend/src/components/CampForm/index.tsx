@@ -1,7 +1,7 @@
 import { Textarea } from 'components/FormField'
 import { TextField } from 'components/FormField/TextField'
 import { Button, Error, Spinner } from 'components/lib'
-import { Form, Formik, ErrorMessage, Field } from 'formik'
+import { Form, Formik, ErrorMessage } from 'formik'
 import * as React from 'react'
 import { CampgroundSchema, getIntialValues } from './camp.helper'
 import { withAuth } from 'components/withAuth'
@@ -29,11 +29,39 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ status, type }) => {
   })
 }
 
+type ErrorProps = {
+  isSubmitting: boolean
+  onClearMsg: () => void
+  errMsg: string
+}
+const FormError = ({ isSubmitting, errMsg, onClearMsg }: ErrorProps) => {
+  React.useEffect(() => {
+    if (errMsg) {
+      const t1 = setTimeout(() => {
+        clearTimeout(t1)
+        onClearMsg()
+      }, 15000)
+    }
+  }, [errMsg, onClearMsg])
+  if (!isSubmitting) return null
+  return (
+    <Error className="error-msg">
+      <p>{errMsg.toString()}</p>
+    </Error>
+  )
+}
+
 type CampFormProps = {
   campground?: any
   type: 'add' | 'update'
 }
 const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
+  const [errMsg, setErrMsg] = React.useState('')
+  const getClearErrorHandler = (props: any) => () => {
+    props.setSubmitting(false)
+    setErrMsg('')
+  }
+
   const history = useHistory()
   const m = type === 'update' ? useUpdateCampground() : useCreateCampground()
   const handleSubmit = (values: any) => m.mutate(values)
@@ -42,16 +70,19 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
     if (m.status === 'success' && type === 'add') {
       history.push('/campgrounds')
     }
-  }, [m.status])
+    if (m.status === 'error') {
+      setErrMsg((m.error as any).msg)
+    }
+  }, [m.status, m.error])
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={CampgroundSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, setFieldValue }) => (
+      {({ values, setFieldValue, ...props }) => (
         <Wrapper>
-          <Form>
+          <Form onFocus={getClearErrorHandler(props)}>
             <TextField
               name="title"
               placeholder="campground title"
@@ -95,6 +126,11 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
                 <ErrorMessage name="images" />
               </Error>
             </div>
+            <FormError
+              errMsg={errMsg}
+              isSubmitting={props.isSubmitting}
+              onClearMsg={getClearErrorHandler(props)}
+            />
             <p>
               <SubmitButton status={m.status} type={type} />
             </p>

@@ -9,16 +9,15 @@ export interface Request extends RequestInit {
 
 export default async function client(request: Request): Promise<unknown> {
   const { method = 'GET', endpoint, data, headers = {} } = request
-  const config: RequestInit = {
-    method,
-    credentials: 'include',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json',
-    },
-  }
-  if (method !== 'GET' && data) {
-    config.body = JSON.stringify(data)
+  const config: RequestInit = { method, credentials: 'include' }
+  if (method !== 'GET') {
+    if (data instanceof FormData) {
+      delete config.headers
+      config.body = data
+    } else {
+      config.headers = { 'Content-type': 'application/json', ...headers }
+      config.body = JSON.stringify(data)
+    }
   }
 
   return window

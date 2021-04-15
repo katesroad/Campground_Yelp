@@ -10,7 +10,7 @@ export const CampgroundSchema = Yup.object().shape({
     .min(20, 'Campground description is too short')
     .max(500, 'Campground description is too long')
     .required("Campground description can' be empty."),
-  images: Yup.mixed().required('Please upload campground images.'),
+  // images: Yup.mixed().required('Please upload campground images.'),
 })
 
 export function getIntialValues() {

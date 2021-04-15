@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
+  .error-msg {
+    margin: 1rem 0;
+  }
   .btn--submit {
     background-color: var(--bs-green);
   }
