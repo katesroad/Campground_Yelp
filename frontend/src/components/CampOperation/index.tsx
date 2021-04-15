@@ -27,16 +27,17 @@ export const MarkButton: React.FC<ReviewButtonProps> = (props) => {
   return withAuth(ele, { content })
 }
 
-export const DirectButton: React.FC<{ query: string }> = ({ query }) => {
+export const Direction: React.FC<{
+  query: string
+  children?: React.ReactNode
+}> = ({ query, children }) => {
   const mapQuery = encodeURIComponent(query)
   return (
-    <Button>
-      <a
-        target="_blank"
-        href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
-      >
-        Direction
-      </a>
-    </Button>
+    <a
+      target="_blank"
+      href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
+    >
+      {children || 'Direction'}
+    </a>
   )
 }

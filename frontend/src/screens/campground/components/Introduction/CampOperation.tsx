@@ -1,11 +1,8 @@
 // eslint-disable-next-line
 import styled from 'styled-components/macro'
 import * as React from 'react'
-import {
-  ReviewButton,
-  MarkButton,
-  DirectButton,
-} from 'components/CampOperation'
+import { ReviewButton, MarkButton, Direction } from 'components/CampOperation'
+import { Button } from 'components/lib'
 
 type CampOperationsProps = {
   id: string
@@ -28,7 +25,9 @@ const CampOperations: React.FC<CampOperationsProps> = ({ id, title }) => {
       `}
     >
       <ReviewButton id={id} />
-      <DirectButton query={title} />
+      <Direction query={title}>
+        <Button>Direction</Button>
+      </Direction>
       <MarkButton id={id} />
     </div>
   )
