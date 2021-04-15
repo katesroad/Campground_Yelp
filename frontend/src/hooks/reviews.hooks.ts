@@ -16,7 +16,6 @@ function useGetConf(operation: ReviewOpertion, reviewowner?: string) {
     cacheTime: 30 * 60 * 1000,
     onSuccess: (res: any) => {
       const campId = operation === 'CREATE' ? res.campground : reviewowner
-      console.log(operation, reviewowner, 'inscus')
       queryClient.invalidateQueries(['reviews', campId])
     },
   }
