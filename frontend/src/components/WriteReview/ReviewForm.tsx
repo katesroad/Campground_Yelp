@@ -76,7 +76,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ review, type }) => {
                 />
               </p>
               <small className="error-msg">
-                <ErrorMessage name="ratting" />
+                <ErrorMessage name="rating" />
               </small>
             </div>
             <TextField name="title" placeholder="review title" label="title" />
