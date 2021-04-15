@@ -87,7 +87,6 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
             {/* upload pictures */}
             <div className="form-file">
               <input
-                id="file"
                 name="images"
                 type="file"
                 multiple
@@ -103,7 +102,7 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
                 <span className="file-text">Choose image(s)...</span>
                 <span className="file-button">Browse</span>
               </label>
-              <Error as="small">
+              <Error as="small" className="error-msg">
                 <ErrorMessage name="images" />
               </Error>
             </div>
@@ -112,7 +111,7 @@ const CampForm: React.FC<CampFormProps> = ({ campground, type }) => {
               isSubmitting={props.isSubmitting}
               clearMsg={getClearErrorHandler(props)}
             />
-            <p>
+            <p className="btn-box">
               <SubmitButton status={m.status} type={type} />
             </p>
           </Form>

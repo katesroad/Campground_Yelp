@@ -1,15 +1,8 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-  .error-msg {
-    margin: 1rem 0;
-  }
-  .btn--submit {
-    background-color: var(--bs-green);
-  }
   .form-file {
     position: relative;
-    height: 2.375rem;
     margin-bottom: 1rem;
     --bs-form-file-height: calc(1.5em + 0.75rem + 2px);
     .label {
@@ -61,6 +54,10 @@ export const Wrapper = styled.div`
       border-width: 1px;
       border-top-right-radius: inherit;
       border-bottom-right-radius: inherit;
+    }
+    .error-msg {
+      display: block;
+      margin-top: 1rem;
     }
   }
 `
