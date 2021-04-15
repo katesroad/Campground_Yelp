@@ -27,7 +27,10 @@ export default function Reviews({ campground }: ReviewsProps) {
 
   if (status === 'success') {
     content = data?.count
-      ? data?.data?.map((review) => <Review {...review} key={review.id} />)
+      ? data?.data?.map((review) => {
+          const reviewData = { ...review, campground }
+          return <Review {...reviewData} key={review.id} />
+        })
       : noReviews
   }
 

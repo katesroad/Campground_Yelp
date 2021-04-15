@@ -86,7 +86,7 @@ export function useCreateCampground(): UseMutationResult<any | null> {
 export function updateCampground(data: any): Promise<any> {
   const { id, ...update } = data
   return client({
-    endpoint: 'campgrounds/${id}',
+    endpoint: `campgrounds/${id}`,
     method: 'PATCH',
     data: update,
   })

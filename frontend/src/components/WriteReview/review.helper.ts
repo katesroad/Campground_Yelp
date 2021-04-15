@@ -6,7 +6,7 @@ export const ReviwSchema = Yup.object().shape({
   rating: Yup.number()
     .min(1, 'Please add ratting.')
     .max(5, 'Maximum ratting value is five.')
-    .required('Please add review ratting.'),
+    .required('Please add review rating.'),
 })
 
 export function getIntialValues(campground: string) {

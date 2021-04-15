@@ -12,15 +12,12 @@ const callAll = (...fns: any[]) => (...args: any) =>
   })
 
 type ModalContextType = [boolean, (status: boolean) => void]
-const ModalContext = React.createContext<ModalContextType>([
-  false,
-  (status: boolean) => {},
-])
+const ModalContext = React.createContext<ModalContextType>([false, () => {}])
 
 type ModalProps = {
   value?: ModalContextType
   children: React.ReactNode
-  [key: string]: any
+  [key: string]: unknown
 }
 
 // the modal that wraps the modal opening status
@@ -30,7 +27,7 @@ export const Modal = (props: ModalProps) => {
   return <ModalContext.Provider {...providerProps} />
 }
 
-export const ModalContentBase: React.FC<any> = ({ children, ...props }) => {
+export const ModalContentBase: React.FC<unknown> = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = React.useContext(ModalContext)
   const onDismiss = () => setIsOpen(false)
   return (

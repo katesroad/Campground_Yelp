@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import { medium, large, xlarge } from 'styles/media-queries'
+import { medium, large } from 'styles/media-queries'
 
 /*----------------styling for review list---- */
 export const Wrapper = styled.div.attrs(() => ({ className: 'camp-reviews' }))`
