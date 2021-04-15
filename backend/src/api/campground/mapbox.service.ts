@@ -1,4 +1,4 @@
-import { Injectable, ServiceUnavailableException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Geometry } from 'src/entities/campground.entity';
 
@@ -16,9 +16,12 @@ export class MapboxService {
     return this.geocoder
       .forwardGeocode({ query, limit: 1 })
       .send()
-      .then((res: any) => res.body.features[0].geometry)
-      .catch((e) => {
-        throw new ServiceUnavailableException(e.msg);
+      .then((res: any) => {
+        try {
+          return res.body.features[0].geometry;
+        } catch (e) {
+          throw new BadRequestException(`Please check location:${query}`);
+        }
       });
   }
 }
