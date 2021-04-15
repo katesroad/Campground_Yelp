@@ -9,7 +9,7 @@ export const CampgroundSchema = Yup.object().shape({
   description: Yup.string()
     .min(20, 'Description is too short.')
     .max(500, 'Description is too long.')
-    .required("Campground description can' be empty."),
+    .required("Description can' be empty."),
   images: Yup.array().of(Yup.mixed()).min(1, 'Please upload images.'),
 })
 
