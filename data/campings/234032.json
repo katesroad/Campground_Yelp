@@ -1,7 +1,0 @@
-{
-  "title": "Alexander Springs Recreation Area",
-  "description": "Alexander Springs Recreation Area is located in the Ocala National Forest near the beautiful, turquoise waters of Alexander Springs. With forested scenery and abundant water, the recreation area offers camping, swimming, canoeing, scuba diving (for certified divers), hiking, birding and wildlife viewing.\n",
-  "price": 26,
-  "location": "Marion Forks, OR 97329",
-  "geometry": { "type": "Point", "coordinates": ["44.5786111", "-121.6819109"] }
-}
