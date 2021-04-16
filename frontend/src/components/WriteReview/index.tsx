@@ -1,6 +1,8 @@
 import * as React from 'react'
 import ReviewForm from './ReviewForm'
 import { Modal, ModalOpenBtn, ModalContentBase } from 'components/lib/modal'
+import { Spinner } from 'components/lib'
+import { ErrorBoundaryWrap } from 'components/ErrorBoundary'
 
 type WriteReviewModalProps = {
   review: any
@@ -16,7 +18,11 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
     <Modal value={value}>
       <ModalOpenBtn>{children}</ModalOpenBtn>
       <ModalContentBase aria-label="write review">
-        <ReviewForm review={review} type={type} />
+        <ErrorBoundaryWrap>
+          <React.Suspense fallback={<Spinner />}>
+            <ReviewForm review={review} type={type} />
+          </React.Suspense>
+        </ErrorBoundaryWrap>
       </ModalContentBase>
     </Modal>
   )
