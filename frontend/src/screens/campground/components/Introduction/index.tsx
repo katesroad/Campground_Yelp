@@ -37,7 +37,7 @@ export default function Introduction({ campground }: IntroductionProps) {
           <div className="rating-stats">
             <p>
               <Rating value={4.5} precision={0.5} name={campground} />
-              <strong>12 reviews</strong>-
+              <strong>12 reviews</strong>
             </p>
             <Campoperatinon title={camp?.title as string} id={camp?.id} />
           </div>
