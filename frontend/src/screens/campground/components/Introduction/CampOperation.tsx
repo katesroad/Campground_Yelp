@@ -6,9 +6,9 @@ import { Button } from 'components/lib'
 
 type CampOperationsProps = {
   id: string
-  title: string
+  location: string
 }
-const CampOperations: React.FC<CampOperationsProps> = ({ id, title }) => {
+const CampOperations: React.FC<CampOperationsProps> = ({ id, location }) => {
   return (
     <div
       className="operation"
@@ -25,7 +25,7 @@ const CampOperations: React.FC<CampOperationsProps> = ({ id, title }) => {
       `}
     >
       <ReviewButton id={id} />
-      <Direction query={title}>
+      <Direction query={location}>
         <Button>Direction</Button>
       </Direction>
       <MarkButton id={id} />

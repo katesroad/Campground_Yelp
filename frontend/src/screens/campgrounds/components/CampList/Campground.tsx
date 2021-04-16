@@ -24,7 +24,7 @@ export const Campground: React.FC<ICampgroundItem> = ({
           <h4 className="camp-title">{title}</h4>
           <div className="camp-features">
             <p>
-              <Direction query={title}>
+              <Direction query={location + ',' + title}>
                 <span className="label">
                   <IoLocationOutline />
                 </span>

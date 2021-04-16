@@ -39,7 +39,10 @@ export default function Introduction({ campground }: IntroductionProps) {
               <Rating value={4.5} precision={0.5} name={campground} />
               <strong>12 reviews</strong>
             </p>
-            <Campoperatinon title={camp?.title as string} id={camp?.id} />
+            <Campoperatinon
+              location={camp?.location + ',' + camp.title}
+              id={camp?.id}
+            />
           </div>
         </CampTitle>
         <IntroText>
@@ -57,7 +60,10 @@ export default function Introduction({ campground }: IntroductionProps) {
               <span>9:00 a.m ~16:00p.m</span>
             </p>
           </div>
-          <Campoperatinon title={camp?.title as string} id={camp?.id} />
+          <Campoperatinon
+            location={camp?.location + ',' + camp.title}
+            id={camp?.id}
+          />
         </IntroText>
         <IntroText className="desc">
           <p>{camp?.description}</p>
