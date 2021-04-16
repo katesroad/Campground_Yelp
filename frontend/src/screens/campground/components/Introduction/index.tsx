@@ -49,7 +49,8 @@ export default function Introduction({ campground }: IntroductionProps) {
               <span>{camp?.price}$ /night</span>
             </p>
             <p>
-              <span className="label">Location:</span> {camp?.location}
+              <span className="label">Location:</span>
+              <span className="value"> {camp?.location}</span>
             </p>
             <p>
               <span className="label opening-status is-closed">closed</span>

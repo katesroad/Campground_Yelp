@@ -14,13 +14,13 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))`
   }
 
   .swiper-slide {
-    min-height: calc(7.8rem + 4vw);
+    height: calc(7.8rem + 4vw) !important;
     width: 100% !important;
     background-size: cover;
     background-position: center;
 
     ${large} {
-      height: 14rem;
+      height: calc(13.8rem + 4vw) !important;
     }
   }
 `
@@ -83,18 +83,12 @@ export const IntroText = styled.div`
   ${large} {
     width: 100%;
   }
-  &.desc {
-    ${medium} {
-      width: 56.5%;
-      align-self: flex-end;
-    }
-    ${large} {
-      width: 100%;
-    }
-  }
 
   .info-box {
     margin-bottom: 1.25rem;
+    p {
+      margin-bottom: 0.5rem;
+    }
     ${large} {
       margin-bottom: 0;
     }
@@ -114,6 +108,12 @@ export const IntroText = styled.div`
       color: var(--bs-red);
       font-weight: var(--font-bolder);
     }
+  }
+  .value {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 60%;
   }
   .operation {
     ${medium} {

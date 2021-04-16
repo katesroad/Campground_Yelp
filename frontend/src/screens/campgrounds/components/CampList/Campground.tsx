@@ -16,7 +16,6 @@ export const Campground: React.FC<ICampgroundItem> = ({
   location,
   images,
 }) => {
-  const query = ''
   return (
     <CampgroundWrap>
       <ImageSwiper images={images} />
