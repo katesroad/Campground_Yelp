@@ -1,6 +1,6 @@
 import { Card, Content } from 'components/lib'
 import styled from 'styled-components'
-import { medium, xlarge, large } from 'styles/media-queries'
+import { medium, xlarge } from 'styles/media-queries'
 
 /*--------------------------styling for campgroound item------------------- */
 export const CampgroundWrap = styled(Card).attrs(() => ({
@@ -13,8 +13,9 @@ export const CampgroundWrap = styled(Card).attrs(() => ({
     align-items: center;
     border: none;
   }
+
   .swiper-slide {
-    height: calc(6.8rem + 10vw);
+    height: calc(6.8rem + 10vw) !important;
     max-height: 12rem;
     width: 100% !important;
     background-size: cover;
@@ -22,45 +23,74 @@ export const CampgroundWrap = styled(Card).attrs(() => ({
   }
 
   .imgs-swiper {
+    flex-grow: 1;
     ${medium} {
       width: 50%;
       max-width: 40rem;
     }
   }
-  ${large} {
-    width: 64%;
-  }
 `
 
 export const CampgroundIntro = styled.div`
   padding: calc(1rem + 1vw) 1rem;
+  ${medium} {
+    padding: 1rem 2rem;
+    max-width: 60%;
+  }
+
   p {
-    margin: 0.75rem 0;
     line-height: 1.5;
+    font-size: 0.9375rem;
+    ${medium} {
+      font-size: 0.8125rem;
+    }
   }
   .camp-title {
     font-size: 1.254rem;
   }
-  .camp-location {
+  .camp-features {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0.75rem 0 1rem 0;
     font-size: 0.875rem;
     color: #343a40;
+    .label {
+      display: flex;
+      align-items: center;
+      margin-right: 0.25rem;
+      max-width: 50%;
+    }
+    .value {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      flex-grow: 1;
+      max-width: 80%;
+    }
+    p,
+    a {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      justify-content: flex-start;
+      color: #343a40;
+    }
+    a:hover {
+      text-decoration: underline;
+      color: var(--bs-blue);
+    }
   }
   .camp-link {
-    display: block;
-    text-align: center;
+    display: inline-block;
+    margin-top: 1rem;
     button {
       background-color: var(--bs-blue);
     }
     svg {
       margin-left: 0.5rem;
     }
-  }
-  ${medium} {
-    padding: 1rem 2rem;
-    width: 60%;
   }
 `
 

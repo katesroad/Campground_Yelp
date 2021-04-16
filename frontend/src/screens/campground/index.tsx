@@ -14,6 +14,7 @@ export default function CampgroundScreen() {
       css={`
         p {
           line-height: 1.65;
+          word-break: break-word;
         }
       `}
     >

@@ -9,9 +9,18 @@ import { useAuth } from 'context/auth.context'
 
 export default function CreateCampScreen() {
   const { user } = useAuth()
+
+  React.useEffect(() => {
+    document.title = 'Create Campground | Yelp'
+    return () => {
+      document.title = 'Yelpcamp'
+    }
+  }, [])
+
   if (!user) {
     return <Redirect to="/campgrounds" />
   }
+
   return (
     <Content
       css={`

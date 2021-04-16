@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-import styled from 'styled-components/macro'
 import * as React from 'react'
 import { useGetUser } from 'hooks/auth.hooks'
 import { IUser } from 'types'
