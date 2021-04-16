@@ -94,6 +94,9 @@ export const Main = styled.main`
   width: 100vw;
   padding-top: calc(1.25rem + 2vw);
   padding-bottom: calc(3.25rem + 2vw);
+  &.no-margin {
+    padding: 0 !important;
+  }
   ${medium} {
     padding-top: 3.35rem;
     padding-bottom: 5rem;
