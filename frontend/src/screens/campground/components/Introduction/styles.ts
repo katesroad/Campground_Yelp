@@ -14,13 +14,13 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'camp-intro' }))`
   }
 
   .swiper-slide {
-    min-height: calc(7.8rem + 4vw);
+    height: calc(7.8rem + 4vw) !important;
     width: 100% !important;
     background-size: cover;
     background-position: center;
 
     ${large} {
-      height: 14rem;
+      height: calc(13.8rem + 4vw) !important;
     }
   }
 `
