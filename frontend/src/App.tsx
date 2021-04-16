@@ -4,13 +4,13 @@ import AppProviders from './context'
 import IndexScreen from 'screens'
 import LoginScreen from 'screens/login'
 import RegisterScreen from 'screens/register'
-import CreateScreen from 'screens/create'
 import * as React from 'react'
 import { Spinner } from 'components/lib'
 import { ErrorBoundaryWrap } from 'components/ErrorBoundary'
 
 const CampgroundsScreen = React.lazy(() => import('./screens/campgrounds'))
 const CampgroundScreen = React.lazy(() => import('./screens/campground'))
+const CreateScreen = React.lazy(() => import('./screens/create'))
 
 function UnAuthedRoutes() {
   const { user } = useAuth()
