@@ -5,6 +5,7 @@ import { ErrorBoundaryWrap } from 'components/ErrorBoundary'
 import SearchCamps from './components/SearchCamps'
 import CampsOnMap from './components/CampsOnMap'
 import { useGetCampgrounds } from 'hooks/campgrounds.hooks'
+import { SearchWrap } from './components/styled'
 
 export default function CampgroundsScreen() {
   const [search, setSearch] = React.useState<string>('')
@@ -17,6 +18,7 @@ export default function CampgroundsScreen() {
       document.querySelector('main')?.classList.remove('no-margin')
     }
   }, [])
+  console.log(campsQuery)
   return (
     <>
       <React.Suspense fallback={<Spinner />}>
@@ -24,12 +26,25 @@ export default function CampgroundsScreen() {
           <CampsOnMap />
         </ErrorBoundaryWrap>
       </React.Suspense>
-      <SearchCamps
-        keyword={search}
-        onSearch={(search) => {
-          setSearch(search)
-        }}
-      />
+      <SearchWrap>
+        <h2 className="search-title">
+          All campgrounds
+          <br />
+          {['loading', 'idle'].includes(campsQuery.status) ? (
+            <Spinner />
+          ) : campsQuery.status === 'success' ? (
+            <small>
+              <strong>{campsQuery.data?.count}</strong> campgrounds
+            </small>
+          ) : null}
+        </h2>
+        <SearchCamps
+          keyword={search}
+          onSearch={(search) => {
+            setSearch(search)
+          }}
+        />
+      </SearchWrap>
       <CampList query={campsQuery} />
     </>
   )
