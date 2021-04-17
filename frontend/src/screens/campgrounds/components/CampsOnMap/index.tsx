@@ -1,30 +1,45 @@
 import * as React from 'react'
 import mapboxgl from 'mapbox-gl'
 import { Wrapper } from './styles'
+import { MapGeoJsonFeature } from 'types'
+import { Spinner } from 'components/lib'
 
 mapboxgl.accessToken = process.env.REACT_APP_MAP_BOX_ACESS_TOKEN as string
 
-const CampsOnMap: React.FC = () => {
+type CampsOnMapProps = {
+  features: MapGeoJsonFeature[]
+}
+
+const CampsOnMap: React.FC<CampsOnMapProps> = ({ features }) => {
+  const data = {
+    features,
+    type: 'FeatureCollection',
+    crs: {
+      type: 'name',
+      properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' },
+    },
+  }
+
   React.useEffect(() => {
     const map: any = new mapboxgl.Map({
       container: 'campsOnMap',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-74.5, 40],
-      zoom: 9, // starting zoom
+      center: [-95.712891, 37.090246],
+      zoom: 4,
     })
     map.on('load', function () {
-      map.addSource('earthquakes', {
+      map.addSource('camps', {
         type: 'geojson',
-        data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson',
         cluster: true,
         clusterMaxZoom: 14,
         clusterRadius: 50,
+        data,
       })
 
       map.addLayer({
         id: 'clusters',
         type: 'circle',
-        source: 'earthquakes',
+        source: 'camps',
         filter: ['has', 'point_count'],
         paint: {
           'circle-color': [
@@ -51,7 +66,7 @@ const CampsOnMap: React.FC = () => {
       map.addLayer({
         id: 'cluster-count',
         type: 'symbol',
-        source: 'earthquakes',
+        source: 'camps',
         filter: ['has', 'point_count'],
         layout: {
           'text-field': '{point_count_abbreviated}',
@@ -63,7 +78,7 @@ const CampsOnMap: React.FC = () => {
       map.addLayer({
         id: 'unclustered-point',
         type: 'circle',
-        source: 'earthquakes',
+        source: 'camps',
         filter: ['!', ['has', 'point_count']],
         paint: {
           'circle-color': '#11b4da',
@@ -80,7 +95,7 @@ const CampsOnMap: React.FC = () => {
         })
         const clusterId = features[0]?.properties?.cluster_id
         map
-          .getSource('earthquakes')
+          .getSource('camps')
           .getClusterExpansionZoom(
             clusterId,
             function (err: any, zoom: number) {
@@ -125,8 +140,13 @@ const CampsOnMap: React.FC = () => {
     return () => {
       map.remove()
     }
-  }, [])
-  return <Wrapper id="campsOnMap"></Wrapper>
+  }, [features])
+
+  return (
+    <Wrapper id="campsOnMap">
+      {features.length > 0 ? null : <Spinner />}
+    </Wrapper>
+  )
 }
 
-export default CampsOnMap
+export default React.memo(CampsOnMap)

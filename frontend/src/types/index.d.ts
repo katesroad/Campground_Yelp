@@ -76,3 +76,12 @@ export interface IReview extends IReviewData {
 }
 
 export type ReactQueryStatus = 'loading' | 'idle' | 'success' | 'error'
+
+export type MapGeoJsonFeature = {
+  type: string
+  properties: any
+  geometry: {
+    type: 'Point'
+    coordinates: number[]
+  }
+}
