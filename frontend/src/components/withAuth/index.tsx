@@ -22,8 +22,8 @@ export function withAuth(
   const open = () => setShowDialog(true)
   const close = () => setShowDialog(false)
   const handleClickYes = () => {
-    setShowLoginForm(true)
     setShowDialog(false)
+    setShowLoginForm(true)
   }
   React.useEffect(() => {
     if (!user) {
@@ -47,7 +47,7 @@ export function withAuth(
           </p>
         </AlertDialog>
       )}
-      {showLoginForm ? <LoginDialog /> : null}
+      <LoginDialog value={[showLoginForm, setShowLoginForm]} />
     </div>
   )
 }
