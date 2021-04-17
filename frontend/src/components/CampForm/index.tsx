@@ -21,7 +21,11 @@ type SubmitButtonProps = {
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({ status, type }) => {
   const btn = (
-    <Button className="btn btn--submit" disabled={status === 'loading'}>
+    <Button
+      type="submit"
+      disabled={status === 'loading'}
+      className="btn btn--submit"
+    >
       {type} campground {status === 'loading' ? <Spinner /> : null}
     </Button>
   )

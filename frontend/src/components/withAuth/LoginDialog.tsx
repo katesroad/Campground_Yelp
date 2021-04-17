@@ -4,16 +4,18 @@ import { VscClose } from 'react-icons/vsc'
 import { useLogin, useRegister } from 'hooks/auth.hooks'
 import { Modal, ModalContentBase } from 'components/lib/modal'
 
-export default function LoginDialog() {
+type LoginDialogProps = {
+  value: [boolean, (show: boolean) => void]
+}
+export default function LoginDialog({ value }: LoginDialogProps) {
   const loginMutation = useLogin({ redirect: false })
   const reigsterMutation = useRegister({ redirect: false })
-  const value = React.useState<boolean>(true)
   const [, setShowDialog] = value
   const close = () => setShowDialog(false)
   const [type, setType] = React.useState<'login' | 'register'>('login')
   return (
     <Modal value={value}>
-      <ModalContentBase>
+      <ModalContentBase aria-label="auth-form">
         <span onClick={close} className="btn--close at-with-auth">
           <VscClose />
         </span>

@@ -65,6 +65,7 @@ export const Nav = styled.nav`
   }
 
   .btn-logout {
+    padding-left: 1rem;
     path {
       stroke: #fff;
     }
