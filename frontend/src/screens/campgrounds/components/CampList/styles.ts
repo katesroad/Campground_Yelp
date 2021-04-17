@@ -35,7 +35,7 @@ export const CampgroundIntro = styled.div`
   padding: calc(1rem + 1vw) 1rem;
   ${medium} {
     padding: 1rem 2rem;
-    max-width: 60%;
+    width: 50%;
   }
 
   p {
