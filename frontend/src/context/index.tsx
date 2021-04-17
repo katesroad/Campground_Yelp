@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter, Switch } from 'react-router-dom'
 import GlobalStyles from 'styles/GlobalStyle'
 import { AuthProvider } from './auth.context'
+import { ErrorBoundaryWrap } from 'components/ErrorBoundary'
+import { Spinner } from 'components/lib'
 
 const client = new QueryClient()
 // https://stackoverflow.com/questions/58123398/when-to-use-jsx-element-vs-reactnode-vs-reactelement
@@ -16,7 +18,11 @@ const AppProviders: React.FC = ({ children }) => {
           <BrowserRouter>
             <AppHeader></AppHeader>
             <AppMain>
-              <Switch>{children}</Switch>
+              <React.Suspense fallback={<Spinner />}>
+                <ErrorBoundaryWrap>
+                  <Switch>{children}</Switch>
+                </ErrorBoundaryWrap>
+              </React.Suspense>
             </AppMain>
             <AppFooter />
           </BrowserRouter>
