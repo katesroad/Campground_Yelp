@@ -76,7 +76,11 @@ export const AppFooter: React.FC = () => {
     <Footer className={pathname === '/' ? 'at-home' : 'at-page'}>
       <p>
         <span>© 2020</span>
-        <a href="https://github.com/katesroad/campground_yelp">
+        <a
+          href="https://github.com/katesroad/campground_yelp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Github />
         </a>
       </p>

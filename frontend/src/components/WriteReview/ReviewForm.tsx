@@ -7,13 +7,13 @@ import * as React from 'react'
 import { getIntialValues, ReviwSchema } from './review.helper'
 import { useCreateReview, useUpdateReview } from 'hooks/reviews.hooks'
 import { withAuth } from 'components/withAuth'
-import { IReviewData } from 'types'
-import { Wrapper } from './styles'
+import { IReviewData, ReactQueryStatus } from 'types'
 import { ModalCloseBtn, useModal } from 'components/lib/modal'
 import { VscClose } from 'react-icons/vsc'
+import { Wrapper } from './styles'
 
 type SubmitButtonProps = {
-  status: 'loading' | 'idle' | 'success' | 'error'
+  status: ReactQueryStatus
   type: 'create' | 'update'
 }
 
@@ -85,9 +85,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ review, type }) => {
               placeholder="review content"
               label="content"
             />
-            <p>
+            <div>
               <SubmitButton status={status} type={type} />
-            </p>
+            </div>
           </Form>
         )}
       </Formik>
