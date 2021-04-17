@@ -21,7 +21,7 @@ export const TextField = ({
       <p className="label">{label}</p>
       <Field
         name={name}
-        placeholder={placeholder || 'Please input ${name}'}
+        placeholder={placeholder || `Please input ${name}`}
         type={type}
       />
       <small className="error-msg">
