@@ -1,9 +1,8 @@
-import { Card, Content } from 'components/lib'
 import styled from 'styled-components'
 import { medium, xlarge } from 'styles/media-queries'
 
 /*--------------------------styling for campgroound item------------------- */
-export const CampgroundWrap = styled(Card).attrs(() => ({
+export const CampgroundWrap = styled.div.attrs(() => ({
   className: 'campground-item',
 }))`
   overflow: hidden;
@@ -95,7 +94,7 @@ export const CampgroundIntro = styled.div`
 `
 
 /*--------------------------styling for campgroound list------------------- */
-export const Wrapper = styled(Content)`
+export const Wrapper = styled.div`
   .title {
     padding-bottom: calc(1rem + 1vw);
     font-size: calc(1.5rem + 1vw);

@@ -81,7 +81,7 @@ const CampsOnMap: React.FC<CampsOnMapProps> = ({ features }) => {
         source: 'camps',
         filter: ['!', ['has', 'point_count']],
         paint: {
-          'circle-color': '#11b4da',
+          'circle-color': '#fd7e14',
           'circle-radius': 4,
           'circle-stroke-width': 1,
           'circle-stroke-color': '#fff',

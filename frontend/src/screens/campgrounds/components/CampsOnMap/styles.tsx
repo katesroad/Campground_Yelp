@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
   .mapboxgl-popup-content {
     border-radius: 0.375rem;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    padding: 0.85rem 1rem;
+    padding: 1.5rem 1rem;
     pointer-events: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
     background: #fafafa;
