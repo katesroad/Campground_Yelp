@@ -1,6 +1,6 @@
 import { useAuth } from 'context/auth.context'
 import AppProviders from './context'
-import IndexScreen from 'screens'
+import IndexScreen from 'screens/home'
 import LoginScreen from 'screens/login'
 import RegisterScreen from 'screens/register'
 import * as React from 'react'
