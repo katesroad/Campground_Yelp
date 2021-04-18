@@ -15,7 +15,12 @@ const ImgSwpper: React.FC<ImgSwipperProps> = ({ images, ...props }) => {
   // https://github.com/kidjp85/react-id-swiper/blob/master/src/types.ts#L45
   const ref = React.useRef<SwiperRefNode>(null)
 
-  if (!images) return <Spinner />
+  if (!images)
+    return (
+      <div className="img-slide">
+        <Spinner />
+      </div>
+    )
 
   if (images?.length === 1) return <img src={images[0].url} />
   const goNext = () => {
