@@ -11,16 +11,16 @@ type CampsOnMapProps = {
 }
 
 const CampsOnMap: React.FC<CampsOnMapProps> = ({ features }) => {
-  const data = {
-    features,
-    type: 'FeatureCollection',
-    crs: {
-      type: 'name',
-      properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' },
-    },
-  }
-
   React.useEffect(() => {
+    const data = {
+      features,
+      type: 'FeatureCollection',
+      crs: {
+        type: 'name',
+        properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' },
+      },
+    }
+
     const map: any = new mapboxgl.Map({
       container: 'campsOnMap',
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -111,23 +111,19 @@ const CampsOnMap: React.FC<CampsOnMapProps> = ({ features }) => {
 
       map.on('click', 'unclustered-point', function (e: any) {
         const coordinates = e.features[0].geometry.coordinates.slice()
-        const mag = e.features[0].properties.mag
-        let tsunami
-
-        if (e.features[0].properties.tsunami === 1) {
-          tsunami = 'yes'
-        } else {
-          tsunami = 'no'
-        }
-
+        const properties = e.features[0].properties
+        const { id, title, images } = properties
+        const url = JSON.parse(images)[0].url
+        const html = `
+          <h4>${title}</h4>
+          <img src=${url} />
+          <a href="/campgrounds/${id}">view detail</a>
+        `
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
         }
 
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML('magnitude: ' + mag + '<br>Was there a tsunami?: ' + tsunami)
-          .addTo(map)
+        new mapboxgl.Popup().setLngLat(coordinates).setHTML(html).addTo(map)
       })
 
       map.on('mouseenter', 'clusters', function () {
@@ -144,7 +140,7 @@ const CampsOnMap: React.FC<CampsOnMapProps> = ({ features }) => {
 
   return (
     <Wrapper id="campsOnMap">
-      {features.length > 0 ? null : <Spinner />}
+      <Spinner />
     </Wrapper>
   )
 }
