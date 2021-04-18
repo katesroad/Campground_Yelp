@@ -46,20 +46,12 @@ const CampsOnMap: React.FC<CampsOnMapProps> = ({ features }) => {
             'step',
             ['get', 'point_count'],
             '#51bbd6',
-            100,
+            10,
             '#f1f075',
-            750,
+            20,
             '#f28cb1',
           ],
-          'circle-radius': [
-            'step',
-            ['get', 'point_count'],
-            20,
-            100,
-            30,
-            750,
-            40,
-          ],
+          'circle-radius': ['step', ['get', 'point_count'], 20, 10, 30, 30, 40],
         },
       })
 
@@ -81,7 +73,7 @@ const CampsOnMap: React.FC<CampsOnMapProps> = ({ features }) => {
         source: 'camps',
         filter: ['!', ['has', 'point_count']],
         paint: {
-          'circle-color': '#11b4da',
+          'circle-color': '#fd7e14',
           'circle-radius': 4,
           'circle-stroke-width': 1,
           'circle-stroke-color': '#fff',

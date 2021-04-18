@@ -4,7 +4,7 @@ import { FormControl } from './styles'
 
 interface TextFieldProps {
   name: string
-  label: string
+  label?: string
   placeholder?: string
   type?: 'text' | 'password'
 }
@@ -18,7 +18,7 @@ export const TextField = ({
 }: TextFieldProps) => {
   return (
     <FormControl {...props}>
-      <p className="label">{label}</p>
+      {label ? <p className="label">{label}</p> : null}
       <Field
         name={name}
         placeholder={placeholder || `Please input ${name}`}

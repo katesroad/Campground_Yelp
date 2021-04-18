@@ -1,30 +1,40 @@
 import * as React from 'react'
+import { matchSorter } from 'match-sorter'
 import CampList from './components/CampList'
-import { Spinner } from 'components/lib'
+import { Card, Content, Error, Spinner } from 'components/lib'
 import { ErrorBoundaryWrap } from 'components/ErrorBoundary'
 import SearchCamps from './components/SearchCamps'
 import CampsOnMap from './components/CampsOnMap'
 import { useGetCampgrounds } from 'hooks/campgrounds.hooks'
 import { SearchWrap } from './components/styled'
-import { MapGeoJsonFeature } from 'types'
+import { ICampgroundItem, IPagedRes, MapGeoJsonFeature } from 'types'
+import { useQueryClient } from 'react-query'
 
 export default function CampgroundsScreen() {
-  const [mapFeatures, setMapFeatures] = React.useState<MapGeoJsonFeature[]>([])
+  const { status } = useGetCampgrounds()
+  const queryClient = useQueryClient()
   const [search, setSearch] = React.useState<string>('')
-  const campsQuery = useGetCampgrounds()
+  const [camps, setCamps] = React.useState<ICampgroundItem[]>([])
 
   React.useEffect(() => {
-    if (campsQuery.status === 'success') {
-      const {
-        data: { data: camps },
-      } = campsQuery
-      const features = camps.map((camp) => {
-        const { geometry, ...properties } = camp
-        return { geometry, properties, type: 'Feature' }
-      })
-      setMapFeatures(features)
+    const { data } = (queryClient.getQueryData(
+      'campgrounds'
+    ) as IPagedRes<ICampgroundItem>) || { data: [], count: 0 }
+    let camps: ICampgroundItem[] = data || []
+    if (search) {
+      camps = matchSorter(data, search, { keys: ['title'] })
     }
-  }, [campsQuery.status])
+    setCamps(camps)
+  }, [search, status])
+
+  const mapFeatures = React.useMemo(() => {
+    const features: MapGeoJsonFeature[] = camps.map(
+      ({ geometry, ...properties }) => {
+        return { geometry, properties, type: 'Feature' }
+      }
+    )
+    return features
+  }, [camps])
 
   React.useEffect(() => {
     document.title = 'Campgrounds | YelpCamp'
@@ -46,22 +56,25 @@ export default function CampgroundsScreen() {
         <h2 className="search-title">
           All campgrounds
           <br />
-          {['loading', 'idle'].includes(campsQuery.status) ? (
+          {['loading', 'idle'].includes(status) ? (
             <Spinner />
-          ) : campsQuery.status === 'success' ? (
+          ) : status === 'success' ? (
             <small>
-              <strong>{campsQuery.data?.count}</strong> campgrounds
+              <strong>{camps.length}</strong> campgrounds
             </small>
           ) : null}
         </h2>
-        <SearchCamps
-          keyword={search}
-          onSearch={(search) => {
-            setSearch(search)
-          }}
-        />
+        <SearchCamps keyword={search} onSearch={setSearch} />
       </SearchWrap>
-      <CampList query={campsQuery} />
+      <Content>
+        {['loading', 'idle'].includes(status) ? <Spinner /> : null}
+        {'error' === status ? (
+          <Card>
+            <Error>Failed to load campgrounds</Error>
+          </Card>
+        ) : null}
+        {status === 'success' ? <CampList camps={camps} /> : null}
+      </Content>
     </>
   )
 }
