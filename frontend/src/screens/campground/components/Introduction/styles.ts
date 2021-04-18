@@ -114,6 +114,10 @@ export const IntroText = styled.div`
     white-space: nowrap;
     overflow: hidden;
     max-width: 60%;
+    a:hover {
+      color: var(--bs-blue);
+      text-decoration: underline;
+    }
   }
   .operation {
     ${medium} {
