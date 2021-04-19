@@ -88,6 +88,9 @@ export const ReviewWrap = styled.div`
     padding: 0;
     margin-bottom: 1.5rem;
   }
+  ${large} {
+    margin-bottom: 1.75rem;
+  }
   .review-title {
     font-size: 1rem;
   }

@@ -65,7 +65,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ review, type }) => {
                 <span className="label">Rating:</span>
                 <Rating
                   name="rating"
-                  precision={0.5}
                   value={props.values.rating}
                   onChange={(
                     e: React.ChangeEvent<unknown>,

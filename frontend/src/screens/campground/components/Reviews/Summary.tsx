@@ -8,7 +8,7 @@ type ReviewBarProps = {
   star: number
 }
 const ReviewBar = ({ count, total, star }: ReviewBarProps) => {
-  const rate = total ? (count / total) * 100 + '%' : 0
+  const rate = total ? ((count / total) * 100).toFixed(2) + '%' : 0
   return (
     <Bar>
       <span className="star">{star} star</span>
@@ -29,7 +29,7 @@ const Summary: React.FC<SummaryProps> = ({ total, stats, rating }) => {
   return (
     <SummaryWrap>
       <p className="rating">
-        <Rating name="avgRating" value={rating} precision={0.5} />
+        <Rating name="avgRating" value={+rating.toFixed(2)} precision={0.5} />
         <strong>{rating} out 5</strong>
       </p>
       <p className="rating-count">{total} ratings</p>
