@@ -60,7 +60,7 @@ export const Bar = styled.div`
   display: flex;
   align-items: center;
   p {
-    max-width: 18.75rem;
+    max-width: 14.75rem;
     flex-grow: 1;
     height: 1rem;
     margin: 0 0.75rem;
@@ -68,6 +68,9 @@ export const Bar = styled.div`
     box-shadow: inset 0 0 0 1px #e3e6e6;
     background-color: #f0f2f2;
     overflow: hidden;
+    ${medium} {
+      max-width: 18.75rem;
+    }
     span {
       display: block;
       height: 100%;
@@ -76,6 +79,7 @@ export const Bar = styled.div`
   }
   .rate {
     width: 2.125rem;
+    font-size: 0.9375rem;
   }
 `
 
@@ -157,6 +161,7 @@ export const ReviewContent = styled.div`
     }
   }
   .operation {
+    margin-top: 0.9375rem;
     ${medium} {
       display: none;
     }

@@ -17,7 +17,7 @@ export const ReviewButton: React.FC<ReviewButtonProps> = ({ id }) => {
 }
 
 // @todo
-export const MarkButton: React.FC<ReviewButtonProps> = (props) => {
+export const MarkButton: React.FC<ReviewButtonProps> = () => {
   const content = <p>To mark campground, please login in.</p>
   const ele = (
     <Button className="btn btn--mark">

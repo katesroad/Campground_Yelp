@@ -1,28 +1,24 @@
 import * as React from 'react'
 import { matchSorter } from 'match-sorter'
-import CampList from './components/CampList'
 import { Card, Content, Error, Spinner } from 'components/lib'
 import { ErrorBoundaryWrap } from 'components/ErrorBoundary'
 import SearchCamps from './components/SearchCamps'
+import CampList from './components/CampList'
 import CampsOnMap from './components/CampsOnMap'
-import { useGetCampgrounds } from 'hooks/campgrounds.hooks'
 import { SearchWrap } from './components/styled'
-import { ICampgroundItem, IPagedRes, MapGeoJsonFeature } from 'types'
-import { useQueryClient } from 'react-query'
+import { useGetCampgrounds } from 'hooks/campgrounds.hooks'
+import { ICampgroundItem, MapGeoJsonFeature } from 'types'
 
 export default function CampgroundsScreen() {
-  const { status } = useGetCampgrounds()
-  const queryClient = useQueryClient()
+  const { status, data: result } = useGetCampgrounds()
   const [search, setSearch] = React.useState<string>('')
   const [camps, setCamps] = React.useState<ICampgroundItem[]>([])
 
   React.useEffect(() => {
-    const { data } = (queryClient.getQueryData(
-      'campgrounds'
-    ) as IPagedRes<ICampgroundItem>) || { data: [], count: 0 }
-    let camps: ICampgroundItem[] = data || []
+    const { data: campsRes } = result || { data: [], count: 0 }
+    let camps = campsRes
     if (search) {
-      camps = matchSorter(data, search, { keys: ['title'] })
+      camps = matchSorter(campsRes, search, { keys: ['title'] })
     }
     setCamps(camps)
   }, [search, status])
