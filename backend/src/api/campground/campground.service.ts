@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { OnEvent } from '@nestjs/event-emitter';
 import { Campground } from 'src/entities/campground.entity';
 import { Review } from 'src/entities/review.entity';
 import { User } from 'src/entities/user.entity';
@@ -8,6 +9,7 @@ import { CloudinaryService } from './cloundinary/cloudinary.service';
 import { CreateCampgroundDto } from './dto/create-campground.dto';
 import { UpdateCampgroundDto } from './dto/update-campground.dto';
 import { MapboxService } from './mapbox.service';
+import { ReviewEvent } from 'src/common/event/review.event';
 
 @Injectable()
 export class CampgroundService {
@@ -19,6 +21,44 @@ export class CampgroundService {
     private readonly cloundinary: CloudinaryService,
     private readonly mapbox: MapboxService,
   ) {}
+
+  @OnEvent('review', { async: true })
+  async handleReviewCampground({
+    name,
+    data: { campground, rating },
+  }: ReviewEvent) {
+    const camp = await this.campRepo.findOne(campground, {
+      select: ['rating', 'reviewsNum'],
+    });
+    const update = {
+      rating: +camp.rating,
+      reviewsNum: +camp.reviewsNum,
+    };
+
+    switch (name) {
+      case 'create':
+        {
+          update.rating += rating;
+          update.reviewsNum += 1;
+        }
+        break;
+      case 'update':
+        {
+          const avgRating = update.rating / update.reviewsNum;
+          update.rating = avgRating * (update.reviewsNum - 1) + rating;
+        }
+        break;
+      case 'delete':
+        {
+          update.rating -= +rating;
+          update.reviewsNum -= 1;
+        }
+        break;
+      default:
+        throw new Error('Unkown event type');
+    }
+    this.campRepo.update(campground, update);
+  }
 
   async createCamp(
     author: string,

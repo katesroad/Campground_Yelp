@@ -32,7 +32,7 @@ export class Campground extends AbstractEntity {
   @Column()
   price: number;
 
-  @Column({ default: 0, nullable: true })
+  @Column({ default: 0, nullable: true, type: 'numeric' })
   rating: number;
 
   @Column({ default: 0 })

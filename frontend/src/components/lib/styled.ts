@@ -47,7 +47,7 @@ export const Button = styled.button`
   &.btn--mark {
     background-color: var(--bs-green);
     svg {
-      margin-top: -2px;
+      margin-top: -1px;
     }
   }
 `

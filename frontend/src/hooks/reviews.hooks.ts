@@ -16,6 +16,9 @@ function useGetConf(operation: ReviewOpertion, reviewowner?: string) {
     cacheTime: 30 * 60 * 1000,
     onSuccess: (res: any) => {
       const campId = operation === 'CREATE' ? res.campground : reviewowner
+      if (['CREATE', 'DELETE'].includes(operation)) {
+        queryClient.invalidateQueries(['camp', campId])
+      }
       queryClient.invalidateQueries(['reviews', campId])
     },
   }

@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom'
 import { useGetCampground } from 'hooks/campgrounds.hooks'
 import Campoperatinon from './CampOperation'
 import { Wrapper, ContentWrap, CampTitle, IntroText } from './styles'
+import { Direction } from 'components/CampOperation'
 
 type IntroductionProps = {
   campground: string
@@ -36,8 +37,14 @@ export default function Introduction({ campground }: IntroductionProps) {
           <h2>{camp?.title}</h2>
           <div className="rating-stats">
             <p>
-              <Rating value={4.5} precision={0.5} name={campground} />
-              <strong>12 reviews</strong>
+              <Rating
+                value={camp.rating / camp.reviewsNum}
+                precision={0.5}
+                name={campground}
+              />
+              <strong>
+                <small>{camp.reviewsNum} reviews</small>
+              </strong>
             </p>
             <Campoperatinon
               location={camp?.location + ',' + camp.title}
@@ -49,11 +56,15 @@ export default function Introduction({ campground }: IntroductionProps) {
           <div className="info-box">
             <p>
               <span className="label">Price:</span>
-              <span>{camp?.price}$ /night</span>
+              <span>{camp?.price}$ / night</span>
             </p>
             <p>
               <span className="label">Location:</span>
-              <span className="value"> {camp?.location}</span>
+              <span className="value">
+                <Direction query={camp?.location + camp.title}>
+                  {camp?.location}
+                </Direction>
+              </span>
             </p>
             <p>
               <span className="label opening-status is-closed">closed</span>
