@@ -4,7 +4,7 @@ import { useAuth } from 'context/auth.context'
 import AppProviders from './context'
 import RegisterScreen from 'screens/register'
 import * as React from 'react'
-import { Redirect, Route, Switch } from 'react-router'
+import { Redirect, Route, Switch, useLocation } from 'react-router'
 
 const CampgroundsScreen = React.lazy(() => import('./screens/campgrounds'))
 const CampgroundScreen = React.lazy(() => import('./screens/campground'))
@@ -12,8 +12,17 @@ const CreateScreen = React.lazy(() => import('./screens/create'))
 
 function UnAuthedRoutes() {
   const { user } = useAuth()
+  const { pathname } = useLocation()
+  const isAuthPath = ['/login', '/register'].includes(pathname)
   if (user) {
-    return <Route path="/*" component={() => <Redirect to="/campgrounds" />} />
+    return (
+      <Route
+        path="/*"
+        component={() => (
+          <Redirect to={isAuthPath ? '/campgrounds' : pathname} />
+        )}
+      />
+    )
   }
   return (
     <Switch>
@@ -27,13 +36,13 @@ function UnAuthedRoutes() {
 export default function App() {
   return (
     <AppProviders>
-      <Route path="/" exact component={IndexScreen} />
       <Switch>
+        <Route path="/" exact component={IndexScreen} />
         <Route path="/campgrounds" exact component={CampgroundsScreen} />
         <Route path="/campgrounds/create" exact component={CreateScreen} />
         <Route path="/campgrounds/:id" exact component={CampgroundScreen} />
+        <UnAuthedRoutes />
       </Switch>
-      <UnAuthedRoutes />
     </AppProviders>
   )
 }
