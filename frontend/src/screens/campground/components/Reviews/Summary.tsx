@@ -32,7 +32,7 @@ const Summary: React.FC<SummaryProps> = ({ total, stats, rating }) => {
         <Rating name="avgRating" value={+rating.toFixed(2)} precision={0.5} />
         <strong>{rating} out 5</strong>
       </p>
-      <p className="rating-count">{total} ratings</p>
+      <p className="rating-count">{total} reviews</p>
       <div className="rating-bars">
         {stats.map(({ count, star }) => (
           <ReviewBar total={total} star={star} count={count} key={star} />

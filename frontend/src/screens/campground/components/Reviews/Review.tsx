@@ -46,7 +46,7 @@ const Review: React.FC<IReview> = ({ ...review }) => {
           <strong>{review.author.username || review.author.email}</strong>
         </div>
         <div className="content">
-          <p>{review.body}</p>
+          <p className="review-body">{review.body}</p>
           <ReviewOperation {...review} />
         </div>
       </ReviewContent>

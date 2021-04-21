@@ -12,7 +12,7 @@ const randomText = () => {
   return text
 }
 
-describe('register a brand new user account', () => {
+describe('Test authentication', () => {
   const email = randomText() + '@email.com'
   const password = randomText()
   const username = randomText()
@@ -21,7 +21,7 @@ describe('register a brand new user account', () => {
     cy.visit(baseUrl)
   })
 
-  it('register a brand new account', () => {
+  it('Register a brand new account', () => {
     cy.visit(baseUrl + '/register')
     cy.get('input[name=username]').type(username)
     cy.get('input[name=email').type(email)
@@ -30,24 +30,24 @@ describe('register a brand new user account', () => {
 
     // cy.location() get the location object
     cy.location().should((location) => {
-      expect(location.pathname).to.eq('/')
+      expect(location.pathname).to.eq('/campgrounds')
     })
 
     // reload to get user authentication data
-    cy.reload().then(window => {
-      expect(window.location.pathname).to.eq('/')
+    cy.reload().then((window) => {
+      expect(window.location.pathname).to.eq('/campgrounds')
     })
 
     // visting authentication page will redirect user to campgrounds page by default
-    cy.visit(baseUrl + '/login');
-    cy.location().should(location => {
-      expect(location.pathname).to.eq('/campgrounds');
-    }) 
+    cy.visit(baseUrl + '/login')
+    cy.location().should((location) => {
+      expect(location.pathname).to.eq('/campgrounds')
+    })
 
     cy.get('.btn-logout').click()
   })
 
-  it('register an account with exsiting user', () => {
+  it('Register an account with exsiting user at /register path', () => {
     cy.visit(baseUrl + '/register')
     cy.get('input[name=username]').type(username)
     cy.get('input[name=email').type(email)
@@ -56,18 +56,17 @@ describe('register a brand new user account', () => {
     cy.get('.form-error').should('have.text', 'Register failed')
   })
 
-
-  it('login user with email and password', () => {
+  it('Login user with email and password at /login path', () => {
     cy.visit(baseUrl + '/login')
     cy.get('input[name=email').type(email)
     cy.get('input[name=password').type(password)
     cy.get('button[type=submit').click()
     cy.location().should((location) => {
-      expect(location.pathname).to.eq('/')
+      expect(location.pathname).to.eq('/campgrounds')
     })
   })
 
-  it('login user with wrong credential', () => {
+  it('Login user with wrong credential ath /login path', () => {
     cy.visit(baseUrl + '/login')
     cy.get('input[name=email').type(email)
     cy.get('input[name=password]').type(randomText())
@@ -75,15 +74,56 @@ describe('register a brand new user account', () => {
     cy.get('.form-error').should('have.text', 'Login failed')
   })
 
-  it('switch register or login', () => {
-    cy.visit(baseUrl + '/login');
-    cy.get('form a').click();
-    cy.location().should(location => {
-      expect(location.pathname).to.eq('/register');
+  it('Switch register or login', () => {
+    cy.visit(baseUrl + '/login')
+    cy.get('form a').click()
+    cy.location().should((location) => {
+      expect(location.pathname).to.eq('/register')
     })
     cy.get('form a').click()
-    cy.location().should(location => {
+    cy.location().should((location) => {
       expect(location.pathname).to.eq('/login')
+    })
+  })
+
+  it("Unauthenticated user can't visit /campgrounds/create path", () => {
+    cy.visit(baseUrl + '/campgrounds/create')
+    cy.location().should((location) => {
+      expect(location.pathname).to.eq('/campgrounds')
+    })
+  })
+
+  it('Authenticated user can visit /campgrounds/create path', () => {
+    cy.visit(baseUrl + '/login')
+    cy.get('input[name=email').type(email)
+    cy.get('input[name=password').type(password)
+    cy.get('button[type=submit').click()
+    cy.location().should((location) => {
+      expect(location.pathname).to.eq('/campgrounds')
+    })
+    cy.visit(baseUrl + '/campgrounds/create')
+    cy.location().should((location) => {
+      expect(location.pathname).to.eq('/campgrounds/create')
+    })
+  })
+
+  it('Visiting not defined path should redirect to /campgrounds', () => {
+    cy.visit(baseUrl + '/404', () => {
+      cy.location().should((location) => {
+        expect(location.pathname).to.eq('/campgrounds')
+      })
+    })
+
+    cy.visit(baseUrl + '/login', () => {
+      cy.get('input[name=email').type(email)
+      cy.get('input[name=password').type(password)
+      cy.get('button[type=submit').click()
+    })
+
+    cy.visit(baseUrl + '/404', () => {
+      cy.location().should(location => {
+        expect(location.pathname).to.eq('/campgrounds')
+      })
     })
   })
 })
