@@ -14,6 +14,12 @@ export const Wrapper = styled.div`
     text-transform: capitalize;
   }
   button[type='submit'] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      margin-left: 0.5rem;
+    }
     line-height: 1.5;
     width: 100%;
     text-transform: uppercase;

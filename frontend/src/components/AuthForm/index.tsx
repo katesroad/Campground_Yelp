@@ -7,7 +7,7 @@ import { Wrapper } from './styles'
 import { UseMutationResult } from 'react-query'
 import { IUser } from 'types'
 import { TextField } from 'components/FormField/TextField'
-import { Button } from 'components/lib'
+import { Button, Spinner } from 'components/lib'
 
 type AuthFormProps = {
   mutation: UseMutationResult<IUser | null>
@@ -23,7 +23,9 @@ export default function AuthForm({
   const { mutateAsync: doLogin } = mutation
   const handleSubmit = (values: unknown) => {
     doLogin(values).catch(() => {
-      setErrMsg('Login failed')
+      type === 'register'
+        ? setErrMsg('Register failed')
+        : setErrMsg('Login failed')
     })
   }
   // eslint-disable-next-line
@@ -66,7 +68,7 @@ export default function AuthForm({
               />
               <p>
                 <Button type="submit" className="btn--submit">
-                  {type}
+                  {type} {mutation.status === 'loading' ? <Spinner /> : null}
                 </Button>
               </p>
               {showPicture ? (
