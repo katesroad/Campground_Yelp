@@ -28,9 +28,9 @@ function useAuthConf(options?: IUseAuthOptions) {
       try {
         if (options) {
           const { redirect, to } = options
-          if (redirect) history.push(to || '/')
+          if (redirect) history.push(to || '/campgrounds')
         } else {
-          history.push('/')
+          history.push('/campgrounds')
         }
       } catch (e) {}
     },

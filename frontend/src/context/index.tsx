@@ -1,7 +1,7 @@
 import { AppFooter, AppHeader, AppMain } from 'components/Layout'
 import * as React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { BrowserRouter, Switch } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import GlobalStyles from 'styles/GlobalStyle'
 import { AuthProvider } from './auth.context'
 import { ErrorBoundaryWrap } from 'components/ErrorBoundary'
@@ -19,9 +19,7 @@ const AppProviders: React.FC = ({ children }) => {
             <AppHeader></AppHeader>
             <AppMain>
               <React.Suspense fallback={<Spinner />}>
-                <ErrorBoundaryWrap>
-                  <Switch>{children}</Switch>
-                </ErrorBoundaryWrap>
+                <ErrorBoundaryWrap>{children}</ErrorBoundaryWrap>
               </React.Suspense>
             </AppMain>
             <AppFooter />

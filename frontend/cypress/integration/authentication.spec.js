@@ -56,7 +56,6 @@ describe('register a brand new user account', () => {
     cy.get('.form-error').should('have.text', 'Register failed')
   })
 
-
   it('login user with email and password', () => {
     cy.visit(baseUrl + '/login')
     cy.get('input[name=email').type(email)
