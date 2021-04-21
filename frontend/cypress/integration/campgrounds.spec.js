@@ -37,9 +37,23 @@ describe('register a brand new user account', () => {
       cy.get('input[name=password]').type(password)
       cy.get('.auth-form button[type=submit]').click()
       // login using portal should not redirect page
-      cy.location().then(location => {
+      cy.location().then((location) => {
         expect(pathname).to.eq(location.pathname)
       })
     })
+    cy.get('.alert-buttons .btn-confirm').should('not.exist')
+  })
+
+  it('visit campground detail page with authentication', () => {
+    cy.visit(baseUrl + '/login')
+    cy.get('input[name=email]').type(email)
+    cy.get('input[name=password]').type(password)
+    cy.get('button[type=submit]').click()
+
+    cy.visit(baseUrl + '/campgrounds')
+    cy.get('.camp-link').first().click()
+
+    cy.get('.btn.btn--review').first().click()
+    cy.get('.alert-buttons .btn-confirm').should('not.exist')
   })
 })
