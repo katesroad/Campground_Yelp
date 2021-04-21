@@ -70,9 +70,9 @@ export function register(data: RegisterData): Promise<IUser | null> {
   if (!data.username || data.username.trim() == '') {
     delete data.username
   }
-  return client({ endpoint: 'auth/register', method: 'POST', data })
-    .then((data) => data as IUser)
-    .catch(() => null)
+  return client({ endpoint: 'auth/register', method: 'POST', data }).then(
+    (data) => data as IUser
+  )
 }
 export function useRegister(
   options?: IUseAuthOptions
