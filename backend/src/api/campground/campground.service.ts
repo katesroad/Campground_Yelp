@@ -82,9 +82,12 @@ export class CampgroundService {
   }
 
   getCamps() {
-    return this.campRepo
-      .findAndCount()
-      .then((res) => ({ data: res[0], count: res[1] }));
+    const getCamps = this.campRepo.find({ order: { updated_at: 'DESC' } });
+    const count = this.campRepo.count();
+    return Promise.all([getCamps, count]).then((res) => {
+      const [camps, count] = res;
+      return { data: camps, count };
+    });
   }
 
   getCampById(id: string) {
@@ -92,16 +95,20 @@ export class CampgroundService {
   }
 
   getCampsReviews(id: string) {
-    return this.reviewRepo
-      .findAndCount({ campground: id })
-      .then(([records, count]) => {
-        const reviews = records.map((record) => {
-          const { author, ...data } = record;
-          const { username, email, id } = (author as unknown) as User;
-          return { ...data, author: { id, username, email } };
-        });
-        return { count, data: reviews };
+    const reviews = this.reviewRepo.find({
+      where: { campground: id },
+      order: { updated_at: 'DESC' },
+    });
+    const count = this.reviewRepo.count({ campground: id });
+    return Promise.all([reviews, count]).then((res) => {
+      const [records, count] = res;
+      const reviews = records.map((record) => {
+        const { author, ...data } = record;
+        const { username, email, id } = (author as unknown) as User;
+        return { ...data, author: { id, username, email } };
       });
+      return { data: reviews, count };
+    });
   }
 
   async updateCampById(
