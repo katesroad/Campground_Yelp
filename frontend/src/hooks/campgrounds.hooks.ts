@@ -11,6 +11,7 @@ import client from 'utils/http'
 const conf = {
   staleTime: 30 * 60 * 1000,
   cacheTime: 30 * 60 * 1000,
+  retry: 1,
 }
 
 /**
