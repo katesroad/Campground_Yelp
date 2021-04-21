@@ -4,7 +4,7 @@ import { useAuth } from 'context/auth.context'
 import AppProviders from './context'
 import RegisterScreen from 'screens/register'
 import * as React from 'react'
-import { Redirect, Route, Switch, useLocation } from 'react-router'
+import { Redirect, Route, Switch } from 'react-router'
 
 const CampgroundsScreen = React.lazy(() => import('./screens/campgrounds'))
 const CampgroundScreen = React.lazy(() => import('./screens/campground'))
@@ -12,16 +12,9 @@ const CreateScreen = React.lazy(() => import('./screens/create'))
 
 function UnAuthedRoutes() {
   const { user } = useAuth()
-  const { pathname } = useLocation()
-  const isAuthPath = ['/login', '/register'].includes(pathname)
   if (user) {
     return (
-      <Route
-        path="/*"
-        component={() => (
-          <Redirect to={isAuthPath ? '/campgrounds' : pathname} />
-        )}
-      />
+      <Route path="/*" component={() => <Redirect to={'/campgrounds'} />} />
     )
   }
   return (
