@@ -7,6 +7,7 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@reach/alert-dialog": "^0.15.0",
     "@reach/dialog": "^0.15.0",
+    "cypress-file-upload": "^5.0.6",
     "formik": "^2.2.6",
     "mapbox-gl": "1.13.0",
     "match-sorter": "^6.3.0",
