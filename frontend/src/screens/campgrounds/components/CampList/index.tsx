@@ -20,7 +20,7 @@ export default function Campgrounds({ camps }: CampgroundListProps) {
           ))}
         </ul>
       ) : (
-        <Card>
+        <Card className="no-data">
           <p>No campgrounds were found</p>
         </Card>
       )}

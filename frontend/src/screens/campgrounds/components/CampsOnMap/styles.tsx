@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   ${medium} {
     position: relative;
     display: block;
-    background-color: #eee;
     svg {
       position: absolute;
       top: 50%;
