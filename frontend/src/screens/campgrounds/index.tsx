@@ -54,22 +54,28 @@ export default function CampgroundsScreen() {
           <br />
           {['loading', 'idle'].includes(status) ? (
             <Spinner />
-          ) : status === 'success' ? (
+          ) : status === 'success' && camps.length ? (
             <small>
               <strong>{camps.length}</strong> campgrounds
             </small>
-          ) : null}
+          ) : (
+            <small>
+              <strong></strong>
+            </small>
+          )}
         </h2>
         <SearchCamps keyword={search} onSearch={setSearch} />
       </SearchWrap>
       <Content>
-        {['loading', 'idle'].includes(status) ? <Spinner /> : null}
-        {'error' === status ? (
+        {['loading', 'idle'].includes(status) ? (
+          <Spinner />
+        ) : status === 'error' ? (
           <Card>
             <Error>Failed to load campgrounds</Error>
           </Card>
+        ) : camps.length ? (
+          <CampList camps={camps} />
         ) : null}
-        {status === 'success' ? <CampList camps={camps} /> : null}
       </Content>
     </>
   )

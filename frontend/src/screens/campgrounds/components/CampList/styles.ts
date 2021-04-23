@@ -109,4 +109,7 @@ export const Wrapper = styled.div`
   .campground-item {
     margin-bottom: calc(1rem + 1vw);
   }
+  .no-data {
+    padding: 2rem 1rem;
+  }
 `

@@ -21,4 +21,11 @@ export const Wrapper = styled.div.attrs(() => ({ className: 'imgs-swiper' }))`
       width: 3rem;
     }
   }
+  .img-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background-color: var(--bs-light);
+  }
 `

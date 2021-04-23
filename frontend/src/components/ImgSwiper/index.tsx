@@ -15,14 +15,35 @@ const ImgSwpper: React.FC<ImgSwipperProps> = ({ images, ...props }) => {
   // https://github.com/kidjp85/react-id-swiper/blob/master/src/types.ts#L45
   const ref = React.useRef<SwiperRefNode>(null)
 
-  if (!images)
+  const [isLoaded, setIsLoaded] = React.useState<boolean>(false)
+
+  React.useEffect(() => {
+    let loaded = 0
+    const imgItems: any[] = []
+    images?.map(({ url }, index) => {
+      imgItems.push(new Image())
+      imgItems[index].onload = () => {
+        loaded += 1
+        if (loaded === images?.length) setIsLoaded(true)
+      }
+      imgItems[index].src = url
+    })
+    return () => {
+      imgItems.map((item) => {
+        item = null
+      })
+    }
+  }, [images])
+
+  if (!images || !isLoaded)
     return (
-      <div className="img-slide">
-        <Spinner />
-      </div>
+      <Wrapper>
+        <div className="swiper-slide img-placeholder">
+          <Spinner />
+        </div>
+      </Wrapper>
     )
 
-  if (images?.length === 1) return <img src={images[0].url} />
   const goNext = () => {
     if (ref?.current?.swiper !== null) {
       try {
@@ -45,6 +66,7 @@ const ImgSwpper: React.FC<ImgSwipperProps> = ({ images, ...props }) => {
       crossFade: true,
     },
   }
+
   return (
     <Wrapper {...props}>
       <Swiper ref={ref} {...params} rebuildOnUpdate>
@@ -57,12 +79,17 @@ const ImgSwpper: React.FC<ImgSwipperProps> = ({ images, ...props }) => {
           />
         ))}
       </Swiper>
-      <button onClick={goPrev} className="btn-prev">
-        <FcPrevious />
-      </button>
-      <button onClick={goNext} className="btn-next">
-        <FcNext />
-      </button>
+      {/* next/prev button */}
+      {images?.length >= 2 ? (
+        <>
+          <button onClick={goPrev} className="btn-prev">
+            <FcPrevious />
+          </button>
+          <button onClick={goNext} className="btn-next">
+            <FcNext />
+          </button>
+        </>
+      ) : null}
     </Wrapper>
   )
 }
