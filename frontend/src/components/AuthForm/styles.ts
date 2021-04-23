@@ -12,6 +12,13 @@ export const Wrapper = styled.div`
   .title {
     padding-bottom: 2rem;
     text-transform: capitalize;
+    small {
+      font-size: 12px;
+      text-transform: none;
+      span {
+        margin-right: 0.5rem;
+      }
+    }
   }
   button[type='submit'] {
     display: flex;

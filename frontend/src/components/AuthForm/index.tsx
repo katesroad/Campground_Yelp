@@ -46,7 +46,15 @@ export default function AuthForm({
         {(props) => {
           return (
             <Form onFocus={getClearErrorHandler(props)}>
-              <h2 className="title">{type}</h2>
+              <h2 className="title">
+                {type}
+                <br></br>
+                <small>
+                  <span>Test User:</span>
+                  <span>Email: c@c.com</span>
+                  <span>Password: ccc</span>
+                </small>
+              </h2>
               {type === 'register' ? (
                 <TextField
                   label="user name"
